@@ -20,7 +20,7 @@
 <body>
 <!-- Header Section -->
 <header class="Header">
-    <a class="logo"> <i class="fa-solid fa-basket-shopping"> Grocery</i></a> <!-- Removed unnecessary rel="#" -->
+    <a class="logo"> <i class="fa-solid fa-basket-shopping"></i> Grocery</a> <!-- Removed unnecessary rel="#" -->
     <!-- Navigation Bar -->
     <nav class="navbar">
         <a href="#home">Home</a>
