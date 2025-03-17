@@ -1,0 +1,486 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+:root {
+   /* --green: #27ae60; */
+    --green: green;
+    --red: #e74c3c;
+    --black: #130f40;
+    --light-color: #666;
+    --box-shadow: 0 .1rem 1.5rem rgba(0,0,0,0.1);
+    --border: .2rem solid rgba(0,0,0,0.1);
+    --outline: .1rem solid rgba(0,0,0,0.1);
+}
+
+* {
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: all .2s linear;
+}
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scroll-padding-top: 8rem;
+}
+
+body {
+    background: #eee;
+}
+
+.btn {
+    border: 2px solid var(--black);
+    margin-top: 1rem;
+    display: inline-block;
+    padding: .8rem 3rem;
+    font-size: 1.7rem;
+    border-radius: .5rem;
+    color: var(--black);
+    cursor: pointer;
+    background: none;
+}
+
+.btn:hover {
+    background: var(--green);
+    color: white;
+}
+
+.Header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 9%;
+    background: #fff;
+    box-shadow: var(--box-shadow);
+    z-index: 1000;
+}
+
+.Header .logo {
+    font-size: 2.5rem;
+    font-weight: bolder;
+    color: var(--black);
+}
+
+.Header .logo i {
+    color: var(--green);
+    padding-right: 0.5rem;
+}
+
+.Header .navbar {
+    display: flex;
+    align-items: center;
+}
+
+.Header .navbar a {
+    font-size: 1.7rem;
+    font-weight: 500;
+    margin: 0 1rem;
+    color: var(--black);
+}
+
+.Header .navbar a:hover {
+    color:  #27ae60;
+}
+
+.Header .icons {
+    display: flex; /* Changed to flex */
+    flex-direction: row; /* Ensures horizontal layout */
+    gap: 0.5rem; /* Adds spacing between icons */
+    align-items: center; /* Vertically centers the icons */
+}
+
+.Header .icons div, .Header .icons a {
+    height: 4.5rem;
+    width: 4.5rem;
+    line-height: 4.5rem;
+    border-radius: 50%; /* Changed to 50% for circular shape */
+    background: none;
+    color: var(--black);
+    font-size: 2rem;
+    margin-left: 0.3rem;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Header .icons div:hover, .Header .icons a:hover {
+    color: var(--green);
+}
+
+/* Icon Link Styling */
+.icons .icon-link {
+    display: inline-block;
+    margin-left: 10px;
+    text-decoration: none;
+    height: 4.5rem;
+    width: 4.5rem;
+    position: relative;
+}
+
+.icons .icon-link i {
+    font-size: 2rem; /* Font size for icons */
+    width: 4.5rem; /* Match container width */
+    height: 4.5rem; /* Match container height */
+    line-height: 4.5rem; /* Vertically center the icon */
+    border-radius: 50%; /* Ensure circular shape */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Before login: Login Icon (Red background) */
+.icons .icon-link .login-icon {
+    background-color: var(--red); /* Red background */
+    color: white; /* White icon color */
+}
+
+.icons .icon-link:hover .login-icon {
+    background-color: #ff7061; /* Slightly lighter red on hover */
+}
+
+/* After login: Profile Icon (Green background) */
+.icons .icon-link .profile-icon {
+    background-color: var(--green); /* Green background */
+    color: white; /* White icon color */
+}
+
+.icons .icon-link:hover .profile-icon {
+    background-color: #2ecc71; /* Slightly lighter green on hover */
+}
+
+/* After login: Logout Icon (Red background) */
+.icons .icon-link .logout-icon {
+    background-color: var(--red); /* Red background */
+    color: white; /* White icon color */
+}
+
+.icons .icon-link:hover .logout-icon {
+    background-color: #ff7061; /* Slightly lighter red on hover */
+}
+
+#menu-btn {
+    display: none;
+}
+
+.home {
+    display: flex;
+    justify-content: center;
+    background: url("https://png.pngtree.com/background/20210710/original/pngtree-green-fresh-fruit-and-vegetable-shop-reform-poster-background-material-picture-image_997132.jpg") no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding-top: 17rem;
+    padding-bottom: 10rem;
+}
+
+.home .content {
+    text-align: center;
+    width: 60rem;
+}
+
+.home .content h3 {
+    color: var(--black);
+    font-size: 3rem;
+}
+
+.home .content h3 span {
+    color: var(--green);
+}
+
+.home .content p {
+    color: var(--light-color);
+    font-size: 1.7rem;
+    padding: 1rem 0;
+    line-height: 1.8;
+}
+
+.heading {
+    text-align: center;
+    padding: 2rem 0;
+    padding-bottom: 3rem;
+    font-size: 3.5rem;
+    color: var(--black);
+}
+
+.heading span {
+    background: var(--green);
+    color: #fff;
+    display: inline-block;
+    padding: .5rem 3rem;
+    clip-path: polygon(100% 0, 93% 50%, 100% 99%, 0% 100%, 7% 50%, 0% 0);
+}
+
+.features .box-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 1.5rem;
+    margin: 0 10%;
+}
+
+.features .box-container .box {
+    padding: 3rem 2rem;
+    background: #fff;
+    outline: var(--outline);
+    outline-offset: -1rem;
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    border-radius: 3rem;
+}
+
+.features .box-container .box:hover {
+    box-shadow: 2px 2px 10px 2px var(--green);
+}
+
+.features .box-container .box img {
+    margin: 1rem 0;
+    height: 15rem;
+}
+
+.features .box-container .box h3 {
+    font-size: 2.5rem;
+    line-height: 1.8;
+    color: var(--black);
+}
+
+.features .box-container .box p {
+    font-size: 1.5rem;
+    line-height: 1.8;
+    color: var(--light-color);
+    padding-bottom: 1rem;
+}
+
+.Deals .product-slider {
+    margin: 0 10%;
+    padding: 1rem;
+}
+
+.Deals .product-slider:first-child {
+    margin-bottom: 2rem;
+}
+
+.Deals .product-slider .box {
+    background: #fff;
+    border-radius: 3rem;
+    text-align: center;
+    padding: 3rem 2rem;
+    outline-offset: -1rem;
+    outline: var(--outline);
+    box-shadow: var(--box-shadow);
+    transition: .2s linear;
+}
+
+.Deals .product-slider .box:hover {
+    box-shadow: 2px 2px 10px 2px var(--green);
+}
+
+.Deals .product-slider .box img {
+    height: 20rem;
+}
+
+.Deals .product-slider .box h1 {
+    font-size: 2.5rem;
+    color: var(--black);
+}
+
+.Deals .product-slider .box .price {
+    font-size: 2rem;
+    color: var(--light-color);
+    padding: .5rem 0;
+}
+
+.Deals .product-slider .box .starts {
+    font-size: 1.7rem;
+    color: orange;
+    padding: .5rem;
+}
+
+.categories .box-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+    gap: 1.5rem;
+    margin: 0 10%;
+    padding-bottom: 2rem;
+}
+
+.categories .box-container .box {
+    padding: 3rem 0;
+    background: #fff;
+    border-radius: 3rem;
+    box-shadow: var(--box-shadow);
+    outline-offset: -1rem;
+    outline: var(--outline);
+    text-align: center;
+}
+
+.categories .box-container .box:hover {
+    box-shadow: 2px 2px 10px 2px var(--green);
+}
+
+.categories .box-container .box img {
+    margin: 1rem 0;
+    height: 18rem;
+}
+
+.categories .box-container .box h3 {
+    font-size: 2rem;
+    color: var(--black);
+}
+
+.categories .box-container .box p {
+    font-size: 1.7rem;
+    color: var(--light-color);
+    line-height: 1.8;
+}
+
+.footer {
+    background: #fff;
+}
+
+.footer .box-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+    gap: 1.5rem;
+    margin: 0 10%;
+}
+
+.footer .box-container .box h3 {
+    font-size: 2.5rem;
+    color: var(--black);
+    padding: 1rem 0;
+}
+
+.footer .box-container .box h3 i {
+    color: var(--green);
+}
+
+.footer .box-container .box .links {
+    display: block;
+    font-size: 1.5rem;
+    color: var(--light-color);
+    padding: 1rem 0;
+}
+
+.footer .box-container .box i {
+    color: var(--green);
+    padding-right: .5rem;
+}
+
+.footer .box-container .box .links:hover i {
+    padding-right: 2rem;
+}
+
+.footer .box-container .box p {
+    line-height: 1.8;
+    font-size: 1.5rem;
+    color: var(--light-color);
+    padding: 1rem 0;
+}
+
+.footer .box-container .box .share a {
+    height: 4rem;
+    width: 4rem;
+    line-height: 4rem;
+    border-radius: .5rem;
+    font-size: 2rem;
+    color: var(--black);
+    background: #eee;
+    text-align: center;
+}
+
+.footer .box-container .box .share a:hover {
+    background: var(--green);
+    color: #fff;
+}
+
+.footer .box-container .box .email {
+    margin: .7rem 0;
+    padding: 1rem;
+    border-radius: .5rem;
+    background: #eee;
+    font-size: 1.6rem;
+    color: var(--black);
+    width: 100%;
+}
+
+.footer .box-container .box .payment-img {
+    margin: 2rem;
+    height: 3rem;
+}
+
+.footer .credit {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    padding-top: 2.5rem;
+    font-size: 2rem;
+    color: var(--black);
+    border-top: var(--border);
+}
+
+.footer .credit span {
+    color: var(--green);
+    font-weight: bolder;
+}
+
+@media (max-width: 991px) {
+    html {
+        font-size: 55%;
+    }
+    .Header {
+        padding: 2rem;
+    }
+    section {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #menu-btn {
+        display: inline-block;
+    }
+    .Header .navbar {
+        position: absolute;
+        top: 110%;
+        right: -110%;
+        width: 30rem;
+        box-shadow: var(--box-shadow);
+        border-radius: .5rem;
+        background: #fff;
+    }
+    .Header .navbar.active {
+        right: 2rem;
+        transition: .4s linear;
+    }
+    .Header .navbar a {
+        font-size: 2rem;
+        margin: 2rem 2.5rem;
+        display: block;
+    }
+}
+
+@media (max-width: 450px) {
+    html {
+        font-size: 50%;
+    }
+    .heading {
+        font-size: 2.5rem;
+    }
+    .footer {
+        text-align: center;
+    }
+}
