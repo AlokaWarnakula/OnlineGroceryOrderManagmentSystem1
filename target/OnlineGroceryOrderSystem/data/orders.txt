@@ -192,3 +192,22 @@ productID=2, quantity=10
 totalPrice=6500.00
 --- Order End ---
 
+--- Order Start: OD258754034998 ---
+orderNumber=OD258754034998
+userNumber=US143000078979
+name=aloka warnakula
+phoneNum=0711641638
+address=21/6/6A, somanada mawatha, pitumpe, padukka
+deliveryMethod=store pickup
+paymentMethod=cash on delivery
+deliveryDate=2025-03-18
+confirmationDate=2025-03-17 23:09:32
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=active
+[products]
+productID=1, quantity=1
+[total]
+totalPrice=200.00
+--- Order End ---
+
