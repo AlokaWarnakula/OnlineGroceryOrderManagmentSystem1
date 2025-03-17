@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.FileUtil;
 import model.GroceryItem;
+import model.User;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -21,6 +22,7 @@ public class OrderServlet extends HttpServlet {
     private static final String ITEMS_FILE = "/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/items.txt";
     private static final String CART_FILE = "/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/cart.txt";
     private static final String ORDERS_FILE = "/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/orders.txt";
+    private static final String LOGGED_IN_USER_FILE = "/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/loggedInUser.txt";
 
     @Override
     public void init() throws ServletException {
@@ -32,10 +34,20 @@ public class OrderServlet extends HttpServlet {
         System.out.println("ITEMS_FILE path: " + ITEMS_FILE);
         System.out.println("CART_FILE path: " + CART_FILE);
         System.out.println("ORDERS_FILE path: " + ORDERS_FILE);
+        System.out.println("LOGGED_IN_USER_FILE path: " + LOGGED_IN_USER_FILE);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Read the logged-in user from loggedInUser.txt
+        User loggedInUser = FileUtil.readLoggedInUser(LOGGED_IN_USER_FILE);
+        if (loggedInUser == null) {
+            System.out.println("No logged-in user found in " + LOGGED_IN_USER_FILE);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "No logged-in user found");
+            return;
+        }
+        System.out.println("Logged-in user: " + loggedInUser);
+
         ArrayList<GroceryItem> cart;
         synchronized (this) {
             cart = FileUtil.readItems(CART_FILE);
@@ -94,7 +106,8 @@ public class OrderServlet extends HttpServlet {
                 orderNumber = generateOrderNumber();
             } while (!FileUtil.isOrderNumberUnique(orderNumber, ORDERS_FILE));
 
-            String userNumber = "US111111111111";
+            // Use the userNumber from the logged-in user
+            String userNumber = loggedInUser.getUserNumber();
             String confirmationDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
             String paymentStatus = "online card".equals(paymentMethod) ? "Paid" : "Pending";
             String deliveryStatus = "Pending";

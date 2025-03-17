@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="model.FileUtil" %>
+<%@ page import="model.User" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,10 +79,22 @@
 
   <div class="checkout-form">
     <h2 class="section-title">CHECKOUT</h2>
+    <%
+      String loggedInUserFile = "/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/loggedInUser.txt";
+      User loggedInUser = FileUtil.readLoggedInUser(loggedInUserFile);
+      String fullName = "";
+      String phoneNumber = "";
+      String address = "";
+      if (loggedInUser != null) {
+        fullName = loggedInUser.getFullName() != null ? loggedInUser.getFullName() : "";
+        phoneNumber = loggedInUser.getPhoneNumber() != null ? loggedInUser.getPhoneNumber() : "";
+        address = loggedInUser.getAddress() != null ? loggedInUser.getAddress() : "";
+      }
+    %>
     <form action="${pageContext.request.contextPath}/OrderServlet" method="post" id="checkout-form">
-      <input type="text" name="fullName" placeholder="Full Name" required>
-      <input type="text" name="phoneNumber" placeholder="Phone Number" required>
-      <input type="text" name="address" placeholder="Address" required>
+      <input type="text" name="fullName" placeholder="Full Name" value="<%= fullName %>" required>
+      <input type="text" name="phoneNumber" placeholder="Phone Number" value="<%= phoneNumber %>" required>
+      <input type="text" name="address" placeholder="Address" value="<%= address %>" required>
       <select name="deliveryMethod" id="deliveryMethod" required>
         <option value="">Select Delivery Method</option>
         <option value="store pickup">Store Pickup</option>
