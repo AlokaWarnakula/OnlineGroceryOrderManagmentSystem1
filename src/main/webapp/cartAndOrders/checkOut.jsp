@@ -107,4 +107,4 @@
 <script src="${pageContext.request.contextPath}/js/cart.js"></script>
 <script src="${pageContext.request.contextPath}/js/checkOut.js"></script>
 </body>
-</html>
+</html> <!-- checkOut branch -->
