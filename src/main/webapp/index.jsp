@@ -254,7 +254,7 @@
             <a href="#" class="links"> <i class="fa-solid fa-phone"></i> +94 704563428</a>
             <a href="#" class="links"> <i class="fa-solid fa-envelope"></i> example@gmail.com</a>
             <a href="#" class="links"> <i class="fa-solid fa-location-dot"></i> Sliit, Sri Lanka - 10115</a>
-        </div>
+        </div>//
         <div class="box">
             <h3>Quick Links</h3>
             <a href="#" class="links"><i class="fa-solid fa-arrow-right"></i> Home</a>
@@ -276,4 +276,4 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="js/index.js"></script>
 </body>////////
-</html>
+</html>//
