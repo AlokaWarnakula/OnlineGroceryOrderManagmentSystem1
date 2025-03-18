@@ -63,6 +63,7 @@ public class OrderServlet extends HttpServlet {
         double totalPrice;
         String orderNumber;
         String deliveryDate;
+        String userNumber;
 
         ArrayList<GroceryItem> items = FileUtil.readItems(ITEMS_FILE);
 
@@ -77,7 +78,6 @@ public class OrderServlet extends HttpServlet {
                     response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Item ID " + cartItem.getProductID() + " not found in inventory");
                     return;
                 }
-                // No stock check here; stock was already deducted by CartServlet
             }
 
             totalPrice = cart.stream().mapToDouble(GroceryItem::getTotalPrice).sum();
@@ -88,11 +88,10 @@ public class OrderServlet extends HttpServlet {
             String deliveryMethod = request.getParameter("deliveryMethod");
             String paymentMethod = request.getParameter("paymentMethod");
 
-            // Set deliveryDate based on deliveryMethod
             if ("same-day".equals(deliveryMethod)) {
-                deliveryDate = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE); // e.g., "2025-03-15"
+                deliveryDate = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
             } else {
-                deliveryDate = request.getParameter("deliveryDate"); // For scheduled or store pickup
+                deliveryDate = request.getParameter("deliveryDate");
             }
 
             if (fullName == null || phoneNumber == null || address == null ||
@@ -106,12 +105,18 @@ public class OrderServlet extends HttpServlet {
                 orderNumber = generateOrderNumber();
             } while (!FileUtil.isOrderNumberUnique(orderNumber, ORDERS_FILE));
 
-            // Use the userNumber from the logged-in user
-            String userNumber = loggedInUser.getUserNumber();
+            userNumber = loggedInUser.getUserNumber();
+            if (userNumber == null) {
+                System.err.println("User number is null for logged-in user: " + loggedInUser);
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "User number is missing for the logged-in user");
+                return;
+            }
+            System.out.println("User Number: " + userNumber);
+
             String confirmationDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
             String paymentStatus = "online card".equals(paymentMethod) ? "Paid" : "Pending";
             String deliveryStatus = "Pending";
-            String orderStatus = "active"; // New field for order status
+            String orderStatus = "active";
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(ORDERS_FILE, true))) {
                 writer.write("--- Order Start: " + orderNumber + " ---\n");
@@ -126,7 +131,7 @@ public class OrderServlet extends HttpServlet {
                 writer.write("confirmationDate=" + confirmationDate + "\n");
                 writer.write("paymentStatus=" + paymentStatus + "\n");
                 writer.write("deliveryStatus=" + deliveryStatus + "\n");
-                writer.write("orderStatus=" + orderStatus + "\n"); // Add orderStatus
+                writer.write("orderStatus=" + orderStatus + "\n");
                 writer.write("[products]\n");
                 for (GroceryItem item : cart) {
                     writer.write("productID=" + item.getProductID() + ", quantity=" + item.getQuantity() + "\n");
@@ -142,13 +147,14 @@ public class OrderServlet extends HttpServlet {
                 return;
             }
 
-            // No stock deduction here; CartServlet already handled it
             cart.clear();
             FileUtil.writeItems(CART_FILE, cart);
             System.out.println("Cleared cart in " + CART_FILE);
         }
 
+        // Set request attributes for processCheckOut.jsp
         request.setAttribute("orderNumber", orderNumber);
+        request.setAttribute("userNumber", userNumber);
         request.setAttribute("fullName", request.getParameter("fullName"));
         request.setAttribute("phoneNumber", request.getParameter("phoneNumber"));
         request.setAttribute("address", request.getParameter("address"));
@@ -159,7 +165,10 @@ public class OrderServlet extends HttpServlet {
         request.setAttribute("confirmationDate", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         request.setAttribute("paymentStatus", "online card".equals(request.getParameter("paymentMethod")) ? "Paid" : "Pending");
         request.setAttribute("deliveryStatus", "Pending");
-        request.setAttribute("orderStatus", "active"); // Pass to JSP
+        request.setAttribute("orderStatus", "active");
+
+        // Debug log to confirm userNumber before forwarding
+        System.out.println("Setting userNumber in request attribute: " + userNumber);
 
         request.getRequestDispatcher("/cartAndOrders/processCheckOut.jsp").forward(request, response);
     }

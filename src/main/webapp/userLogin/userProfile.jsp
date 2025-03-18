@@ -74,6 +74,7 @@
     User userToDisplay = (loggedInUser != null) ? loggedInUser : fileUser;
     if (userToDisplay != null) {
   %>
+  <p><strong>User Number:</strong> <%= userToDisplay.getUserNumber() != null ? userToDisplay.getUserNumber() : "Not available" %></p>
   <p><strong>Full Name:</strong> <%= userToDisplay.getFullName() %></p>
   <p><strong>Email:</strong> <%= userToDisplay.getEmail() %></p>
   <p><strong>Phone Number:</strong> <%= userToDisplay.getPhoneNumber() %></p>
