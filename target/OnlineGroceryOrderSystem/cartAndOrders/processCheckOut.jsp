@@ -10,7 +10,9 @@
     <p>Thank you for your order!</p>
     <div class="order-details">
         <p><strong>Order Number:</strong> <%= request.getAttribute("orderNumber") %></p>
-        <p><strong>User ID:</strong> <%= request.getAttribute("userNumber") %></p>
+        <%-- Debug: Log the userNumber value --%>
+        <% System.out.println("User ID in JSP: " + request.getAttribute("userNumber")); %>
+        <p><strong>User ID:</strong> <%= request.getAttribute("userNumber") != null ? request.getAttribute("userNumber") : "" %></p>
         <p><strong>Full Name:</strong> <%= request.getAttribute("fullName") %></p>
         <p><strong>Phone Number:</strong> <%= request.getAttribute("phoneNumber") %></p>
         <p><strong>Address:</strong> <%= request.getAttribute("address") %></p>
