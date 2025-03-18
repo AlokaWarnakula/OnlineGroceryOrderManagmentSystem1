@@ -6,11 +6,12 @@
     font-family: "Poppins", sans-serif;
 }
 body {
+    background: url("https://wallpapers.com/images/hd/japan-farm-anime-landscape-yvqut0t4ra7u0j6l.jpg");
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #6EC207;
+    /*background: #6EC207;*/
     padding: 30px;
 }
 .container {
