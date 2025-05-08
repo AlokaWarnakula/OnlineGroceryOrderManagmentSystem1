@@ -1,0 +1,2 @@
+email=admin@example.com,password=admin123
+email=superadmin@example.com,password=super456
