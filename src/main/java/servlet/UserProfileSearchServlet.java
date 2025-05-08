@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserProfileSearchServlet extends HttpServlet {
-    private static final String ORDERS_FILE = "/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/orders.txt";
-    private static final String DELIVERED_ORDERS_FILE = "/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/deliveredOrders.txt";
+    private static final String ORDERS_FILE = "C:\\Users\\LENOVO\\Desktop\\oop project\\OnlineGroceryOrderManagmentSystem1\\src\\main\\webapp\\data\\orders.txt";
+    private static final String DELIVERED_ORDERS_FILE = "C:\\Users\\LENOVO\\Desktop\\oop project\\OnlineGroceryOrderManagmentSystem1\\src\\main\\webapp\\data\\deliveredOrders.txt";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override

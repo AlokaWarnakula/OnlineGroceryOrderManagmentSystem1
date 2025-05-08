@@ -18,7 +18,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        String basePath = "/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/";
+        String basePath = "C:\\Users\\LENOVO\\Desktop\\oop project\\OnlineGroceryOrderManagmentSystem1\\src\\main\\webapp\\data";
         LOGGED_IN_USER_FILE = basePath + "loggedInUser.txt";
         USERS_FILE = basePath + "users.txt";
         ADMINS_FILE = basePath + "admins.txt";

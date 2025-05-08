@@ -19,7 +19,7 @@ public class DealServlet extends HttpServlet {
     private static final int[] DEAL_PRODUCT_IDS = {1, 2, 3, 4,48,41};
 
     // Absolute path to items.txt
-    private static final String ITEMS_FILE = "/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/items.txt";
+    private static final String ITEMS_FILE = "C:\\Users\\LENOVO\\Desktop\\oop project\\OnlineGroceryOrderManagmentSystem1\\src\\main\\webapp\\data\\items.txt";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

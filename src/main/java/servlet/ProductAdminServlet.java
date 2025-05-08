@@ -16,7 +16,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ProductAdminServlet extends HttpServlet {
-    private static final String ITEMS_FILE_PATH = "/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/items.txt";
+    private static final String ITEMS_FILE_PATH = "C:\\Users\\LENOVO\\Desktop\\oop project\\OnlineGroceryOrderManagmentSystem1\\src\\main\\webapp\\data\\items.txt";
 
     @Override
     public void init() throws ServletException {
