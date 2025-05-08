@@ -1,27 +1,60 @@
---- User Start: US143000078979 ---
-userNumber=US143000078979
+--- User Start: US021583101081 ---
+username=alokawarnakula77@gmail.com
+password=123456
+userNumber=US021583101081
 fullName=aloka warnakula
 email=alokawarnakula77@gmail.com
 phoneNumber=0711641638
-address=21/6/6A, somanada mawatha, pitumpe, padukka
-password=123456
+address="21/6/6A, somanada mawatha, pitumpe, padukka"
 --- User End ---
 
---- User Start: US434197982790 ---
-userNumber=US434197982790
-fullName=tester123
-email=tester@gmail.com
-phoneNumber=123456
-address=tester,home
-password=123456
+--- User Start: US181627987900 ---
+username=user@gmail.com
+password=123
+userNumber=US181627987900
+fullName=user
+email=user@gmail.com
+phoneNumber=0000000000
+address="xxxxxxxyyyyyyyzzzzzzzz"
 --- User End ---
 
---- User Start: US860888769492 ---
-userNumber=US860888769492
+--- User Start: US030548082274 ---
+username=jguruge2021@gmail.com
+password=24101186Kcaco@100
+userNumber=US030548082274
 fullName=jayashan guruge
 email=jguruge2021@gmail.com
 phoneNumber=0764350677
 address="Sampatha"
-password=12345678
+--- User End ---
+
+--- User Start: US589701156784 ---
+username=sqs@gmail.com
+password=1234
+userNumber=US589701156784
+fullName=sqs
+email=sqs@gmail.com
+phoneNumber=1z∑1`w
+address="zw1w1"
+--- User End ---
+
+--- User Start: US933786560432 ---
+username=jg2uruge2021@gmail.com
+password=24101186Kcaco@100
+userNumber=US933786560432
+fullName=Jayashan Guruge
+email=jg2uruge2021@gmail.com
+phoneNumber=0764350677
+address=""Sampatha",Batagoda,Galpatha"
+--- User End ---
+
+--- User Start: US574632264591 ---
+username=jguruge2022@gmail.com
+password=24101186Kcaco@100
+userNumber=US574632264591
+fullName=Jayashan Guruge1
+email=jguruge2022@gmail.com
+phoneNumber=0764350677
+address=""Sampatha",Batagoda,Galpatha"
 --- User End ---
 

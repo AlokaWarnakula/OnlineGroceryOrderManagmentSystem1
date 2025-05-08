@@ -2,12 +2,14 @@ var swiper = new Swiper(".product-slider", {
     loop: true,
     spaceBetween: 20,
     autoplay: {
-        delay: 3500,
+        delay: 2500,
         disableOnInteraction: false,
     },
     pagination: {
         el: ".swiper-pagination",
+        clickable: true,
     },
+
     breakpoints: {
         0: {
             slidesPerView: 1,
@@ -20,19 +22,25 @@ var swiper = new Swiper(".product-slider", {
         },
     },
 });
+
 // Initialize Swiper for the home section
 const homeSwiper = new Swiper('.home-slider', {
-    loop: true, // Enable continuous looping
+    loop: true,
     autoplay: {
-        delay: 5000, // Slide changes every 5 seconds
-        disableOnInteraction: false, // Autoplay continues after user interaction
+        delay: 3500,
+        disableOnInteraction: false,
     },
     pagination: {
-        el: '.swiper-pagination', // Enable pagination dots
+        el: '.swiper-pagination',
         clickable: true,
     },
     navigation: {
-        nextEl: '.swiper-button-next', // Enable next button
-        prevEl: '.swiper-button-prev', // Enable previous button
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+    speed: 800, // Smooth transition speed
+    effect: 'fade', // Add a fade effect for smoother transitions
+    fadeEffect: {
+        crossFade: true,
     },
 });

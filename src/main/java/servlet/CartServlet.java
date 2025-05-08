@@ -14,12 +14,13 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class CartServlet extends HttpServlet {
-    private static final String ITEMS_FILE = "/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/items.txt";
-    private static final String CART_FILE = "/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/cart.txt";
+    private static final String ITEMS_FILE = "/Users/jayashanguruge/Desktop/Project/OnlineGroceryOrderManagmentSystem-feature-logIn/src/main/webapp/data/items.txt";
+    private static final String CART_FILE = "/Users/jayashanguruge/Desktop/Project/OnlineGroceryOrderManagmentSystem-feature-logIn/src/main/webapp/data/cart.txt";
+    private MergeServlet mergeServlet; // Instance of MergeServlet
 
     @Override
     public void init() throws ServletException {
-        File dataDir = new File("/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data");
+        File dataDir = new File("/Users/jayashanguruge/Desktop/Project/OnlineGroceryOrderManagmentSystem-feature-logIn/src/main/webapp/data");
         if (!dataDir.exists()) {
             if (dataDir.mkdirs()) {
                 System.out.println("Created data directory: " + dataDir.getAbsolutePath());
@@ -34,6 +35,7 @@ public class CartServlet extends HttpServlet {
 
         System.out.println("ITEMS_FILE path: " + ITEMS_FILE);
         System.out.println("CART_FILE path: " + CART_FILE);
+        mergeServlet = new MergeServlet(); // Initialize MergeServlet
     }
 
     @Override
@@ -80,8 +82,9 @@ public class CartServlet extends HttpServlet {
             String minPriceStr = request.getParameter("minPrice");
             String maxPriceStr = request.getParameter("maxPrice");
             String name = request.getParameter("name");
+            String sortBy = request.getParameter("sortBy"); // Primary sorting criterion
 
-            System.out.println("Parameters - category: " + category + ", minPrice: " + minPriceStr + ", maxPrice: " + maxPriceStr + ", name: " + name);
+            System.out.println("Parameters - category: " + category + ", minPrice: " + minPriceStr + ", maxPrice: " + maxPriceStr + ", name: " + name + ", sortBy: " + sortBy);
 
             // Default category to null (show all) if not specified or "All"
             if (category == null || category.trim().isEmpty() || category.equalsIgnoreCase("All")) {
@@ -156,12 +159,26 @@ public class CartServlet extends HttpServlet {
                 }
             }
 
-            // Merge sort start from here
-            // Sort by category first, then by price within each category
+            // Step 4: Sort the filtered items using MergeServlet
             if (!filteredItems.isEmpty()) {
-                System.out.println("Applying Merge Sort to sort by category and price");
-                mergeSort(filteredItems, 0, filteredItems.size() - 1);
-                System.out.println("Items after Merge Sort: " + filteredItems);
+                MergeServlet.SortCriterion sortCriterion = MergeServlet.SortCriterion.NAME; // Default to name
+
+                // Map sortBy parameter to SortCriterion
+                if (sortBy != null) {
+                    switch (sortBy.toLowerCase()) {
+                        case "name":
+                            sortCriterion = MergeServlet.SortCriterion.NAME;
+                            break;
+                        case "price":
+                            sortCriterion = MergeServlet.SortCriterion.PRICE;
+                            break;
+                        default:
+                            System.out.println("Invalid sortBy parameter: " + sortBy + ", defaulting to NAME");
+                    }
+                }
+
+                System.out.println("Sorting items with sortCriterion=" + sortCriterion);
+                mergeServlet.sortItems(filteredItems, sortCriterion);
             }
 
             // Determine if we're showing search results or a specific category
@@ -342,44 +359,5 @@ public class CartServlet extends HttpServlet {
 
     private String escapeJson(String str) {
         return str != null ? str.replace("\"", "\\\"").replace("\n", "\\n") : "";
-    }
-
-    // Merge sort start from here
-    private void mergeSort(ArrayList<GroceryItem> items, int left, int right) {
-        if (left < right) {
-            int mid = (left + right) / 2;
-            mergeSort(items, left, mid);
-            mergeSort(items, mid + 1, right);
-            merge(items, left, mid, right);
-        }
-    }
-
-    private void merge(ArrayList<GroceryItem> items, int left, int mid, int right) {
-        ArrayList<GroceryItem> temp = new ArrayList<>(items.subList(left, right + 1));
-        int i = 0, j = mid - left + 1, k = left;
-
-        while (i < mid - left + 1 && j < temp.size()) {
-            // Compare by category first
-            int categoryComparison = temp.get(i).getProductCategory().compareToIgnoreCase(temp.get(j).getProductCategory());
-            if (categoryComparison < 0) {
-                items.set(k++, temp.get(i++));
-            } else if (categoryComparison > 0) {
-                items.set(k++, temp.get(j++));
-            } else {
-                // If categories are the same, compare by price
-                if (temp.get(i).getProductPrice() <= temp.get(j).getProductPrice()) {
-                    items.set(k++, temp.get(i++));
-                } else {
-                    items.set(k++, temp.get(j++));
-                }
-            }
-        }
-
-        while (i < mid - left + 1) {
-            items.set(k++, temp.get(i++));
-        }
-        while (j < temp.size()) {
-            items.set(k++, temp.get(j++));
-        }
     }
 }

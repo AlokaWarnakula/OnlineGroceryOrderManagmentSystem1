@@ -15,24 +15,25 @@
   </properties>
 
   <dependencies>
-    <!-- Servlet API (provided by Tomcat) -->
+    <!-- Jakarta Servlet API (for Tomcat 10+, Servlet 6.0) -->
     <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
       <version>6.0.0</version>
       <scope>provided</scope>
     </dependency>
-    <!-- Other dependencies (if any) -->
+    <!-- Add other dependencies here if needed -->
   </dependencies>
 
   <build>
     <finalName>OnlineGroceryOrderSystem</finalName>
     <resources>
+      <!-- Copy items.txt to WEB-INF directory in the WAR -->
       <resource>
-        <directory>src/main/webapp/data</directory>
-        <targetPath>${project.build.directory}/${project.build.finalName}/data</targetPath>
+        <directory>src/main/webapp/WEB-INF</directory>
+        <targetPath>WEB-INF</targetPath>
         <includes>
-          <include>**/*</include>
+          <include>items.txt</include>
         </includes>
       </resource>
     </resources>

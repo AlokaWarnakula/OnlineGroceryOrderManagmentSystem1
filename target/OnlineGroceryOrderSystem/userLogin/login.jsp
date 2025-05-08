@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body style="background: url('https://wallpapers.com/images/hd/japan-farm-anime-landscape-yvqut0t4ra7u0j6l.jpg') no-repeat center center fixed; background-size: cover">
+<body style="background: url('') no-repeat center center fixed; background-size: cover">
 <div class="container">
     <input type="checkbox" id="flip">
     <div class="cover">
@@ -108,4 +108,4 @@
     </div>
 </div>
 </body>
-</html> <!-- LogIn branch-->
+</html> <!-- LogIn branch-->ml> <!-- LogIn branch-->
