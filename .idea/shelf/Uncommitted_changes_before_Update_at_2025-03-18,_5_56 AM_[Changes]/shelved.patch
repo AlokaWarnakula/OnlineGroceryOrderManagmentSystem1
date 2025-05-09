@@ -1,0 +1,419 @@
+Index: src/main/webapp/data/loggedInUser.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/webapp/data/loggedInUser.txt b/src/main/webapp/data/loggedInUser.txt
+--- a/src/main/webapp/data/loggedInUser.txt	(revision 174a1ac867783e7dae24ede13e1ff32e01695d61)
++++ b/src/main/webapp/data/loggedInUser.txt	(date 1742257022398)
+@@ -1,0 +1,5 @@
++userNumber=US143000078979
++fullName=aloka warnakula
++email=alokawarnakula77@gmail.com
++phoneNumber=0711641638
++address=21/6/6A, somanada mawatha, pitumpe, padukka
+Index: target/OnlineGroceryOrderSystem/cartAndOrders/checkOut.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><%@ page contentType=\"text/html;charset=UTF-8\" language=\"java\" %>\n<%@ page import=\"model.FileUtil\" %>\n<%@ page import=\"model.User\" %>\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Checkout - Grocery</title>\n  <base href=\"${pageContext.request.contextPath}/\">\n  <link rel=\"stylesheet\" href=\"${pageContext.request.contextPath}/css/cart.css\">\n  <link rel=\"stylesheet\" href=\"${pageContext.request.contextPath}/css/checkOut.css\">\n  <link href=\"https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css\" rel=\"stylesheet\" />\n  <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css\" integrity=\"sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==\" crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\" />\n</head>\n<body>\n<header>\n  <a href=\"${pageContext.request.contextPath}/index.jsp\" class=\"logo\"><i class=\"fa-solid fa-basket-shopping\"></i> Grocery</a>\n  <nav class=\"navbar\">\n    <a href=\"${pageContext.request.contextPath}/CartServlet?category=Produce\">Produce</a>\n    <a href=\"${pageContext.request.contextPath}/CartServlet?category=Proteins\">Proteins</a>\n    <a href=\"${pageContext.request.contextPath}/CartServlet?category=Dairy\">Dairy</a>\n    <a href=\"${pageContext.request.contextPath}/CartServlet?category=Bakery\">Bakery</a>\n    <a href=\"${pageContext.request.contextPath}/CartServlet?category=Pantry\">Pantry</a>\n    <a href=\"${pageContext.request.contextPath}/CartServlet?category=Snacks\">Snacks</a>\n    <a href=\"${pageContext.request.contextPath}/cartAndOrders/checkOut.jsp\">Checkout</a>\n  </nav>\n  <div class=\"search-container\">\n    <form class=\"search-bar\" id=\"searchForm\">\n      <input type=\"text\" name=\"name\" id=\"name\" placeholder=\"Search groceries\">\n      <button type=\"submit\" class=\"search-btn\">Search</button>\n      <span class=\"dropdown-toggle\" id=\"dropdown-toggle\">▼</span>\n    </form>\n    <div class=\"dropdown-menu\" id=\"dropdown-menu\">\n      <div class=\"filter-item\">\n        <label for=\"category\">Product Category</label>\n        <select name=\"category\" id=\"category\">\n          <option value=\"\">All</option>\n          <option value=\"produce\">Produce</option>\n          <option value=\"proteins\">Proteins</option>\n          <option value=\"dairy\">Dairy</option>\n          <option value=\"bakery\">Bakery</option>\n          <option value=\"pantry\">Pantry</option>\n          <option value=\"snacks\">Snacks</option>\n        </select>\n      </div>\n      <div class=\"filter-item\">\n        <label for=\"minPrice\">Min Price</label>\n        <input type=\"number\" name=\"minPrice\" id=\"minPrice\" min=\"0\" step=\"0.01\" placeholder=\"0\" value=\"0\">\n      </div>\n      <div class=\"filter-item\">\n        <label for=\"maxPrice\">Max Price</label>\n        <input type=\"number\" name=\"maxPrice\" id=\"maxPrice\" min=\"0\" step=\"0.01\" placeholder=\"100\" value=\"100\">\n      </div>\n    </div>\n  </div>\n  <!--<div class=\"cart-icon\" id=\"cart-icon\">\n    <i class=\"ri-shopping-cart-line\"></i>\n    <span class=\"cart-item-count\">0</span>\n  </div>-->\n</header>\n\n<div class=\"cart\">\n  <h2 class=\"cart-title\">Your Cart</h2>\n  <div class=\"cart-content\"></div>\n  <div class=\"total\">\n    <div class=\"total-price\">Total RS. 0</div>\n    <button class=\"btn-buy\">Buy Now</button>\n    <i class=\"ri-close-line\" id=\"cart-close\"></i>\n  </div>\n</div>\n\n<section class=\"checkout-container\">\n  <div class=\"cart-section\">\n    <h2 class=\"section-title\">List Product In Cart</h2>\n    <div class=\"cart-items\" id=\"cart-items\"></div>\n    <a href=\"${pageContext.request.contextPath}/CartServlet?category=Produce\" class=\"keep-shopping\">Keep shopping</a>\n  </div>\n\n  <div class=\"checkout-form\">\n    <h2 class=\"section-title\">CHECKOUT</h2>\n    <%\n      String loggedInUserFile = \"/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/loggedInUser.txt\";\n      User loggedInUser = FileUtil.readLoggedInUser(loggedInUserFile);\n      String fullName = \"\";\n      String phoneNumber = \"\";\n      String address = \"\";\n      if (loggedInUser != null) {\n        fullName = loggedInUser.getFullName() != null ? loggedInUser.getFullName() : \"\";\n        phoneNumber = loggedInUser.getPhoneNumber() != null ? loggedInUser.getPhoneNumber() : \"\";\n        address = loggedInUser.getAddress() != null ? loggedInUser.getAddress() : \"\";\n      }\n    %>\n    <form action=\"${pageContext.request.contextPath}/OrderServlet\" method=\"post\" id=\"checkout-form\">\n      <input type=\"text\" name=\"fullName\" placeholder=\"Full Name\" value=\"<%= fullName %>\" required>\n      <input type=\"text\" name=\"phoneNumber\" placeholder=\"Phone Number\" value=\"<%= phoneNumber %>\" required>\n      <input type=\"text\" name=\"address\" placeholder=\"Address\" value=\"<%= address %>\" required>\n      <select name=\"deliveryMethod\" id=\"deliveryMethod\" required>\n        <option value=\"\">Select Delivery Method</option>\n        <option value=\"store pickup\">Store Pickup</option>\n        <option value=\"same-day\">Same-Day Delivery</option>\n        <option value=\"scheduled\">Scheduled Delivery</option>\n      </select>\n      <input type=\"date\" name=\"deliveryDate\" id=\"deliveryDate\" style=\"display: none;\" min=\"<%= java.time.LocalDate.now().toString() %>\">\n      <select name=\"paymentMethod\" id=\"paymentMethod\" required>\n        <option value=\"\">Select Payment Method</option>\n        <option value=\"online card\">Online Card Payment</option>\n        <option value=\"cash on delivery\">Cash on Delivery</option>\n      </select>\n      <div class=\"total-info\" id=\"total-info\">\n        <span>Total Quantity: <span id=\"total-quantity\">0</span></span>\n        <span>Total Price: RS. <span id=\"total-price\">0.00</span></span>\n      </div>\n      <button type=\"submit\" class=\"checkout-btn\">CHECKOUT</button>\n    </form>\n  </div>\n</section>\n\n<div class=\"search-results\" id=\"search-results\"></div>\n\n<script src=\"${pageContext.request.contextPath}/js/cart.js\"></script>\n<script src=\"${pageContext.request.contextPath}/js/checkOut.js\"></script>\n</body>\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/OnlineGroceryOrderSystem/cartAndOrders/checkOut.jsp b/target/OnlineGroceryOrderSystem/cartAndOrders/checkOut.jsp
+--- a/target/OnlineGroceryOrderSystem/cartAndOrders/checkOut.jsp	(revision 174a1ac867783e7dae24ede13e1ff32e01695d61)
++++ b/target/OnlineGroceryOrderSystem/cartAndOrders/checkOut.jsp	(date 1742257390525)
+@@ -121,4 +121,4 @@
+ <script src="${pageContext.request.contextPath}/js/cart.js"></script>
+ <script src="${pageContext.request.contextPath}/js/checkOut.js"></script>
+ </body>
+-</html>
+\ No newline at end of file
++</html> <!-- checkOut branch -->
+\ No newline at end of file
+Index: src/main/webapp/data/items.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>1,Produce,Apple,200.00,https://st.depositphotos.com/1002351/1943/i/950/depositphotos_19439353-stock-photo-red-apple.jpg,8,Fresh and crisp apples perfect for snacking or baking\n2,Produce,Banana,450.00,https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Banana-Single.jpg/2324px-Banana-Single.jpg,0,Sweet and ripe bananas great for a quick energy boost\n27,Produce,Orange,70.00,https://media.istockphoto.com/id/1194662606/photo/orange-isolated-on-white-background-clipping-path-full-depth-of-field.jpg?s=612x612&w=0&k=20&c=rhITc7KJiHKvRe_aVnC_3Tjae4B67MrvAcH6HpxC8xM=,0,Sweet and tasty fucker\n28,Produce,Water Mellon,250.00,https://img.goodfon.com/original/5000x3125/c/3b/arbuz-lakomstvo-iagoda-belyi-fon.jpg,0,Tasty mellon\n3,Dairy,Milk,2.00,https://i.pinimg.com/736x/9b/29/22/9b2922288ec6e3b7522bfbee422b3593.jpg,5,Creamy and fresh milk sourced from local farms\n4,Proteins,Chicken,5.00,https://c4.wallpaperflare.com/wallpaper/471/516/832/chicken-image.jpg,0,Lean chicken breast perfect for grilling\n5,Proteins,Salmon,8.00,https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Salmon.jpg/2324px-Salmon.jpg,0,Fresh salmon rich in omega-3\n6,Proteins,Tofu,3.00,https://i.pinimg.com/736x/9b/29/22/tofu-image.jpg,0,Organic tofu great for vegetarian dishes\n7,Proteins,Beef,6.00,https://c4.wallpaperflare.com/wallpaper/471/516/832/beef-image.jpg,0,Grass-fed beef for a hearty meal\n8,Proteins,Pork,4.50,https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Pork.jpg/2324px-Pork.jpg,0,Tender pork ideal for roasting\n9,Dairy,Cheese,3.50,https://i.pinimg.com/736x/9b/29/22/cheese-image.jpg,0,Cheddar cheese aged to perfection\n10,Dairy,Yogurt,1.50,https://c4.wallpaperflare.com/wallpaper/471/516/832/yogurt-image.jpg,0,Creamy yogurt with live cultures\n11,Dairy,Butter,2.50,https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Butter.jpg/2324px-Butter.jpg,0,Unsalted butter for baking\n12,Dairy,Cream,2.00,https://i.pinimg.com/736x/9b/29/22/cream-image.jpg,0,Heavy cream for desserts\n13,Dairy,Eggs,2.00,https://c4.wallpaperflare.com/wallpaper/471/516/832/eggs-image.jpg,0,Free-range eggs\n14,Bakery,Bread,1.50,https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Bread.jpg/2324px-Bread.jpg,0,Freshly baked sourdough bread\n15,Bakery,Croissant,1.00,https://i.pinimg.com/736x/9b/29/22/croissant-image.jpg,0,Buttery and flaky croissants\n16,Bakery,Muffin,1.20,https://c4.wallpaperflare.com/wallpaper/471/516/832/muffin-image.jpg,0,Blueberry muffins fresh from the oven\n17,Bakery,Bagel,1.00,https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Bagel.jpg/2324px-Bagel.jpg,0,Chewy bagels perfect for breakfast\n18,Bakery,Cake,5.00,https://i.pinimg.com/736x/9b/29/22/cake-image.jpg,0,Chocolate cake for celebrations\n19,Pantry,Rice,2.00,https://c4.wallpaperflare.com/wallpaper/471/516/832/rice-image.jpg,0,Long-grain white rice\n20,Pantry,Pasta,1.50,https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Pasta.jpg/2324px-Pasta.jpg,0,Italian spaghetti for classic dishes\n21,Pantry,Olive Oil,4.00,https://i.pinimg.com/736x/9b/29/22/olive-oil-image.jpg,0,Extra virgin olive oil\n22,Pantry,Flour,1.00,https://c4.wallpaperflare.com/wallpaper/471/516/832/flour-image.jpg,0,All-purpose flour for baking\n23,Snacks,Chips,1.50,https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Chips.jpg/2324px-Chips.jpg,0,Crispy potato chips\n24,Snacks,Nuts,3.00,https://i.pinimg.com/736x/9b/29/22/nuts-image.jpg,0,Mixed nuts for a healthy snack\n25,Snacks,Cookies,2.00,https://c4.wallpaperflare.com/wallpaper/471/516/832/cookies-image.jpg,0,Chocolate chip cookies\n26,Snacks,Crackers,1.50,https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Crackers.jpg/2324px-Crackers.jpg,0,Whole-grain crackers\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/webapp/data/items.txt b/src/main/webapp/data/items.txt
+--- a/src/main/webapp/data/items.txt	(revision 174a1ac867783e7dae24ede13e1ff32e01695d61)
++++ b/src/main/webapp/data/items.txt	(date 1742256965614)
+@@ -1,4 +1,4 @@
+-1,Produce,Apple,200.00,https://st.depositphotos.com/1002351/1943/i/950/depositphotos_19439353-stock-photo-red-apple.jpg,8,Fresh and crisp apples perfect for snacking or baking
++1,Produce,Apple,200.00,https://st.depositphotos.com/1002351/1943/i/950/depositphotos_19439353-stock-photo-red-apple.jpg,7,Fresh and crisp apples perfect for snacking or baking
+ 2,Produce,Banana,450.00,https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Banana-Single.jpg/2324px-Banana-Single.jpg,0,Sweet and ripe bananas great for a quick energy boost
+ 27,Produce,Orange,70.00,https://media.istockphoto.com/id/1194662606/photo/orange-isolated-on-white-background-clipping-path-full-depth-of-field.jpg?s=612x612&w=0&k=20&c=rhITc7KJiHKvRe_aVnC_3Tjae4B67MrvAcH6HpxC8xM=,0,Sweet and tasty fucker
+ 28,Produce,Water Mellon,250.00,https://img.goodfon.com/original/5000x3125/c/3b/arbuz-lakomstvo-iagoda-belyi-fon.jpg,0,Tasty mellon
+Index: src/main/webapp/data/cart.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>1,Produce,Apple,200.00,https://st.depositphotos.com/1002351/1943/i/950/depositphotos_19439353-stock-photo-red-apple.jpg,1,Fresh and crisp apples perfect for snacking or baking\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/webapp/data/cart.txt b/src/main/webapp/data/cart.txt
+--- a/src/main/webapp/data/cart.txt	(revision 174a1ac867783e7dae24ede13e1ff32e01695d61)
++++ b/src/main/webapp/data/cart.txt	(date 1742256971541)
+@@ -1,1 +1,0 @@
+-1,Produce,Apple,200.00,https://st.depositphotos.com/1002351/1943/i/950/depositphotos_19439353-stock-photo-red-apple.jpg,1,Fresh and crisp apples perfect for snacking or baking
+Index: src/main/webapp/data/orders.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>--- Order Start: OD431569765512 ---\norderNumber=OD431569765512\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6/A soma\ndeliveryMethod=same-day\npaymentMethod=cash on delivery\ndeliveryDate=2025-03-16\nconfirmationDate=2025-03-16 21:10:58\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=2\nproductID=2, quantity=2\n[total]\ntotalPrice=1.60\n--- Order End ---\n\n--- Order Start: OD083338893972 ---\norderNumber=OD083338893972\nuserNumber=US111111111111\nname=AI.Picture8\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=online card\ndeliveryDate=2025-03-23\nconfirmationDate=2025-03-16 21:12:33\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=3\nproductID=2, quantity=3\n[total]\ntotalPrice=2.40\n--- Order End ---\n\n--- Order Start: OD089517536572 ---\norderNumber=OD089517536572\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=online card\ndeliveryDate=2025-03-23\nconfirmationDate=2025-03-16 21:51:12\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=10\nproductID=2, quantity=10\n[total]\ntotalPrice=8.00\n--- Order End ---\n\n--- Order Start: OD003506322177 ---\norderNumber=OD003506322177\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=00\naddress=21/6/6/A soma\ndeliveryMethod=store pickup\npaymentMethod=online card\ndeliveryDate=2025-03-23\nconfirmationDate=2025-03-16 22:33:09\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=27, quantity=10\n[total]\ntotalPrice=700.00\n--- Order End ---\n\n--- Order Start: OD028829163551 ---\norderNumber=OD028829163551\nuserNumber=US111111111111\nname=jayashan guruge\nphoneNum=0764350677\naddress=\"Sampatha\"\ndeliveryMethod=store pickup\npaymentMethod=cash on delivery\ndeliveryDate=2025-03-18\nconfirmationDate=2025-03-17 08:13:05\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=27, quantity=10\n[total]\ntotalPrice=700.00\n--- Order End ---\n\n--- Order Start: OD434364219642 ---\norderNumber=OD434364219642\nuserNumber=US111111111111\nname=AI.Picture8\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=online card\ndeliveryDate=2025-03-20\nconfirmationDate=2025-03-17 12:03:51\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=2, quantity=10\n[total]\ntotalPrice=4500.00\n--- Order End ---\n\n--- Order Start: OD480097990033 ---\norderNumber=OD480097990033\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=cash on delivery\ndeliveryDate=2025-03-26\nconfirmationDate=2025-03-17 12:12:04\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=10\n[total]\ntotalPrice=2000.00\n--- Order End ---\n\n--- Order Start: OD327152255237 ---\norderNumber=OD327152255237\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=cash on delivery\ndeliveryDate=2025-03-21\nconfirmationDate=2025-03-17 12:22:12\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=28, quantity=10\n[total]\ntotalPrice=2500.00\n--- Order End ---\n\n--- Order Start: OD256910041043 ---\norderNumber=OD256910041043\nuserNumber=US111111111111\nname=AI.Picture8\nphoneNum=0711641638\naddress=21/6/6/A soma\ndeliveryMethod=store pickup\npaymentMethod=online card\ndeliveryDate=2025-03-20\nconfirmationDate=2025-03-17 21:15:13\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=10\n[total]\ntotalPrice=2000.00\n--- Order End ---\n\n--- Order Start: OD739299191466 ---\norderNumber=OD739299191466\nuserNumber=US111111111111\nname=AI.Picture8\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=online card\ndeliveryDate=2025-03-20\nconfirmationDate=2025-03-17 22:18:34\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=10\nproductID=2, quantity=10\n[total]\ntotalPrice=6500.00\n--- Order End ---\n\n--- Order Start: OD237658282136 ---\norderNumber=OD237658282136\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=online card\ndeliveryDate=2025-03-18\nconfirmationDate=2025-03-18 00:04:02\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=1\n[total]\ntotalPrice=200.00\n--- Order End ---\n\n--- Order Start: OD683416603575 ---\norderNumber=OD683416603575\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=online card\ndeliveryDate=2025-03-18\nconfirmationDate=2025-03-18 00:05:34\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=1\n[total]\ntotalPrice=200.00\n--- Order End ---\n\n--- Order Start: OD459996073393 ---\norderNumber=OD459996073393\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=online card\ndeliveryDate=2025-03-18\nconfirmationDate=2025-03-18 00:11:03\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=1\n[total]\ntotalPrice=200.00\n--- Order End ---\n\n--- Order Start: OD448513473485 ---\norderNumber=OD448513473485\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=online card\ndeliveryDate=2025-03-18\nconfirmationDate=2025-03-18 00:12:19\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=1\n[total]\ntotalPrice=200.00\n--- Order End ---\n\n--- Order Start: OD768239094368 ---\norderNumber=OD768239094368\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=cash on delivery\ndeliveryDate=2025-03-18\nconfirmationDate=2025-03-18 00:14:36\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=1\n[total]\ntotalPrice=200.00\n--- Order End ---\n\n--- Order Start: OD174574987681 ---\norderNumber=OD174574987681\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=cash on delivery\ndeliveryDate=2025-03-18\nconfirmationDate=2025-03-18 00:15:16\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=5\n[total]\ntotalPrice=1000.00\n--- Order End ---\n\n--- Order Start: OD258754034998 ---\norderNumber=OD258754034998\nuserNumber=US143000078979\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=cash on delivery\ndeliveryDate=2025-03-18\nconfirmationDate=2025-03-17 23:09:32\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=1\n[total]\ntotalPrice=200.00\n--- Order End ---\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/webapp/data/orders.txt b/src/main/webapp/data/orders.txt
+--- a/src/main/webapp/data/orders.txt	(revision 174a1ac867783e7dae24ede13e1ff32e01695d61)
++++ b/src/main/webapp/data/orders.txt	(date 1742256971541)
+@@ -325,3 +325,98 @@
+ totalPrice=200.00
+ --- Order End ---
+ 
++--- Order Start: OD340496456754 ---
++orderNumber=OD340496456754
++userNumber=US143000078979
++name=aloka warnakula
++phoneNum=0711641638
++address=21/6/6A, somanada mawatha, pitumpe, padukka
++deliveryMethod=store pickup
++paymentMethod=online card
++deliveryDate=2025-03-20
++confirmationDate=2025-03-18 00:18:43
++paymentStatus=Paid
++deliveryStatus=Pending
++orderStatus=active
++[products]
++productID=1, quantity=9
++[total]
++totalPrice=1800.00
++--- Order End ---
++
++--- Order Start: OD585061919914 ---
++orderNumber=OD585061919914
++userNumber=US143000078979
++name=aloka warnakula
++phoneNum=0711641638
++address=21/6/6A, somanada mawatha, pitumpe, padukka
++deliveryMethod=same-day
++paymentMethod=online card
++deliveryDate=2025-03-18
++confirmationDate=2025-03-18 05:35:23
++paymentStatus=Paid
++deliveryStatus=Pending
++orderStatus=active
++[products]
++productID=28, quantity=10
++[total]
++totalPrice=2500.00
++--- Order End ---
++
++--- Order Start: OD408285775915 ---
++orderNumber=OD408285775915
++userNumber=US143000078979
++name=aloka warnakula
++phoneNum=0711641638
++address=21/6/6A, somanada mawatha, pitumpe, padukka
++deliveryMethod=same-day
++paymentMethod=online card
++deliveryDate=2025-03-18
++confirmationDate=2025-03-18 05:40:52
++paymentStatus=Paid
++deliveryStatus=Pending
++orderStatus=active
++[products]
++productID=27, quantity=5
++[total]
++totalPrice=350.00
++--- Order End ---
++
++--- Order Start: OD519535497786 ---
++orderNumber=OD519535497786
++userNumber=US143000078979
++name=aloka warnakula
++phoneNum=0711641638
++address=21/6/6A, somanada mawatha, pitumpe, padukka
++deliveryMethod=scheduled
++paymentMethod=online card
++deliveryDate=2025-03-20
++confirmationDate=2025-03-18 05:43:04
++paymentStatus=Paid
++deliveryStatus=Pending
++orderStatus=active
++[products]
++productID=27, quantity=5
++[total]
++totalPrice=350.00
++--- Order End ---
++
++--- Order Start: OD331149695513 ---
++orderNumber=OD331149695513
++userNumber=US143000078979
++name=aloka warnakula
++phoneNum=0711641638
++address=21/6/6A, somanada mawatha, pitumpe, padukka
++deliveryMethod=same-day
++paymentMethod=cash on delivery
++deliveryDate=2025-03-18
++confirmationDate=2025-03-18 05:46:11
++paymentStatus=Pending
++deliveryStatus=Pending
++orderStatus=active
++[products]
++productID=2, quantity=5
++[total]
++totalPrice=2250.00
++--- Order End ---
++
+Index: target/OnlineGroceryOrderSystem/data/loggedInUser.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/OnlineGroceryOrderSystem/data/loggedInUser.txt b/target/OnlineGroceryOrderSystem/data/loggedInUser.txt
+--- a/target/OnlineGroceryOrderSystem/data/loggedInUser.txt	(revision 174a1ac867783e7dae24ede13e1ff32e01695d61)
++++ b/target/OnlineGroceryOrderSystem/data/loggedInUser.txt	(date 1742257425164)
+@@ -1,0 +1,5 @@
++userNumber=US143000078979
++fullName=aloka warnakula
++email=alokawarnakula77@gmail.com
++phoneNumber=0711641638
++address=21/6/6A, somanada mawatha, pitumpe, padukka
+Index: src/main/java/servlet/OrderServlet.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package servlet;\n\nimport jakarta.servlet.ServletException;\nimport jakarta.servlet.http.HttpServlet;\nimport jakarta.servlet.http.HttpServletRequest;\nimport jakarta.servlet.http.HttpServletResponse;\nimport model.FileUtil;\nimport model.GroceryItem;\nimport model.User;\n\nimport java.io.BufferedWriter;\nimport java.io.File;\nimport java.io.FileWriter;\nimport java.io.IOException;\nimport java.time.LocalDate;\nimport java.time.LocalDateTime;\nimport java.time.format.DateTimeFormatter;\nimport java.util.ArrayList;\nimport java.util.Random;\n\npublic class OrderServlet extends HttpServlet {\n    private static final String ITEMS_FILE = \"/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/items.txt\";\n    private static final String CART_FILE = \"/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/cart.txt\";\n    private static final String ORDERS_FILE = \"/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/orders.txt\";\n    private static final String LOGGED_IN_USER_FILE = \"/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/loggedInUser.txt\";\n\n    @Override\n    public void init() throws ServletException {\n        File ordersDir = new File(\"/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data\");\n        if (!ordersDir.exists()) {\n            ordersDir.mkdirs();\n            System.out.println(\"Created directory: \" + ordersDir.getAbsolutePath());\n        }\n        System.out.println(\"ITEMS_FILE path: \" + ITEMS_FILE);\n        System.out.println(\"CART_FILE path: \" + CART_FILE);\n        System.out.println(\"ORDERS_FILE path: \" + ORDERS_FILE);\n        System.out.println(\"LOGGED_IN_USER_FILE path: \" + LOGGED_IN_USER_FILE);\n    }\n\n    @Override\n    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {\n        // Read the logged-in user from loggedInUser.txt\n        User loggedInUser = FileUtil.readLoggedInUser(LOGGED_IN_USER_FILE);\n        if (loggedInUser == null) {\n            System.out.println(\"No logged-in user found in \" + LOGGED_IN_USER_FILE);\n            response.sendError(HttpServletResponse.SC_BAD_REQUEST, \"No logged-in user found\");\n            return;\n        }\n        System.out.println(\"Logged-in user: \" + loggedInUser);\n\n        ArrayList<GroceryItem> cart;\n        synchronized (this) {\n            cart = FileUtil.readItems(CART_FILE);\n            if (cart == null || cart.isEmpty()) {\n                System.out.println(\"Cart is empty or null in \" + CART_FILE);\n                response.sendError(HttpServletResponse.SC_BAD_REQUEST, \"Cart is empty\");\n                return;\n            }\n            System.out.println(\"Loaded cart from \" + CART_FILE + \": \" + cart);\n        }\n\n        // Declare variables at method scope\n        double totalPrice;\n        String orderNumber;\n        String deliveryDate;\n\n        ArrayList<GroceryItem> items = FileUtil.readItems(ITEMS_FILE);\n\n        synchronized (this) {\n            // Only check if items exist, no stock validation since CartServlet reserved them\n            for (GroceryItem cartItem : cart) {\n                GroceryItem stockItem = items.stream()\n                        .filter(item -> item.getProductID() == cartItem.getProductID())\n                        .findFirst()\n                        .orElse(null);\n                if (stockItem == null) {\n                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, \"Item ID \" + cartItem.getProductID() + \" not found in inventory\");\n                    return;\n                }\n                // No stock check here; stock was already deducted by CartServlet\n            }\n\n            totalPrice = cart.stream().mapToDouble(GroceryItem::getTotalPrice).sum();\n\n            String fullName = request.getParameter(\"fullName\");\n            String phoneNumber = request.getParameter(\"phoneNumber\");\n            String address = request.getParameter(\"address\");\n            String deliveryMethod = request.getParameter(\"deliveryMethod\");\n            String paymentMethod = request.getParameter(\"paymentMethod\");\n\n            // Set deliveryDate based on deliveryMethod\n            if (\"same-day\".equals(deliveryMethod)) {\n                deliveryDate = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE); // e.g., \"2025-03-15\"\n            } else {\n                deliveryDate = request.getParameter(\"deliveryDate\"); // For scheduled or store pickup\n            }\n\n            if (fullName == null || phoneNumber == null || address == null ||\n                    deliveryMethod == null || paymentMethod == null ||\n                    ((\"scheduled\".equals(deliveryMethod) || \"store pickup\".equals(deliveryMethod)) && (deliveryDate == null || deliveryDate.isEmpty()))) {\n                response.sendError(HttpServletResponse.SC_BAD_REQUEST, \"Missing required fields\");\n                return;\n            }\n\n            do {\n                orderNumber = generateOrderNumber();\n            } while (!FileUtil.isOrderNumberUnique(orderNumber, ORDERS_FILE));\n\n            // Use the userNumber from the logged-in user\n            String userNumber = loggedInUser.getUserNumber();\n            String confirmationDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\"));\n            String paymentStatus = \"online card\".equals(paymentMethod) ? \"Paid\" : \"Pending\";\n            String deliveryStatus = \"Pending\";\n            String orderStatus = \"active\"; // New field for order status\n\n            try (BufferedWriter writer = new BufferedWriter(new FileWriter(ORDERS_FILE, true))) {\n                writer.write(\"--- Order Start: \" + orderNumber + \" ---\\n\");\n                writer.write(\"orderNumber=\" + orderNumber + \"\\n\");\n                writer.write(\"userNumber=\" + userNumber + \"\\n\");\n                writer.write(\"name=\" + (fullName != null ? fullName : \"\") + \"\\n\");\n                writer.write(\"phoneNum=\" + (phoneNumber != null ? phoneNumber : \"\") + \"\\n\");\n                writer.write(\"address=\" + (address != null ? address : \"\") + \"\\n\");\n                writer.write(\"deliveryMethod=\" + (deliveryMethod != null ? deliveryMethod : \"\") + \"\\n\");\n                writer.write(\"paymentMethod=\" + (paymentMethod != null ? paymentMethod : \"\") + \"\\n\");\n                writer.write(\"deliveryDate=\" + (deliveryDate != null ? deliveryDate : \"\") + \"\\n\");\n                writer.write(\"confirmationDate=\" + confirmationDate + \"\\n\");\n                writer.write(\"paymentStatus=\" + paymentStatus + \"\\n\");\n                writer.write(\"deliveryStatus=\" + deliveryStatus + \"\\n\");\n                writer.write(\"orderStatus=\" + orderStatus + \"\\n\"); // Add orderStatus\n                writer.write(\"[products]\\n\");\n                for (GroceryItem item : cart) {\n                    writer.write(\"productID=\" + item.getProductID() + \", quantity=\" + item.getQuantity() + \"\\n\");\n                }\n                writer.write(\"[total]\\n\");\n                writer.write(\"totalPrice=\" + String.format(\"%.2f\", totalPrice) + \"\\n\");\n                writer.write(\"--- Order End ---\\n\");\n                writer.write(\"\\n\");\n                System.out.println(\"Appended order to \" + ORDERS_FILE);\n            } catch (IOException e) {\n                System.err.println(\"Failed to append order to \" + ORDERS_FILE + \": \" + e.getMessage());\n                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, \"Failed to save order: \" + e.getMessage());\n                return;\n            }\n\n            // No stock deduction here; CartServlet already handled it\n            cart.clear();\n            FileUtil.writeItems(CART_FILE, cart);\n            System.out.println(\"Cleared cart in \" + CART_FILE);\n        }\n\n        request.setAttribute(\"orderNumber\", orderNumber);\n        request.setAttribute(\"fullName\", request.getParameter(\"fullName\"));\n        request.setAttribute(\"phoneNumber\", request.getParameter(\"phoneNumber\"));\n        request.setAttribute(\"address\", request.getParameter(\"address\"));\n        request.setAttribute(\"deliveryMethod\", request.getParameter(\"deliveryMethod\"));\n        request.setAttribute(\"deliveryDate\", deliveryDate);\n        request.setAttribute(\"paymentMethod\", request.getParameter(\"paymentMethod\"));\n        request.setAttribute(\"totalPrice\", String.format(\"%.2f\", totalPrice));\n        request.setAttribute(\"confirmationDate\", LocalDateTime.now().format(DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\")));\n        request.setAttribute(\"paymentStatus\", \"online card\".equals(request.getParameter(\"paymentMethod\")) ? \"Paid\" : \"Pending\");\n        request.setAttribute(\"deliveryStatus\", \"Pending\");\n        request.setAttribute(\"orderStatus\", \"active\"); // Pass to JSP\n\n        request.getRequestDispatcher(\"/cartAndOrders/processCheckOut.jsp\").forward(request, response);\n    }\n\n    private String generateOrderNumber() {\n        Random random = new Random();\n        long number = Math.abs(random.nextLong() % 1000000000000L);\n        return \"OD\" + String.format(\"%012d\", number);\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/servlet/OrderServlet.java b/src/main/java/servlet/OrderServlet.java
+--- a/src/main/java/servlet/OrderServlet.java	(revision 174a1ac867783e7dae24ede13e1ff32e01695d61)
++++ b/src/main/java/servlet/OrderServlet.java	(date 1742256917458)
+@@ -63,6 +63,7 @@
+         double totalPrice;
+         String orderNumber;
+         String deliveryDate;
++        String userNumber;
+ 
+         ArrayList<GroceryItem> items = FileUtil.readItems(ITEMS_FILE);
+ 
+@@ -77,7 +78,6 @@
+                     response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Item ID " + cartItem.getProductID() + " not found in inventory");
+                     return;
+                 }
+-                // No stock check here; stock was already deducted by CartServlet
+             }
+ 
+             totalPrice = cart.stream().mapToDouble(GroceryItem::getTotalPrice).sum();
+@@ -88,11 +88,10 @@
+             String deliveryMethod = request.getParameter("deliveryMethod");
+             String paymentMethod = request.getParameter("paymentMethod");
+ 
+-            // Set deliveryDate based on deliveryMethod
+             if ("same-day".equals(deliveryMethod)) {
+-                deliveryDate = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE); // e.g., "2025-03-15"
++                deliveryDate = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE);
+             } else {
+-                deliveryDate = request.getParameter("deliveryDate"); // For scheduled or store pickup
++                deliveryDate = request.getParameter("deliveryDate");
+             }
+ 
+             if (fullName == null || phoneNumber == null || address == null ||
+@@ -106,12 +105,18 @@
+                 orderNumber = generateOrderNumber();
+             } while (!FileUtil.isOrderNumberUnique(orderNumber, ORDERS_FILE));
+ 
+-            // Use the userNumber from the logged-in user
+-            String userNumber = loggedInUser.getUserNumber();
++            userNumber = loggedInUser.getUserNumber();
++            if (userNumber == null) {
++                System.err.println("User number is null for logged-in user: " + loggedInUser);
++                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "User number is missing for the logged-in user");
++                return;
++            }
++            System.out.println("User Number: " + userNumber);
++
+             String confirmationDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+             String paymentStatus = "online card".equals(paymentMethod) ? "Paid" : "Pending";
+             String deliveryStatus = "Pending";
+-            String orderStatus = "active"; // New field for order status
++            String orderStatus = "active";
+ 
+             try (BufferedWriter writer = new BufferedWriter(new FileWriter(ORDERS_FILE, true))) {
+                 writer.write("--- Order Start: " + orderNumber + " ---\n");
+@@ -126,7 +131,7 @@
+                 writer.write("confirmationDate=" + confirmationDate + "\n");
+                 writer.write("paymentStatus=" + paymentStatus + "\n");
+                 writer.write("deliveryStatus=" + deliveryStatus + "\n");
+-                writer.write("orderStatus=" + orderStatus + "\n"); // Add orderStatus
++                writer.write("orderStatus=" + orderStatus + "\n");
+                 writer.write("[products]\n");
+                 for (GroceryItem item : cart) {
+                     writer.write("productID=" + item.getProductID() + ", quantity=" + item.getQuantity() + "\n");
+@@ -142,13 +147,14 @@
+                 return;
+             }
+ 
+-            // No stock deduction here; CartServlet already handled it
+             cart.clear();
+             FileUtil.writeItems(CART_FILE, cart);
+             System.out.println("Cleared cart in " + CART_FILE);
+         }
+ 
++        // Set request attributes for processCheckOut.jsp
+         request.setAttribute("orderNumber", orderNumber);
++        request.setAttribute("userNumber", userNumber);
+         request.setAttribute("fullName", request.getParameter("fullName"));
+         request.setAttribute("phoneNumber", request.getParameter("phoneNumber"));
+         request.setAttribute("address", request.getParameter("address"));
+@@ -159,7 +165,10 @@
+         request.setAttribute("confirmationDate", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+         request.setAttribute("paymentStatus", "online card".equals(request.getParameter("paymentMethod")) ? "Paid" : "Pending");
+         request.setAttribute("deliveryStatus", "Pending");
+-        request.setAttribute("orderStatus", "active"); // Pass to JSP
++        request.setAttribute("orderStatus", "active");
++
++        // Debug log to confirm userNumber before forwarding
++        System.out.println("Setting userNumber in request attribute: " + userNumber);
+ 
+         request.getRequestDispatcher("/cartAndOrders/processCheckOut.jsp").forward(request, response);
+     }
+Index: target/OnlineGroceryOrderSystem/data/orders.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>--- Order Start: OD431569765512 ---\norderNumber=OD431569765512\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6/A soma\ndeliveryMethod=same-day\npaymentMethod=cash on delivery\ndeliveryDate=2025-03-16\nconfirmationDate=2025-03-16 21:10:58\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=2\nproductID=2, quantity=2\n[total]\ntotalPrice=1.60\n--- Order End ---\n\n--- Order Start: OD083338893972 ---\norderNumber=OD083338893972\nuserNumber=US111111111111\nname=AI.Picture8\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=online card\ndeliveryDate=2025-03-23\nconfirmationDate=2025-03-16 21:12:33\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=3\nproductID=2, quantity=3\n[total]\ntotalPrice=2.40\n--- Order End ---\n\n--- Order Start: OD089517536572 ---\norderNumber=OD089517536572\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=online card\ndeliveryDate=2025-03-23\nconfirmationDate=2025-03-16 21:51:12\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=10\nproductID=2, quantity=10\n[total]\ntotalPrice=8.00\n--- Order End ---\n\n--- Order Start: OD003506322177 ---\norderNumber=OD003506322177\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=00\naddress=21/6/6/A soma\ndeliveryMethod=store pickup\npaymentMethod=online card\ndeliveryDate=2025-03-23\nconfirmationDate=2025-03-16 22:33:09\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=27, quantity=10\n[total]\ntotalPrice=700.00\n--- Order End ---\n\n--- Order Start: OD028829163551 ---\norderNumber=OD028829163551\nuserNumber=US111111111111\nname=jayashan guruge\nphoneNum=0764350677\naddress=\"Sampatha\"\ndeliveryMethod=store pickup\npaymentMethod=cash on delivery\ndeliveryDate=2025-03-18\nconfirmationDate=2025-03-17 08:13:05\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=27, quantity=10\n[total]\ntotalPrice=700.00\n--- Order End ---\n\n--- Order Start: OD434364219642 ---\norderNumber=OD434364219642\nuserNumber=US111111111111\nname=AI.Picture8\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=online card\ndeliveryDate=2025-03-20\nconfirmationDate=2025-03-17 12:03:51\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=2, quantity=10\n[total]\ntotalPrice=4500.00\n--- Order End ---\n\n--- Order Start: OD480097990033 ---\norderNumber=OD480097990033\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=cash on delivery\ndeliveryDate=2025-03-26\nconfirmationDate=2025-03-17 12:12:04\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=10\n[total]\ntotalPrice=2000.00\n--- Order End ---\n\n--- Order Start: OD327152255237 ---\norderNumber=OD327152255237\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=cash on delivery\ndeliveryDate=2025-03-21\nconfirmationDate=2025-03-17 12:22:12\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=28, quantity=10\n[total]\ntotalPrice=2500.00\n--- Order End ---\n\n--- Order Start: OD256910041043 ---\norderNumber=OD256910041043\nuserNumber=US111111111111\nname=AI.Picture8\nphoneNum=0711641638\naddress=21/6/6/A soma\ndeliveryMethod=store pickup\npaymentMethod=online card\ndeliveryDate=2025-03-20\nconfirmationDate=2025-03-17 21:15:13\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=10\n[total]\ntotalPrice=2000.00\n--- Order End ---\n\n--- Order Start: OD739299191466 ---\norderNumber=OD739299191466\nuserNumber=US111111111111\nname=AI.Picture8\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=online card\ndeliveryDate=2025-03-20\nconfirmationDate=2025-03-17 22:18:34\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=10\nproductID=2, quantity=10\n[total]\ntotalPrice=6500.00\n--- Order End ---\n\n--- Order Start: OD237658282136 ---\norderNumber=OD237658282136\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=online card\ndeliveryDate=2025-03-18\nconfirmationDate=2025-03-18 00:04:02\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=1\n[total]\ntotalPrice=200.00\n--- Order End ---\n\n--- Order Start: OD683416603575 ---\norderNumber=OD683416603575\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=online card\ndeliveryDate=2025-03-18\nconfirmationDate=2025-03-18 00:05:34\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=1\n[total]\ntotalPrice=200.00\n--- Order End ---\n\n--- Order Start: OD459996073393 ---\norderNumber=OD459996073393\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=online card\ndeliveryDate=2025-03-18\nconfirmationDate=2025-03-18 00:11:03\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=1\n[total]\ntotalPrice=200.00\n--- Order End ---\n\n--- Order Start: OD448513473485 ---\norderNumber=OD448513473485\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=online card\ndeliveryDate=2025-03-18\nconfirmationDate=2025-03-18 00:12:19\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=1\n[total]\ntotalPrice=200.00\n--- Order End ---\n\n--- Order Start: OD768239094368 ---\norderNumber=OD768239094368\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=cash on delivery\ndeliveryDate=2025-03-18\nconfirmationDate=2025-03-18 00:14:36\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=1\n[total]\ntotalPrice=200.00\n--- Order End ---\n\n--- Order Start: OD174574987681 ---\norderNumber=OD174574987681\nuserNumber=US111111111111\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=cash on delivery\ndeliveryDate=2025-03-18\nconfirmationDate=2025-03-18 00:15:16\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=5\n[total]\ntotalPrice=1000.00\n--- Order End ---\n\n--- Order Start: OD258754034998 ---\norderNumber=OD258754034998\nuserNumber=US143000078979\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=cash on delivery\ndeliveryDate=2025-03-18\nconfirmationDate=2025-03-17 23:09:32\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=active\n[products]\nproductID=1, quantity=1\n[total]\ntotalPrice=200.00\n--- Order End ---\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/OnlineGroceryOrderSystem/data/orders.txt b/target/OnlineGroceryOrderSystem/data/orders.txt
+--- a/target/OnlineGroceryOrderSystem/data/orders.txt	(revision 174a1ac867783e7dae24ede13e1ff32e01695d61)
++++ b/target/OnlineGroceryOrderSystem/data/orders.txt	(date 1742257501852)
+@@ -325,3 +325,98 @@
+ totalPrice=200.00
+ --- Order End ---
+ 
++--- Order Start: OD340496456754 ---
++orderNumber=OD340496456754
++userNumber=US143000078979
++name=aloka warnakula
++phoneNum=0711641638
++address=21/6/6A, somanada mawatha, pitumpe, padukka
++deliveryMethod=store pickup
++paymentMethod=online card
++deliveryDate=2025-03-20
++confirmationDate=2025-03-18 00:18:43
++paymentStatus=Paid
++deliveryStatus=Pending
++orderStatus=active
++[products]
++productID=1, quantity=9
++[total]
++totalPrice=1800.00
++--- Order End ---
++
++--- Order Start: OD585061919914 ---
++orderNumber=OD585061919914
++userNumber=US143000078979
++name=aloka warnakula
++phoneNum=0711641638
++address=21/6/6A, somanada mawatha, pitumpe, padukka
++deliveryMethod=same-day
++paymentMethod=online card
++deliveryDate=2025-03-18
++confirmationDate=2025-03-18 05:35:23
++paymentStatus=Paid
++deliveryStatus=Pending
++orderStatus=active
++[products]
++productID=28, quantity=10
++[total]
++totalPrice=2500.00
++--- Order End ---
++
++--- Order Start: OD408285775915 ---
++orderNumber=OD408285775915
++userNumber=US143000078979
++name=aloka warnakula
++phoneNum=0711641638
++address=21/6/6A, somanada mawatha, pitumpe, padukka
++deliveryMethod=same-day
++paymentMethod=online card
++deliveryDate=2025-03-18
++confirmationDate=2025-03-18 05:40:52
++paymentStatus=Paid
++deliveryStatus=Pending
++orderStatus=active
++[products]
++productID=27, quantity=5
++[total]
++totalPrice=350.00
++--- Order End ---
++
++--- Order Start: OD519535497786 ---
++orderNumber=OD519535497786
++userNumber=US143000078979
++name=aloka warnakula
++phoneNum=0711641638
++address=21/6/6A, somanada mawatha, pitumpe, padukka
++deliveryMethod=scheduled
++paymentMethod=online card
++deliveryDate=2025-03-20
++confirmationDate=2025-03-18 05:43:04
++paymentStatus=Paid
++deliveryStatus=Pending
++orderStatus=active
++[products]
++productID=27, quantity=5
++[total]
++totalPrice=350.00
++--- Order End ---
++
++--- Order Start: OD331149695513 ---
++orderNumber=OD331149695513
++userNumber=US143000078979
++name=aloka warnakula
++phoneNum=0711641638
++address=21/6/6A, somanada mawatha, pitumpe, padukka
++deliveryMethod=same-day
++paymentMethod=cash on delivery
++deliveryDate=2025-03-18
++confirmationDate=2025-03-18 05:46:11
++paymentStatus=Pending
++deliveryStatus=Pending
++orderStatus=active
++[products]
++productID=2, quantity=5
++[total]
++totalPrice=2250.00
++--- Order End ---
++
+Index: target/OnlineGroceryOrderSystem/data/cart.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>1,Produce,Apple,200.00,https://st.depositphotos.com/1002351/1943/i/950/depositphotos_19439353-stock-photo-red-apple.jpg,1,Fresh and crisp apples perfect for snacking or baking\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/OnlineGroceryOrderSystem/data/cart.txt b/target/OnlineGroceryOrderSystem/data/cart.txt
+--- a/target/OnlineGroceryOrderSystem/data/cart.txt	(revision 174a1ac867783e7dae24ede13e1ff32e01695d61)
++++ b/target/OnlineGroceryOrderSystem/data/cart.txt	(date 1742257437486)
+@@ -1,1 +1,0 @@
+-1,Produce,Apple,200.00,https://st.depositphotos.com/1002351/1943/i/950/depositphotos_19439353-stock-photo-red-apple.jpg,1,Fresh and crisp apples perfect for snacking or baking
+Index: target/OnlineGroceryOrderSystem/data/items.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>1,Produce,Apple,200.00,https://st.depositphotos.com/1002351/1943/i/950/depositphotos_19439353-stock-photo-red-apple.jpg,8,Fresh and crisp apples perfect for snacking or baking\n2,Produce,Banana,450.00,https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Banana-Single.jpg/2324px-Banana-Single.jpg,0,Sweet and ripe bananas great for a quick energy boost\n27,Produce,Orange,70.00,https://media.istockphoto.com/id/1194662606/photo/orange-isolated-on-white-background-clipping-path-full-depth-of-field.jpg?s=612x612&w=0&k=20&c=rhITc7KJiHKvRe_aVnC_3Tjae4B67MrvAcH6HpxC8xM=,0,Sweet and tasty fucker\n28,Produce,Water Mellon,250.00,https://img.goodfon.com/original/5000x3125/c/3b/arbuz-lakomstvo-iagoda-belyi-fon.jpg,0,Tasty mellon\n3,Dairy,Milk,2.00,https://i.pinimg.com/736x/9b/29/22/9b2922288ec6e3b7522bfbee422b3593.jpg,5,Creamy and fresh milk sourced from local farms\n4,Proteins,Chicken,5.00,https://c4.wallpaperflare.com/wallpaper/471/516/832/chicken-image.jpg,0,Lean chicken breast perfect for grilling\n5,Proteins,Salmon,8.00,https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Salmon.jpg/2324px-Salmon.jpg,0,Fresh salmon rich in omega-3\n6,Proteins,Tofu,3.00,https://i.pinimg.com/736x/9b/29/22/tofu-image.jpg,0,Organic tofu great for vegetarian dishes\n7,Proteins,Beef,6.00,https://c4.wallpaperflare.com/wallpaper/471/516/832/beef-image.jpg,0,Grass-fed beef for a hearty meal\n8,Proteins,Pork,4.50,https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Pork.jpg/2324px-Pork.jpg,0,Tender pork ideal for roasting\n9,Dairy,Cheese,3.50,https://i.pinimg.com/736x/9b/29/22/cheese-image.jpg,0,Cheddar cheese aged to perfection\n10,Dairy,Yogurt,1.50,https://c4.wallpaperflare.com/wallpaper/471/516/832/yogurt-image.jpg,0,Creamy yogurt with live cultures\n11,Dairy,Butter,2.50,https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Butter.jpg/2324px-Butter.jpg,0,Unsalted butter for baking\n12,Dairy,Cream,2.00,https://i.pinimg.com/736x/9b/29/22/cream-image.jpg,0,Heavy cream for desserts\n13,Dairy,Eggs,2.00,https://c4.wallpaperflare.com/wallpaper/471/516/832/eggs-image.jpg,0,Free-range eggs\n14,Bakery,Bread,1.50,https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Bread.jpg/2324px-Bread.jpg,0,Freshly baked sourdough bread\n15,Bakery,Croissant,1.00,https://i.pinimg.com/736x/9b/29/22/croissant-image.jpg,0,Buttery and flaky croissants\n16,Bakery,Muffin,1.20,https://c4.wallpaperflare.com/wallpaper/471/516/832/muffin-image.jpg,0,Blueberry muffins fresh from the oven\n17,Bakery,Bagel,1.00,https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Bagel.jpg/2324px-Bagel.jpg,0,Chewy bagels perfect for breakfast\n18,Bakery,Cake,5.00,https://i.pinimg.com/736x/9b/29/22/cake-image.jpg,0,Chocolate cake for celebrations\n19,Pantry,Rice,2.00,https://c4.wallpaperflare.com/wallpaper/471/516/832/rice-image.jpg,0,Long-grain white rice\n20,Pantry,Pasta,1.50,https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Pasta.jpg/2324px-Pasta.jpg,0,Italian spaghetti for classic dishes\n21,Pantry,Olive Oil,4.00,https://i.pinimg.com/736x/9b/29/22/olive-oil-image.jpg,0,Extra virgin olive oil\n22,Pantry,Flour,1.00,https://c4.wallpaperflare.com/wallpaper/471/516/832/flour-image.jpg,0,All-purpose flour for baking\n23,Snacks,Chips,1.50,https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Chips.jpg/2324px-Chips.jpg,0,Crispy potato chips\n24,Snacks,Nuts,3.00,https://i.pinimg.com/736x/9b/29/22/nuts-image.jpg,0,Mixed nuts for a healthy snack\n25,Snacks,Cookies,2.00,https://c4.wallpaperflare.com/wallpaper/471/516/832/cookies-image.jpg,0,Chocolate chip cookies\n26,Snacks,Crackers,1.50,https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Crackers.jpg/2324px-Crackers.jpg,0,Whole-grain crackers\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/OnlineGroceryOrderSystem/data/items.txt b/target/OnlineGroceryOrderSystem/data/items.txt
+--- a/target/OnlineGroceryOrderSystem/data/items.txt	(revision 174a1ac867783e7dae24ede13e1ff32e01695d61)
++++ b/target/OnlineGroceryOrderSystem/data/items.txt	(date 1742257425161)
+@@ -1,4 +1,4 @@
+-1,Produce,Apple,200.00,https://st.depositphotos.com/1002351/1943/i/950/depositphotos_19439353-stock-photo-red-apple.jpg,8,Fresh and crisp apples perfect for snacking or baking
++1,Produce,Apple,200.00,https://st.depositphotos.com/1002351/1943/i/950/depositphotos_19439353-stock-photo-red-apple.jpg,7,Fresh and crisp apples perfect for snacking or baking
+ 2,Produce,Banana,450.00,https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Banana-Single.jpg/2324px-Banana-Single.jpg,0,Sweet and ripe bananas great for a quick energy boost
+ 27,Produce,Orange,70.00,https://media.istockphoto.com/id/1194662606/photo/orange-isolated-on-white-background-clipping-path-full-depth-of-field.jpg?s=612x612&w=0&k=20&c=rhITc7KJiHKvRe_aVnC_3Tjae4B67MrvAcH6HpxC8xM=,0,Sweet and tasty fucker
+ 28,Produce,Water Mellon,250.00,https://img.goodfon.com/original/5000x3125/c/3b/arbuz-lakomstvo-iagoda-belyi-fon.jpg,0,Tasty mellon

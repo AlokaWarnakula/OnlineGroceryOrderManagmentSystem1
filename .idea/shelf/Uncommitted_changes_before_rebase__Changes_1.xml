@@ -1,0 +1,44 @@
+<changelist name="Uncommitted_changes_before_rebase_[Changes]1" date="1746804857917" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]1/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before rebase [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/servlet/LogoutServlet.class" />
+    <option name="AFTER_PATH" value="target/classes/servlet/LogoutServlet.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]1/LogoutServlet.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/OnlineGroceryOrderSystem/WEB-INF/classes/servlet/AdminServlet.class" />
+    <option name="AFTER_PATH" value="target/OnlineGroceryOrderSystem/WEB-INF/classes/servlet/AdminServlet.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]1/AdminServlet.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/OnlineGroceryOrderSystem/WEB-INF/classes/servlet/OrderAdminServlet$3.class" />
+    <option name="AFTER_PATH" value="target/OnlineGroceryOrderSystem/WEB-INF/classes/servlet/OrderAdminServlet$3.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]1/OrderAdminServlet$3.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/OnlineGroceryOrderSystem/WEB-INF/classes/servlet/LoginServlet.class" />
+    <option name="AFTER_PATH" value="target/OnlineGroceryOrderSystem/WEB-INF/classes/servlet/LoginServlet.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]1/LoginServlet.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/OnlineGroceryOrderSystem/WEB-INF/classes/servlet/OrderAdminServlet$2.class" />
+    <option name="AFTER_PATH" value="target/OnlineGroceryOrderSystem/WEB-INF/classes/servlet/OrderAdminServlet$2.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]1/OrderAdminServlet$2.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/OnlineGroceryOrderSystem/WEB-INF/classes/servlet/OrderAdminServlet.class" />
+    <option name="AFTER_PATH" value="target/OnlineGroceryOrderSystem/WEB-INF/classes/servlet/OrderAdminServlet.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]1/OrderAdminServlet.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/OnlineGroceryOrderSystem/WEB-INF/classes/servlet/OrderAdminServlet$1.class" />
+    <option name="AFTER_PATH" value="target/OnlineGroceryOrderSystem/WEB-INF/classes/servlet/OrderAdminServlet$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]1/OrderAdminServlet$1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/OnlineGroceryOrderSystem.war" />
+    <option name="AFTER_PATH" value="target/OnlineGroceryOrderSystem.war" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]1/OnlineGroceryOrderSystem.war" />
+  </binary>
+</changelist>

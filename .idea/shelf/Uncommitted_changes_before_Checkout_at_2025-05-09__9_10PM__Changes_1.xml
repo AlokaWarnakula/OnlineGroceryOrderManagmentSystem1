@@ -1,0 +1,49 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_2025-05-09,_9_10 PM_[Changes]1" date="1746805220873" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-05-09,_9_10 PM_[Changes]1/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 2025-05-09, 9:10 PM [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/servlet/LogoutServlet.class" />
+    <option name="AFTER_PATH" value="target/classes/servlet/LogoutServlet.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-05-09,_9_10 PM_[Changes]1/LogoutServlet.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/OnlineGroceryOrderSystem/WEB-INF/classes/servlet/CartServlet.class" />
+    <option name="AFTER_PATH" value="target/OnlineGroceryOrderSystem/WEB-INF/classes/servlet/CartServlet.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-05-09,_9_10 PM_[Changes]1/CartServlet.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/model/User.class" />
+    <option name="AFTER_PATH" value="target/classes/model/User.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-05-09,_9_10 PM_[Changes]1/User.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/model/FileUtil$Order.class" />
+    <option name="AFTER_PATH" value="target/classes/model/FileUtil$Order.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-05-09,_9_10 PM_[Changes]1/FileUtil$Order.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/OnlineGroceryOrderSystem/WEB-INF/classes/model/FileUtil.class" />
+    <option name="AFTER_PATH" value="target/OnlineGroceryOrderSystem/WEB-INF/classes/model/FileUtil.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-05-09,_9_10 PM_[Changes]1/FileUtil.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/OnlineGroceryOrderSystem/WEB-INF/classes/servlet/OrderServlet.class" />
+    <option name="AFTER_PATH" value="target/OnlineGroceryOrderSystem/WEB-INF/classes/servlet/OrderServlet.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-05-09,_9_10 PM_[Changes]1/OrderServlet.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/OnlineGroceryOrderSystem/WEB-INF/classes/servlet/RegisterServlet.class" />
+    <option name="AFTER_PATH" value="target/OnlineGroceryOrderSystem/WEB-INF/classes/servlet/RegisterServlet.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-05-09,_9_10 PM_[Changes]1/RegisterServlet.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/OnlineGroceryOrderSystem.war" />
+    <option name="AFTER_PATH" value="target/OnlineGroceryOrderSystem.war" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-05-09,_9_10 PM_[Changes]1/OnlineGroceryOrderSystem.war" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/servlet/LoginServlet.class" />
+    <option name="AFTER_PATH" value="target/classes/servlet/LoginServlet.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2025-05-09,_9_10 PM_[Changes]1/LoginServlet.class" />
+  </binary>
+</changelist>

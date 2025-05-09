@@ -1,0 +1,876 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="OnlineGroceryOrderSystem:war exploded" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7feb0de7-0214-41fa-b444-d82370075b7f" name="Changes" comment="new branch cart init">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="Jsp File" />
+        <option value="CSS File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Aloka Warnakula &lt;106167992+alokawarnakula@users.noreply.github.com&gt;" />
+      </list>
+    </option>
+    <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feature/cart" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;AlokaWarnakula&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AlokaWarnakula/OnlineGroceryOrderManagmentSystem1.git&quot;,
+    &quot;accountId&quot;: &quot;e14b91d8-0d9e-4535-8655-fdd04ae3fbd5&quot;
+  }
+}</component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2tx0tsS6tiSOEkS8rWK1svZvpPV" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.FileUtilTest.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.Tomcat 10.1.36 JavaScript.executor&quot;: &quot;Debug&quot;,
+    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.OnlineGroceryOrderSystem [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.OnlineGroceryOrderSystem [clean,package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.OnlineGroceryOrderSystem [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.OnlineGroceryOrderSystem [install].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Smart Tomcat.NotWorkingTest.executor&quot;: &quot;Run&quot;,
+    &quot;Smart Tomcat.OnlineGroceryOrderSystem.executor&quot;: &quot;Run&quot;,
+    &quot;Smart Tomcat.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;Tomcat Server.Tomcat 10.1.36.executor&quot;: &quot;Run&quot;,
+    &quot;Tomcat Server.testProjectWithUpdates.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/userLogIn&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.1150748&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/webapp/userLogIn" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/cartAndOrders" />
+      <recent name="$PROJECT_DIR$/src/main/webapp" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/Images/FI" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/webapp/userLogin" />
+      <recent name="$PROJECT_DIR$/src/main/webapp" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/Images/FI" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/cartPath/checkOut" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean package" />
+      <command value="mvn install" />
+      <command value="mvn clean install" />
+      <command value="mvn clean" />
+    </option>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="com.poratu.idea.plugins.tomcat" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Tomcat Server.Tomcat 10.1.36">
+    <configuration name="Tomcat 10.1.36" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" editBeforeRun="true" focusToolWindowBeforeRun="true" APPLICATION_SERVER_NAME="Tomcat 10.1.36" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
+      <option name="UPDATE_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
+      <deployment>
+        <artifact name="OnlineGroceryOrderSystem:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/OnlineGroceryOrderSystem_war_exploded" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="725df517-cd59-4ac7-bf21-09932d94ecd3" />
+        <option name="DEPLOY_TOMCAT_APPS" value="true" />
+        <option name="PRESERVE_SESSIONS" value="true" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="50345" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="OnlineGroceryOrderSystem:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <configuration name="NotWorkingTest" type="com.poratu.idea.plugins.tomcat" editBeforeRun="true" focusToolWindowBeforeRun="true">
+      <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
+      <predefined_log_file enabled="true" id="Tomcat Access Log" />
+      <predefined_log_file id="Tomcat Catalina Log" />
+      <predefined_log_file id="Tomcat Manager Log" />
+      <predefined_log_file id="Tomcat Host Manager Log" />
+      <option name="catalinaBase" value="$USER_HOME$/.SmartTomcat/OnlineGroceryOrderSystem/OnlineGroceryOrderSystem" />
+      <option name="contextPath" value="/OnlineGroceryOrderSystem" />
+      <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
+      <option name="extraClassPath" value="" />
+      <option name="port" value="8081" />
+      <option name="tomcatInfo">
+        <TomcatInfo>
+          <option name="name" value="Apache Tomcat/10.1.36" />
+          <option name="path" value="$USER_HOME$/apache-tomcat-10.1.36" />
+          <option name="version" value="10.1.36.0" />
+        </TomcatInfo>
+      </option>
+      <option name="vmOptions" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="OnlineGroceryOrderSystem:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <configuration default="true" type="com.poratu.idea.plugins.tomcat">
+      <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
+      <predefined_log_file enabled="true" id="Tomcat Access Log" />
+      <predefined_log_file id="Tomcat Catalina Log" />
+      <predefined_log_file id="Tomcat Manager Log" />
+      <predefined_log_file id="Tomcat Host Manager Log" />
+      <option name="catalinaBase" value="" />
+      <option name="contextPath" value="" />
+      <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
+      <option name="extraClassPath" value="" />
+      <option name="port" value="8081" />
+      <option name="tomcatInfo">
+        <TomcatInfo>
+          <option name="name" value="Apache Tomcat/10.1.36" />
+          <option name="path" value="$USER_HOME$/apache-tomcat-10.1.36" />
+          <option name="version" value="10.1.36.0" />
+        </TomcatInfo>
+      </option>
+      <option name="vmOptions" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Smart Tomcat.NotWorkingTest" />
+      <item itemvalue="Tomcat Server.Tomcat 10.1.36" />
+    </list>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
+        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="StructureViewState">
+    <option name="selectedTab" value="JSP" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7feb0de7-0214-41fa-b444-d82370075b7f" name="Changes" comment="" />
+      <created>1741278635708</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1741278635708</updated>
+      <workItem from="1741278636694" duration="1039000" />
+      <workItem from="1741279685726" duration="476000" />
+      <workItem from="1741280169616" duration="3468000" />
+      <workItem from="1741328731337" duration="78000" />
+      <workItem from="1741328824943" duration="168000" />
+      <workItem from="1741332772761" duration="711000" />
+      <workItem from="1741398274488" duration="534000" />
+      <workItem from="1741398817195" duration="389000" />
+      <workItem from="1741399209526" duration="23000" />
+      <workItem from="1741399236077" duration="44000" />
+      <workItem from="1741399385487" duration="145000" />
+      <workItem from="1741489301442" duration="19000" />
+      <workItem from="1741490187031" duration="294000" />
+      <workItem from="1741490487686" duration="744000" />
+      <workItem from="1741491277216" duration="118000" />
+      <workItem from="1741491871028" duration="432000" />
+      <workItem from="1741493173834" duration="2229000" />
+      <workItem from="1741495497795" duration="851000" />
+      <workItem from="1741496675997" duration="17658000" />
+      <workItem from="1741526651108" duration="63000" />
+      <workItem from="1741526925462" duration="1342000" />
+      <workItem from="1741528726140" duration="666000" />
+      <workItem from="1741582793880" duration="776000" />
+      <workItem from="1741583605898" duration="6241000" />
+      <workItem from="1741600991647" duration="387000" />
+      <workItem from="1741602081924" duration="9941000" />
+      <workItem from="1741613032287" duration="1244000" />
+      <workItem from="1741618980041" duration="1890000" />
+      <workItem from="1741621380429" duration="2608000" />
+      <workItem from="1741654363816" duration="17572000" />
+      <workItem from="1741717314323" duration="11819000" />
+      <workItem from="1741777511274" duration="9588000" />
+      <workItem from="1741789169088" duration="4931000" />
+      <workItem from="1741794305502" duration="3933000" />
+      <workItem from="1741848582171" duration="20907000" />
+      <workItem from="1741933219129" duration="6026000" />
+      <workItem from="1741950665867" duration="13715000" />
+      <workItem from="1742006291555" duration="1461000" />
+      <workItem from="1742044187293" duration="11953000" />
+      <workItem from="1742094187878" duration="1034000" />
+      <workItem from="1742112804951" duration="305000" />
+      <workItem from="1742113224884" duration="7012000" />
+      <workItem from="1742120293929" duration="20449000" />
+      <workItem from="1742144092231" duration="1910000" />
+      <workItem from="1742179114845" duration="1013000" />
+      <workItem from="1742188310854" duration="89000" />
+      <workItem from="1742193142595" duration="3156000" />
+      <workItem from="1742222882009" duration="3862000" />
+      <workItem from="1742229573581" duration="362000" />
+      <workItem from="1742229943558" duration="4541000" />
+      <workItem from="1742234959395" duration="2511000" />
+      <workItem from="1742256226553" duration="3235000" />
+      <workItem from="1742268034310" duration="8058000" />
+      <workItem from="1742317673381" duration="1177000" />
+      <workItem from="1742358824881" duration="2093000" />
+      <workItem from="1742378083119" duration="13543000" />
+      <workItem from="1742438866779" duration="27751000" />
+      <workItem from="1742521874378" duration="19551000" />
+      <workItem from="1742613182800" duration="13323000" />
+      <workItem from="1742827588409" duration="4777000" />
+      <workItem from="1742870738899" duration="994000" />
+      <workItem from="1742871962224" duration="95000" />
+      <workItem from="1742872680721" duration="29000" />
+      <workItem from="1742875554601" duration="350000" />
+      <workItem from="1742877410478" duration="262000" />
+      <workItem from="1742877889561" duration="474000" />
+      <workItem from="1742889357220" duration="53000" />
+      <workItem from="1742898757025" duration="237000" />
+      <workItem from="1742898997252" duration="2000" />
+      <workItem from="1742978741925" duration="17295000" />
+      <workItem from="1743043567276" duration="360000" />
+      <workItem from="1743045406555" duration="298000" />
+      <workItem from="1743053894735" duration="5827000" />
+      <workItem from="1743059871716" duration="4870000" />
+      <workItem from="1743142673625" duration="5734000" />
+      <workItem from="1743167026030" duration="39000" />
+      <workItem from="1743235362878" duration="2631000" />
+      <workItem from="1743337130422" duration="6014000" />
+      <workItem from="1743393412829" duration="12507000" />
+      <workItem from="1743476028613" duration="5192000" />
+      <workItem from="1743481394601" duration="9303000" />
+      <workItem from="1743523722738" duration="257000" />
+      <workItem from="1743530161247" duration="137000" />
+      <workItem from="1743589139928" duration="12590000" />
+      <workItem from="1743766588405" duration="14050000" />
+      <workItem from="1743780698710" duration="1063000" />
+      <workItem from="1743848130515" duration="6910000" />
+      <workItem from="1743920512203" duration="5608000" />
+      <workItem from="1743927155387" duration="1307000" />
+      <workItem from="1743939087683" duration="22000" />
+      <workItem from="1743941145371" duration="38000" />
+      <workItem from="1743941757921" duration="72000" />
+      <workItem from="1743944608924" duration="77000" />
+      <workItem from="1744081276404" duration="771000" />
+      <workItem from="1744099069068" duration="910000" />
+      <workItem from="1744254235882" duration="593000" />
+      <workItem from="1744545356253" duration="1591000" />
+      <workItem from="1744547162618" duration="373000" />
+      <workItem from="1744547754747" duration="4480000" />
+      <workItem from="1744682965746" duration="177000" />
+      <workItem from="1746164017427" duration="926000" />
+      <workItem from="1746167064413" duration="209000" />
+      <workItem from="1746171377732" duration="437000" />
+      <workItem from="1746273696419" duration="2749000" />
+      <workItem from="1746289349646" duration="88000" />
+      <workItem from="1746289753816" duration="165000" />
+      <workItem from="1746290030576" duration="55000" />
+      <workItem from="1746368365234" duration="244000" />
+      <workItem from="1746446154178" duration="284000" />
+      <workItem from="1746501825259" duration="807000" />
+      <workItem from="1746622865473" duration="427000" />
+      <workItem from="1746632406194" duration="1369000" />
+      <workItem from="1746674651000" duration="2465000" />
+      <workItem from="1746677766087" duration="5489000" />
+      <workItem from="1746684568824" duration="5108000" />
+      <workItem from="1746719513794" duration="627000" />
+      <workItem from="1746760935042" duration="10000" />
+      <workItem from="1746789311483" duration="10023000" />
+      <workItem from="1746804169909" duration="1131000" />
+    </task>
+    <task id="LOCAL-00010" summary="cart- initiate">
+      <option name="closed" value="true" />
+      <created>1742231589167</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1742231589168</updated>
+    </task>
+    <task id="LOCAL-00011" summary="cart branch">
+      <option name="closed" value="true" />
+      <created>1742231735693</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1742231735693</updated>
+    </task>
+    <task id="LOCAL-00012" summary="checkOut branch">
+      <option name="closed" value="true" />
+      <created>1742231941036</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1742231941036</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Login branch">
+      <option name="closed" value="true" />
+      <created>1742232259706</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1742232259706</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Login branch">
+      <option name="closed" value="true" />
+      <created>1742232291529</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1742232291529</updated>
+    </task>
+    <task id="LOCAL-00015" summary="user details load from loggedINUser.txt  file and then load them into checkOut page form relevent feild for pre-load.">
+      <option name="closed" value="true" />
+      <created>1742233311620</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1742233311620</updated>
+    </task>
+    <task id="LOCAL-00016" summary="errro fixed orderServlet">
+      <option name="closed" value="true" />
+      <created>1742234260107</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1742234260107</updated>
+    </task>
+    <task id="LOCAL-00017" summary="errro fixed orderServlet">
+      <option name="closed" value="true" />
+      <created>1742234319233</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1742234319233</updated>
+    </task>
+    <task id="LOCAL-00018" summary="finxed errors">
+      <option name="closed" value="true" />
+      <created>1742234987127</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1742234987127</updated>
+    </task>
+    <task id="LOCAL-00019" summary="#add userlogin page background image&#10;#load userprofile userID for test">
+      <option name="closed" value="true" />
+      <created>1742236074354</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1742236074354</updated>
+    </task>
+    <task id="LOCAL-00020" summary="update logics">
+      <option name="closed" value="true" />
+      <created>1742237269671</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1742237269671</updated>
+    </task>
+    <task id="LOCAL-00021" summary="out out user ID in processCheckOut.jsp page update logic and simple design parts.">
+      <option name="closed" value="true" />
+      <created>1742257300488</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1742257300488</updated>
+    </task>
+    <task id="LOCAL-00022" summary="out out user ID in processCheckOut.jsp page update logic and simple design parts.">
+      <option name="closed" value="true" />
+      <created>1742257606062</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1742257606062</updated>
+    </task>
+    <task id="LOCAL-00023" summary="out out user ID in processCheckOut.jsp page update logic and simple design parts.">
+      <option name="closed" value="true" />
+      <created>1742257851447</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1742257851447</updated>
+    </task>
+    <task id="LOCAL-00024" summary="out out user ID in processCheckOut.jsp page update logic and simple design parts.">
+      <option name="closed" value="true" />
+      <created>1742259484434</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1742259484434</updated>
+    </task>
+    <task id="LOCAL-00025" summary="update back or main-27">
+      <option name="closed" value="true" />
+      <created>1742318592765</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1742318592765</updated>
+    </task>
+    <task id="LOCAL-00026" summary="update back or main-27">
+      <option name="closed" value="true" />
+      <created>1742318605375</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1742318605375</updated>
+    </task>
+    <task id="LOCAL-00027" summary="update back or main-27">
+      <option name="closed" value="true" />
+      <created>1742318668492</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1742318668492</updated>
+    </task>
+    <task id="LOCAL-00028" summary="update back or main-27">
+      <option name="closed" value="true" />
+      <created>1742318834463</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1742318834463</updated>
+    </task>
+    <task id="LOCAL-00029" summary="test">
+      <option name="closed" value="true" />
+      <created>1742358905449</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1742358905449</updated>
+    </task>
+    <task id="LOCAL-00030" summary="add search algo merge sort to cart search and fixed some erros with it add debugged lines to test.">
+      <option name="closed" value="true" />
+      <created>1742398045687</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1742398045687</updated>
+    </task>
+    <task id="LOCAL-00031" summary="add new features to userProfile.jsp&#10;and give it to ability to edit user infomation and give ability to delete user's account.">
+      <option name="closed" value="true" />
+      <created>1742492415175</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1742492415175</updated>
+    </task>
+    <task id="LOCAL-00032" summary="user profile delete pop up button size change">
+      <option name="closed" value="true" />
+      <created>1742526571593</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1742526571594</updated>
+    </task>
+    <task id="LOCAL-00033" summary="User profile order history update, cancel and previous one's.">
+      <option name="closed" value="true" />
+      <created>1742545516566</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1742545516566</updated>
+    </task>
+    <task id="LOCAL-00034" summary="User profile order history update, cancel and previous one's.">
+      <option name="closed" value="true" />
+      <created>1742545613633</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1742545613633</updated>
+    </task>
+    <task id="LOCAL-00035" summary="user profile order cancel button new page to check and review user's order list.">
+      <option name="closed" value="true" />
+      <created>1742564426636</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1742564426636</updated>
+    </task>
+    <task id="LOCAL-00036" summary="UserProfile Branch Initiate">
+      <option name="closed" value="true" />
+      <created>1742564638660</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1742564638660</updated>
+    </task>
+    <task id="LOCAL-00037" summary="fixed merge sorting in cartIndex.jsp&#10;and filtering conditions.">
+      <option name="closed" value="true" />
+      <created>1742655173191</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1742655173191</updated>
+    </task>
+    <task id="LOCAL-00038" summary="fixed user profile cancel button to info and fixed merge sort few errors">
+      <option name="closed" value="true" />
+      <created>1742662874761</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1742662874761</updated>
+    </task>
+    <task id="LOCAL-00039" summary="user profile Delivered tab info button and user profile home banner add for each category and link them to cartIndex.jsp">
+      <option name="closed" value="true" />
+      <created>1742832333950</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1742832333950</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Admin login and adminSuccessFul and adminDash page initiate.">
+      <option name="closed" value="true" />
+      <created>1742990589649</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1742990589649</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Admin login and adminSuccessFul and adminDash page initiate.">
+      <option name="closed" value="true" />
+      <created>1742990652856</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1742990652857</updated>
+    </task>
+    <task id="LOCAL-00042" summary="adminPage Order, delivered and cancelled contain make and get their counts from orders.txt and deliveredOrders.txt them display in corresponding containers.">
+      <option name="closed" value="true" />
+      <created>1742996117390</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1742996117390</updated>
+    </task>
+    <task id="LOCAL-00043" summary="admin page titles and admin dashboard category selection add.">
+      <option name="closed" value="true" />
+      <created>1743058962009</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1743058962009</updated>
+    </task>
+    <task id="LOCAL-00044" summary="admin dash board error fixed">
+      <option name="closed" value="true" />
+      <created>1743064736258</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1743064736258</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Order Dashboad start making">
+      <option name="closed" value="true" />
+      <created>1743167051726</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1743167051727</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Order DashBoard design changes">
+      <option name="closed" value="true" />
+      <created>1743237679059</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1743237679059</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Order dashboard and order dashboardinfo finished works and fine tune done.">
+      <option name="closed" value="true" />
+      <created>1743405856638</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1743405856638</updated>
+    </task>
+    <task id="LOCAL-00048" summary="stock admin dashboard done and finished works.">
+      <option name="closed" value="true" />
+      <created>1743523908660</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1743523908660</updated>
+    </task>
+    <task id="LOCAL-00049" summary="order Initialize again">
+      <option name="closed" value="true" />
+      <created>1743530226632</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1743530226632</updated>
+    </task>
+    <task id="LOCAL-00050" summary="fixed error: missing files">
+      <option name="closed" value="true" />
+      <created>1743589880348</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1743589880348</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Product Admin Dashboard Done and fixed some Errors.">
+      <option name="closed" value="true" />
+      <created>1743603736807</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1743603736808</updated>
+    </task>
+    <task id="LOCAL-00052" summary="admin pages user dashboard complete">
+      <option name="closed" value="true" />
+      <created>1743779981002</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1743779981002</updated>
+    </task>
+    <task id="LOCAL-00053" summary="adminpage Bar Chart add and all pages background color change to extreme light green and grey mix colors.also few desgin mistakes.">
+      <option name="closed" value="true" />
+      <created>1743856494842</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1743856494842</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Index page Feature section finished">
+      <option name="closed" value="true" />
+      <created>1743924735295</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1743924735295</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Index page Feature section finished and Text area replaced with correct ones">
+      <option name="closed" value="true" />
+      <created>1743925830878</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1743925830878</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Index.jsp page Deal Section Finished and Entire Project Work Done">
+      <option name="closed" value="true" />
+      <created>1744552070607</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1744552070608</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Index.jsp page Deal Section Finished and Entire Project Work Done">
+      <option name="closed" value="true" />
+      <created>1744552158050</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1744552158050</updated>
+    </task>
+    <task id="LOCAL-00058" summary="new branch cart init">
+      <option name="closed" value="true" />
+      <created>1746804933568</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1746804933568</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="feature/checkOut" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add new features to userProfile.jsp&#10;and give it to ability to edit user infomation and give ability to delete user's account." />
+    <MESSAGE value="user profile delete pop up button size change" />
+    <MESSAGE value="User profile order history update, cancel and previous one's." />
+    <MESSAGE value="user profile order cancel button new page to check and review user's order list." />
+    <MESSAGE value="UserProfile Branch Initiate" />
+    <MESSAGE value="fixed merge sorting in cartIndex.jsp&#10;and filtering conditions." />
+    <MESSAGE value="fixed user profile cancel button to info and fixed merge sort few errors" />
+    <MESSAGE value="user profile Delivered tab info button and user profile home banner add for each category and link them to cartIndex.jsp" />
+    <MESSAGE value="Admin login and adminSuccessFul and adminDash page initiate." />
+    <MESSAGE value="adminPage Order, delivered and cancelled contain make and get their counts from orders.txt and deliveredOrders.txt them display in corresponding containers." />
+    <MESSAGE value="admin page titles and admin dashboard category selection add." />
+    <MESSAGE value="admin dash board error fixed" />
+    <MESSAGE value="Order Dashboad start making" />
+    <MESSAGE value="Order DashBoard design changes" />
+    <MESSAGE value="Order dashboard and order dashboardinfo finished works and fine tune done." />
+    <MESSAGE value="stock admin dashboard done and finished works." />
+    <MESSAGE value="order Initialize again" />
+    <MESSAGE value="fixed error: missing files" />
+    <MESSAGE value="Product Admin Dashboard Done and fixed some Errors." />
+    <MESSAGE value="admin pages user dashboard complete" />
+    <MESSAGE value="adminpage Bar Chart add and all pages background color change to extreme light green and grey mix colors.also few desgin mistakes." />
+    <MESSAGE value="Index page Feature section finished" />
+    <MESSAGE value="Index page Feature section finished and Text area replaced with correct ones" />
+    <MESSAGE value="Index.jsp page Deal Section Finished and Entire Project Work Done" />
+    <MESSAGE value="new branch cart init" />
+    <option name="LAST_COMMIT_MESSAGE" value="new branch cart init" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
