@@ -9,9 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7feb0de7-0214-41fa-b444-d82370075b7f" name="Changes" comment="new branch cart init">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-    </list>
+    <list default="true" id="7feb0de7-0214-41fa-b444-d82370075b7f" name="Changes" comment="project main init" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -419,14 +417,7 @@
       <workItem from="1746760935042" duration="10000" />
       <workItem from="1746789311483" duration="10023000" />
       <workItem from="1746804169909" duration="1131000" />
-    </task>
-    <task id="LOCAL-00010" summary="cart- initiate">
-      <option name="closed" value="true" />
-      <created>1742231589167</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1742231589168</updated>
+      <workItem from="1746805306499" duration="308000" />
     </task>
     <task id="LOCAL-00011" summary="cart branch">
       <option name="closed" value="true" />
@@ -812,7 +803,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746804933568</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="project main init">
+      <option name="closed" value="true" />
+      <created>1746805604281</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1746805604281</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -842,7 +841,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add new features to userProfile.jsp&#10;and give it to ability to edit user infomation and give ability to delete user's account." />
     <MESSAGE value="user profile delete pop up button size change" />
     <MESSAGE value="User profile order history update, cancel and previous one's." />
     <MESSAGE value="user profile order cancel button new page to check and review user's order list." />
@@ -867,7 +865,8 @@
     <MESSAGE value="Index page Feature section finished and Text area replaced with correct ones" />
     <MESSAGE value="Index.jsp page Deal Section Finished and Entire Project Work Done" />
     <MESSAGE value="new branch cart init" />
-    <option name="LAST_COMMIT_MESSAGE" value="new branch cart init" />
+    <MESSAGE value="project main init" />
+    <option name="LAST_COMMIT_MESSAGE" value="project main init" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
