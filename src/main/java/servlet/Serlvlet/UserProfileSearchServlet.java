@@ -91,8 +91,7 @@ public class UserProfileSearchServlet extends HttpServlet {
             });
         }
 
-
-        // Set attributes and forward to JSP
+        // Set attributes and forwarding to JSP
         request.setAttribute("orders", orders);
         request.setAttribute("activeTab", tab);
         request.getRequestDispatcher("/userLogin/userProfile.jsp").forward(request, response);
