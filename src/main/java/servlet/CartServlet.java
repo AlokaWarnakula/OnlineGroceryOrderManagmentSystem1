@@ -14,8 +14,9 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class CartServlet extends HttpServlet {
-    private static final String ITEMS_FILE = "/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/items.txt";
-    private static final String CART_FILE = "/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/cart.txt";
+    private static final String ITEMS_FILE = "/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/items.txt"; // File location for storing info related to items in shop
+    private static final String CART_FILE = "/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/cart.txt"; // Use for cart -> order creating
+    private MergeServlet mergeServlet; // Instance of MergeServlet for sorting items
 
     @Override
     public void init() throws ServletException {
@@ -34,6 +35,7 @@ public class CartServlet extends HttpServlet {
 
         System.out.println("ITEMS_FILE path: " + ITEMS_FILE);
         System.out.println("CART_FILE path: " + CART_FILE);
+        mergeServlet = new MergeServlet(); // Initialize MergeServlet
     }
 
     @Override
@@ -57,9 +59,15 @@ public class CartServlet extends HttpServlet {
         }
 
         ArrayList<GroceryItem> items = FileUtil.readItems(ITEMS_FILE);
+        if (items == null) {
+            items = new ArrayList<>();
+            System.out.println("Initialized empty items list for " + ITEMS_FILE + " (file not found or invalid)");
+        }
+        System.out.println("All loaded items: " + items);
         double totalPrice = cart.stream().mapToDouble(GroceryItem::getTotalPrice).sum();
 
         String action = request.getParameter("action");
+        System.out.println("doGet action: " + action);
         if ("getCart".equals(action)) {
             response.setContentType("application/json");
             PrintWriter out = response.getWriter();
@@ -71,14 +79,119 @@ public class CartServlet extends HttpServlet {
             out.flush();
         } else {
             String category = request.getParameter("category");
-            if (category != null && !category.isEmpty()) {
-                items = items.stream()
-                        .filter(item -> item.getProductCategory().equalsIgnoreCase(category))
-                        .collect(Collectors.toCollection(ArrayList::new));
+            String minPriceStr = request.getParameter("minPrice");
+            String maxPriceStr = request.getParameter("maxPrice");
+            String name = request.getParameter("name");
+            String sortBy = request.getParameter("sortBy"); // Primary sorting criterion
+
+            System.out.println("Parameters - category: " + category + ", minPrice: " + minPriceStr + ", maxPrice: " + maxPriceStr + ", name: " + name + ", sortBy: " + sortBy);
+
+            // Default category to null (show all) if not specified or "All"
+            if (category == null || category.trim().isEmpty() || category.equalsIgnoreCase("All")) {
+                category = null; // Show all categories
+                System.out.println("No specific category selected, showing all products");
             }
-            request.setAttribute("items", items);
+            final String finalCategory = category; // Create a final copy for lambda expression
+
+            ArrayList<GroceryItem> filteredItems = new ArrayList<>(items);
+            System.out.println("Initial items count: " + filteredItems.size());
+
+            // Step 1: Filter by category if specified
+            if (finalCategory != null && !finalCategory.trim().isEmpty()) {
+                filteredItems = filteredItems.stream()
+                        .filter(item -> {
+                            boolean matches = item.getProductCategory().equalsIgnoreCase(finalCategory);
+                            System.out.println("Checking category for item " + item.getProductName() + ": " + item.getProductCategory() + " == " + finalCategory + " -> " + matches);
+                            return matches;
+                        })
+                        .collect(Collectors.toCollection(ArrayList::new));
+                System.out.println("After category filter, result size: " + filteredItems.size());
+                System.out.println("Items after category filter: " + filteredItems);
+            }
+
+            // Step 2: Filter by name if specified
+            if (name != null && !name.trim().isEmpty()) {
+                filteredItems = filteredItems.stream()
+                        .filter(item -> {
+                            boolean matches = item.getProductName().toLowerCase().contains(name.toLowerCase());
+                            System.out.println("Checking name for item " + item.getProductName() + ": contains " + name + " -> " + matches);
+                            return matches;
+                        })
+                        .collect(Collectors.toCollection(ArrayList::new));
+                System.out.println("After name filter, result size: " + filteredItems.size());
+                System.out.println("Items after name filter: " + filteredItems);
+            }
+
+            // Step 3: Filter by price range
+            // Apply minPrice filter
+            if (minPriceStr != null && !minPriceStr.trim().isEmpty()) {
+                try {
+                    double minPrice = Double.parseDouble(minPriceStr);
+                    filteredItems = filteredItems.stream()
+                            .filter(item -> {
+                                boolean matches = item.getProductPrice() >= minPrice;
+                                System.out.println("Checking minPrice for item " + item.getProductName() + ": " + item.getProductPrice() + " >= " + minPrice + " -> " + matches);
+                                return matches;
+                            })
+                            .collect(Collectors.toCollection(ArrayList::new));
+                    System.out.println("After minPrice filter (" + minPrice + "), result size: " + filteredItems.size());
+                    System.out.println("Items after minPrice filter: " + filteredItems);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid minPrice: " + minPriceStr);
+                }
+            }
+
+            // Apply maxPrice filter
+            if (maxPriceStr != null && !maxPriceStr.trim().isEmpty()) {
+                try {
+                    double maxPrice = Double.parseDouble(maxPriceStr);
+                    filteredItems = filteredItems.stream()
+                            .filter(item -> {
+                                boolean matches = item.getProductPrice() <= maxPrice;
+                                System.out.println("Checking maxPrice for item " + item.getProductName() + ": " + item.getProductPrice() + " <= " + maxPrice + " -> " + matches);
+                                return matches;
+                            })
+                            .collect(Collectors.toCollection(ArrayList::new));
+                    System.out.println("After maxPrice filter (" + maxPrice + "), result size: " + filteredItems.size());
+                    System.out.println("Items after maxPrice filter: " + filteredItems);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid maxPrice: " + maxPriceStr);
+                }
+            }
+
+            // Step 4: Sort the filtered items using MergeServlet
+            if (!filteredItems.isEmpty()) {
+                MergeServlet.SortCriterion sortCriterion = MergeServlet.SortCriterion.NAME; // Default to name
+
+                // Map sortBy parameter to SortCriterion
+                if (sortBy != null) {
+                    switch (sortBy.toLowerCase()) {
+                        case "name":
+                            sortCriterion = MergeServlet.SortCriterion.NAME;
+                            break;
+                        case "price":
+                            sortCriterion = MergeServlet.SortCriterion.PRICE;
+                            break;
+                        default:
+                            System.out.println("Invalid sortBy parameter: " + sortBy + ", defaulting to NAME");
+                    }
+                }
+
+                System.out.println("Sorting items with sortCriterion=" + sortCriterion);
+                mergeServlet.sortItems(filteredItems, sortCriterion);
+            }
+
+            // Determine if we're showing search results or a specific category
+            boolean isSearchResult = (name != null && !name.trim().isEmpty()) ||
+                    (minPriceStr != null && !minPriceStr.trim().isEmpty()) ||
+                    (maxPriceStr != null && !maxPriceStr.trim().isEmpty());
+
+            request.setAttribute("items", filteredItems);
             request.setAttribute("cart", cart);
             request.setAttribute("totalPrice", totalPrice);
+            request.setAttribute("category", category);
+            request.setAttribute("isSearchResult", isSearchResult);
+            System.out.println("Forwarding to cartIndex.jsp with items size: " + filteredItems.size() + ", isSearchResult: " + isSearchResult);
             request.getRequestDispatcher("/cartAndOrders/cartIndex.jsp").forward(request, response);
         }
     }
@@ -101,6 +214,10 @@ public class CartServlet extends HttpServlet {
 
         ArrayList<GroceryItem> cart;
         ArrayList<GroceryItem> items = FileUtil.readItems(ITEMS_FILE);
+        if (items == null) {
+            items = new ArrayList<>();
+            System.out.println("Initialized empty items list for " + ITEMS_FILE + " (file not found or invalid)");
+        }
         System.out.println("Loaded items from " + ITEMS_FILE + ": " + items);
 
         synchronized (this) {
@@ -241,6 +358,6 @@ public class CartServlet extends HttpServlet {
     }
 
     private String escapeJson(String str) {
-        return str.replace("\"", "\\\"").replace("\n", "\\n");
+        return str != null ? str.replace("\"", "\\\"").replace("\n", "\\n") : "";
     }
 }

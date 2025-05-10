@@ -62,6 +62,7 @@
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
+    <url-pattern>/forgotPassword</url-pattern>
   </servlet-mapping>
 
   <!-- Map log out -->
@@ -165,6 +166,17 @@
     <servlet-name>DealServlet</servlet-name>
     <url-pattern>/DealServlet</url-pattern>
   </servlet-mapping>
+
+
+  <!-- Filter Configuration -->
+  <filter>
+    <filter-name>SessionCheckFilter</filter-name>
+    <filter-class>servlet.SessionCheckFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>SessionCheckFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 
 
   <!-- Optional: Welcome file list -->
