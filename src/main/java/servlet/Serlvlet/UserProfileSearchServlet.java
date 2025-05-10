@@ -65,13 +65,13 @@ public class UserProfileSearchServlet extends HttpServlet {
             // Sort by deliveredDate (newest first)
             orders.sort((o1, o2) -> {
                 try {
-                    // Handle null or empty deliveredDate
+                    // Handle cases where deliveredDate is null or empty
                     if (o1.getDeliveredDate() == null || o1.getDeliveredDate().isEmpty()) return 1;
                     if (o2.getDeliveredDate() == null || o2.getDeliveredDate().isEmpty()) return -1;
-
+//Convert deliveredDate strings to LocalDateTime
                     LocalDateTime date1 = LocalDateTime.parse(o1.getDeliveredDate(), DATE_TIME_FORMATTER);
                     LocalDateTime date2 = LocalDateTime.parse(o2.getDeliveredDate(), DATE_TIME_FORMATTER);
-                    return date2.compareTo(date1); // Newest first (descending)
+                    return date2.compareTo(date1); // Compare dates Newest first (descending)
                 } catch (Exception e) {
                     System.err.println("Error parsing deliveredDate: " + e.getMessage());
                     return 0; // If parsing fails, treat as equal
