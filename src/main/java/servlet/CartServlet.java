@@ -218,139 +218,143 @@ public class CartServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        User loggedInUser = (User) session.getAttribute("user");
-        if (loggedInUser == null) {
-            response.setContentType("application/json");
-            PrintWriter out = response.getWriter();
-            out.write("{\"success\": false, \"message\": \"Please log in to access the cart.\"}");
+        HttpSession session = request.getSession(); // get the current HTTP session
+        User loggedInUser = (User) session.getAttribute("user"); // get logged-in user from the session
+        if (loggedInUser == null) { // check user login or not
+            response.setContentType("application/json"); // set respond type to json
+            PrintWriter out = response.getWriter(); // get respond writer method
+            out.write("{\"success\": false, \"message\": \"Please log in to access the cart.\"}"); // send json error respond saying login is required
             out.flush();
-            return;
+            return;// exit the method
         }
 
-        System.out.println("Received POST request to CartServlet with action: " + request.getParameter("action"));
-        response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
+        System.out.println("Received POST request to CartServlet with action: " + request.getParameter("action")); // print the received POST request action for debug
+        response.setContentType("application/json");// set respond type to json
+        PrintWriter out = response.getWriter(); // get respond writer method
 
-        ArrayList<GroceryItem> cart;
-        ArrayList<GroceryItem> items = FileUtil.readItems(ITEMS_FILE);
-        if (items == null) {
-            items = new ArrayList<>();
-            System.out.println("Initialized empty items list for " + ITEMS_FILE + " (file not found or invalid)");
+        ArrayList<GroceryItem> cart; // place where cart variable store in
+        ArrayList<GroceryItem> items = FileUtil.readItems(ITEMS_FILE); // read grocery items from items.txt
+        if (items == null) { // file read failed
+            items = new ArrayList<>(); // make new empty one
+            System.out.println("Initialized empty items list for " + ITEMS_FILE + " (file not found or invalid)"); // tell empty new one created
         }
-        System.out.println("Loaded items from " + ITEMS_FILE + ": " + items);
+        System.out.println("Loaded items from " + ITEMS_FILE + ": " + items); // print items for debug
 
-        synchronized (this) {
-            cart = FileUtil.readItems(CART_FILE);
-            if (cart == null) {
-                cart = new ArrayList<>();
-                System.out.println("Initialized empty cart for " + CART_FILE);
+        synchronized (this) { // synchronize to ensure thread-safe cart operations
+            cart = FileUtil.readItems(CART_FILE); // read cart items from cart file
+            if (cart == null) { // read fail
+                cart = new ArrayList<>(); // make empty new arrayList
+                System.out.println("Initialized empty cart for " + CART_FILE); // tell empty array list created
             }
-            System.out.println("Loaded cart before modification: " + cart);
+            System.out.println("Loaded cart before modification: " + cart); // print the loaded cart before modification
 
             try {
-                if ("add".equals(request.getParameter("action"))) {
-                    System.out.println("Processing 'add' action with itemId: " + request.getParameter("itemId"));
-                    int itemId = Integer.parseInt(request.getParameter("itemId"));
-                    GroceryItem itemToAdd = items.stream().filter(item -> item.getProductID() == itemId).findFirst().orElse(null);
-                    if (itemToAdd == null) {
-                        System.out.println("Item not found for itemId: " + itemId);
-                        out.write("{\"success\": false, \"message\": \"Item not found\"}");
-                    } else if (itemToAdd.getQuantity() <= 0) {
-                        System.out.println("Item out of stock: " + itemToAdd);
-                        out.write("{\"success\": false, \"message\": \"Item is out of stock\"}");
+                if ("add".equals(request.getParameter("action"))) { // check if the action is to add an item to the cart
+                    System.out.println("Processing 'add' action with itemId: " + request.getParameter("itemId")); // print item ID added to the cart
+                    int itemId = Integer.parseInt(request.getParameter("itemId")); // parse the item ID from the request
+                    GroceryItem itemToAdd = items.stream().filter(item -> item.getProductID() == itemId).findFirst().orElse(null); // find the item in the items list by ID
+                    if (itemToAdd == null) { // if the item was not found
+                        System.out.println("Item not found for itemId: " + itemId); // tell item not found
+                        out.write("{\"success\": false, \"message\": \"Item not found\"}"); // send json error respond
+                    } else if (itemToAdd.getQuantity() <= 0) { // if the item is out of stock
+                        System.out.println("Item out of stock: " + itemToAdd); // tell item out of stock
+                        out.write("{\"success\": false, \"message\": \"Item is out of stock\"}"); // send json error respond
                     } else {
-                        GroceryItem existingItem = cart.stream().filter(item -> item.getProductID() == itemId).findFirst().orElse(null);
+                        GroceryItem existingItem = cart.stream().filter(item -> item.getProductID() == itemId).findFirst().orElse(null); // if the item is already in the cart
                         if (existingItem != null) {
-                            out.write("{\"success\": false, \"message\": \"Item already in cart, use cart to increase quantity\"}");
+                            out.write("{\"success\": false, \"message\": \"Item already in cart, use cart to increase quantity\"}"); // Send json error response if item is already in cart
                         } else {
+                            // create a new cart item with quantity 1
                             GroceryItem cartItem = new GroceryItem(itemToAdd.getProductID(), itemToAdd.getProductCategory(),
                                     itemToAdd.getProductName(), itemToAdd.getProductPrice(), itemToAdd.getProductImageLink(),
                                     1, itemToAdd.getDescription());
-                            cart.add(cartItem);
-                            itemToAdd.setQuantity(itemToAdd.getQuantity() - 1);
-                            FileUtil.writeItems(ITEMS_FILE, items);
-                            FileUtil.writeItems(CART_FILE, cart);
-                            System.out.println("Added new item to cart and updated stock: " + cartItem);
-                            double totalPrice = cart.stream().mapToDouble(GroceryItem::getTotalPrice).sum();
-                            sendCartResponse(out, cart, totalPrice, items);
+                            cart.add(cartItem); // Add the item to the cart
+                            itemToAdd.setQuantity(itemToAdd.getQuantity() - 1); // Decrease the stock quantity by 1
+                            FileUtil.writeItems(ITEMS_FILE, items); // write updated items list to ITEMS_FILE
+                            FileUtil.writeItems(CART_FILE, cart); // write updated cart to CART_FILE
+                            System.out.println("Added new item to cart and updated stock: " + cartItem); // print the addition of the new item
+                            double totalPrice = cart.stream().mapToDouble(GroceryItem::getTotalPrice).sum(); // calculate total sum
+                            sendCartResponse(out, cart, totalPrice, items); // Send json response with updated cart details
                         }
                     }
                 } else if ("update".equals(request.getParameter("action"))) {
-                    System.out.println("Processing 'update' action with itemId: " + request.getParameter("itemId"));
-                    int itemId = Integer.parseInt(request.getParameter("itemId"));
+                    System.out.println("Processing 'update' action with itemId: " + request.getParameter("itemId")); //print the item ID being updated
+                    int itemId = Integer.parseInt(request.getParameter("itemId")); // parse the item ID and quantity change from the request
                     int change = Integer.parseInt(request.getParameter("change"));
-                    GroceryItem item = cart.stream().filter(i -> i.getProductID() == itemId).findFirst().orElse(null);
-                    if (item == null) {
-                        System.out.println("Item not found in cart for itemId: " + itemId);
-                        out.write("{\"success\": false, \"message\": \"Item not found in cart\"}");
+                    GroceryItem item = cart.stream().filter(i -> i.getProductID() == itemId).findFirst().orElse(null); // find the item in the cart by ID
+                    if (item == null) { //if the item was not found in the cart
+                        System.out.println("Item not found in cart for itemId: " + itemId); //print item is not in the cart
+                        out.write("{\"success\": false, \"message\": \"Item not found in cart\"}"); // send json error response
                     } else {
+                        // get the stock quantity of the item
                         int stockQuantity = items.stream()
                                 .filter(i -> i.getProductID() == itemId)
                                 .findFirst()
                                 .map(GroceryItem::getQuantity)
                                 .orElse(0);
-                        int currentCartQuantity = item.getQuantity();
-                        int totalAvailableStock = stockQuantity + currentCartQuantity;
-                        int newQuantity = Math.max(0, Math.min(currentCartQuantity + change, totalAvailableStock));
-                        int quantityChange = newQuantity - currentCartQuantity;
-                        if (quantityChange != 0) {
+                        int currentCartQuantity = item.getQuantity(); // get the current quantity in the cart
+                        int totalAvailableStock = stockQuantity + currentCartQuantity; // calculate total available stock (stock + cart quantity)
+                        int newQuantity = Math.max(0, Math.min(currentCartQuantity + change, totalAvailableStock)); // calculate new quantity, ensuring it stays within 0 and total available stock
+                        int quantityChange = newQuantity - currentCartQuantity; // calculate the change in quantity
+                        if (quantityChange != 0) { // work only if there is a quantity change
+                            // find the stock item
                             GroceryItem stockItem = items.stream()
                                     .filter(i -> i.getProductID() == itemId)
                                     .findFirst()
                                     .orElse(null);
-                            if (stockItem != null) {
-                                stockItem.setQuantity(stockItem.getQuantity() - quantityChange);
-                                FileUtil.writeItems(ITEMS_FILE, items);
-                                System.out.println("Updated stock in " + ITEMS_FILE + ": " + items);
+                            if (stockItem != null) { // if quantity not null
+                                stockItem.setQuantity(stockItem.getQuantity() - quantityChange); // update stock quantity based on quantity change
+                                FileUtil.writeItems(ITEMS_FILE, items); // write updated items list to ITEMS_FILE
+                                System.out.println("Updated stock in " + ITEMS_FILE + ": " + items); // print updated stock
                             }
-                            item.setQuantity(newQuantity);
+                            item.setQuantity(newQuantity); // update the cart item's quantity
                             if (newQuantity == 0) {
-                                cart.remove(item);
-                                System.out.println("Removed item from cart: " + item);
+                                cart.remove(item); // remove item from cart if quantity is 0
+                                System.out.println("Removed item from cart: " + item); // print item removal
                             } else {
-                                System.out.println("Updated item quantity in cart: " + item);
+                                System.out.println("Updated item quantity in cart: " + item); // print updated item quantity
                             }
+                            // write updated cart to CART_FILE
                             FileUtil.writeItems(CART_FILE, cart);
-                            System.out.println("Wrote cart to " + CART_FILE + ": " + cart);
+                            System.out.println("Wrote cart to " + CART_FILE + ": " + cart); // print updated cart
                         }
-                        double totalPrice = cart.stream().mapToDouble(GroceryItem::getTotalPrice).sum();
-                        sendCartResponse(out, cart, totalPrice, items);
+                        double totalPrice = cart.stream().mapToDouble(GroceryItem::getTotalPrice).sum(); // calculate the total price of the cart
+                        sendCartResponse(out, cart, totalPrice, items);// send json response with updated cart details
                     }
                 } else if ("remove".equals(request.getParameter("action"))) {
-                    System.out.println("Processing 'remove' action with itemId: " + request.getParameter("itemId"));
-                    int itemId = Integer.parseInt(request.getParameter("itemId"));
-                    GroceryItem itemToRemove = cart.stream().filter(item -> item.getProductID() == itemId).findFirst().orElse(null);
-                    if (itemToRemove != null) {
-                        int quantityRemoved = itemToRemove.getQuantity();
-                        cart.remove(itemToRemove);
-                        GroceryItem stockItem = items.stream()
+                    System.out.println("Processing 'remove' action with itemId: " + request.getParameter("itemId")); // print the item ID being removed
+                    int itemId = Integer.parseInt(request.getParameter("itemId")); // parse the item ID from the request
+                    GroceryItem itemToRemove = cart.stream().filter(item -> item.getProductID() == itemId).findFirst().orElse(null); // find the item in the cart by ID
+                    if (itemToRemove != null) { // if the item was found
+                        int quantityRemoved = itemToRemove.getQuantity(); // get the quantity being removed
+                        cart.remove(itemToRemove); // remove the item from the cart
+                        GroceryItem stockItem = items.stream() // find the stock item
                                 .filter(item -> item.getProductID() == itemId)
                                 .findFirst()
                                 .orElse(null);
                         if (stockItem != null) {
-                            stockItem.setQuantity(stockItem.getQuantity() + quantityRemoved);
-                            FileUtil.writeItems(ITEMS_FILE, items);
-                            System.out.println("Updated stock in " + ITEMS_FILE + ": " + items);
+                            stockItem.setQuantity(stockItem.getQuantity() + quantityRemoved); // put back the removed quantity to stock
+                            FileUtil.writeItems(ITEMS_FILE, items); // updated items list to ITEMS_FILE
+                            System.out.println("Updated stock in " + ITEMS_FILE + ": " + items); // print updated stock
                         }
-                        FileUtil.writeItems(CART_FILE, cart);
+                        FileUtil.writeItems(CART_FILE, cart); // write updated cart to CART_FILE
                         System.out.println("Wrote cart to " + CART_FILE + ": " + cart);
-                        double totalPrice = cart.stream().mapToDouble(GroceryItem::getTotalPrice).sum();
-                        sendCartResponse(out, cart, totalPrice, items);
+                        double totalPrice = cart.stream().mapToDouble(GroceryItem::getTotalPrice).sum(); // calculate the total price of the cart
+                        sendCartResponse(out, cart, totalPrice, items); // send json response with updated cart details
                     } else {
-                        System.out.println("Item not found in cart for itemId: " + itemId);
-                        out.write("{\"success\": false, \"message\": \"Item not found in cart\"}");
+                        System.out.println("Item not found in cart for itemId: " + itemId); // print item not found
+                        out.write("{\"success\": false, \"message\": \"Item not found in cart\"}"); // send json error response
                     }
                 } else {
-                    System.out.println("Invalid action received: " + request.getParameter("action"));
-                    out.write("{\"success\": false, \"message\": \"Invalid action\"}");
+                    System.out.println("Invalid action received: " + request.getParameter("action")); // print invalid action
+                    out.write("{\"success\": false, \"message\": \"Invalid action\"}"); // send json error response for invalid action
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Invalid item ID or change value: " + e.getMessage());
-                out.write("{\"success\": false, \"message\": \"Invalid item ID or change value\"}");
+                System.out.println("Invalid item ID or change value: " + e.getMessage()); // print invalid item ID or change value
+                out.write("{\"success\": false, \"message\": \"Invalid item ID or change value\"}"); // send json error response
             } catch (IOException e) {
-                System.err.println("I/O error during cart operation: " + e.getMessage());
-                out.write("{\"success\": false, \"message\": \"Failed to update cart due to I/O error\"}");
+                System.err.println("I/O error during cart operation: " + e.getMessage()); // print I/O error
+                out.write("{\"success\": false, \"message\": \"Failed to update cart due to I/O error\"}"); // send json error response
             }
         }
         out.flush();
