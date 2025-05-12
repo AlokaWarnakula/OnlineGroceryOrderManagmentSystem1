@@ -5,10 +5,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+// import model classes
 import model.FileUtil;
 import model.GroceryItem;
 import model.User;
-
+//import I/O and utility classes
 import java.io.*;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -19,7 +20,7 @@ public class CartServlet extends HttpServlet {
     private MergeServlet mergeServlet; // Instance of MergeServlet for sorting items
 
     @Override
-    public void init() throws ServletException {
+    public void init() throws ServletException { // check data directory exist if not create one
         File dataDir = new File("/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data");
         if (!dataDir.exists()) {
             if (dataDir.mkdirs()) {
@@ -32,10 +33,10 @@ public class CartServlet extends HttpServlet {
             System.err.println("Data directory is not writable: " + dataDir.getAbsolutePath());
             throw new ServletException("Data directory is not writable for file operations");
         }
-
+        //print log file path for easy debugging
         System.out.println("ITEMS_FILE path: " + ITEMS_FILE);
         System.out.println("CART_FILE path: " + CART_FILE);
-        mergeServlet = new MergeServlet(); // Initialize MergeServlet
+        mergeServlet = new MergeServlet(); // Instance of MergeServlet for sorting items
     }
 
     @Override
@@ -45,113 +46,127 @@ public class CartServlet extends HttpServlet {
         if (loggedInUser == null) {
             response.sendRedirect(request.getContextPath() + "/userLogin/login.jsp?error=notLoggedIn");
             return;
-        }
+        } //get user from session if the use not redirect to log in
 
-        ArrayList<GroceryItem> cart;
-        synchronized (this) {
+        ArrayList<GroceryItem> cart; //store GroceryItem objects for the cart
+        synchronized (this) { // thread-safe access to file operations
             cart = FileUtil.readItems(CART_FILE);
-            if (cart == null) {
+            if (cart == null) {// if cart empty make new one and log
                 cart = new ArrayList<>();
                 System.out.println("Initialized empty cart for " + CART_FILE + " (file not found or invalid)");
-            } else {
+            } else { // tell cart loaded with content
                 System.out.println("Loaded cart from " + CART_FILE + ": " + cart);
             }
         }
 
-        ArrayList<GroceryItem> items = FileUtil.readItems(ITEMS_FILE);
-        if (items == null) {
+        ArrayList<GroceryItem> items = FileUtil.readItems(ITEMS_FILE); // items file read
+        if (items == null) { // if items null init new array
             items = new ArrayList<>();
             System.out.println("Initialized empty items list for " + ITEMS_FILE + " (file not found or invalid)");
         }
-        System.out.println("All loaded items: " + items);
-        double totalPrice = cart.stream().mapToDouble(GroceryItem::getTotalPrice).sum();
+        System.out.println("All loaded items: " + items); // for debug
+        double totalPrice = cart.stream().mapToDouble(GroceryItem::getTotalPrice).sum(); // calculate total price of items in cart by summing individual prices
 
-        String action = request.getParameter("action");
+        String action = request.getParameter("action"); // get action from http request
         System.out.println("doGet action: " + action);
-        if ("getCart".equals(action)) {
-            response.setContentType("application/json");
+        if ("getCart".equals(action)) { // return cart details as JSON
+            response.setContentType("application/json"); //content type to JSON
             PrintWriter out = response.getWriter();
-            if (cart.isEmpty()) {
+            if (cart.isEmpty()) { // cart is empty, send an empty cart JSON response
                 out.write("{\"success\": true, \"message\": \"Cart is empty\", \"cart\": [], \"totalPrice\": 0.00}");
             } else {
-                sendCartResponse(out, cart, totalPrice, items);
+                sendCartResponse(out, cart, totalPrice, items); // Send cart details if cart is not empty
             }
-            out.flush();
+            out.flush(); // ensure it is sent to the client
         } else {
+            //get filter parameters from the request
             String category = request.getParameter("category");
             String minPriceStr = request.getParameter("minPrice");
             String maxPriceStr = request.getParameter("maxPrice");
             String name = request.getParameter("name");
             String sortBy = request.getParameter("sortBy"); // Primary sorting criterion
-
+            //log printer para for debug
             System.out.println("Parameters - category: " + category + ", minPrice: " + minPriceStr + ", maxPrice: " + maxPriceStr + ", name: " + name + ", sortBy: " + sortBy);
 
-            // Default category to null (show all) if not specified or "All"
+            // default category to null -> show all if not specified or "All"
             if (category == null || category.trim().isEmpty() || category.equalsIgnoreCase("All")) {
-                category = null; // Show all categories
+                category = null; // show all categories
                 System.out.println("No specific category selected, showing all products");
             }
             final String finalCategory = category; // Create a final copy for lambda expression
 
-            ArrayList<GroceryItem> filteredItems = new ArrayList<>(items);
+            ArrayList<GroceryItem> filteredItems = new ArrayList<>(items); // new ArrayList with all items for filtering
             System.out.println("Initial items count: " + filteredItems.size());
 
-            // Step 1: Filter by category if specified
+            // filter by category if specified
             if (finalCategory != null && !finalCategory.trim().isEmpty()) {
                 filteredItems = filteredItems.stream()
-                        .filter(item -> {
+                        // filter items where category matches the specified category (case-insensitive)
+                        .filter(item -> { // lambda expression
                             boolean matches = item.getProductCategory().equalsIgnoreCase(finalCategory);
                             System.out.println("Checking category for item " + item.getProductName() + ": " + item.getProductCategory() + " == " + finalCategory + " -> " + matches);
                             return matches;
                         })
+                        // add filtered items into a new ArrayList
                         .collect(Collectors.toCollection(ArrayList::new));
                 System.out.println("After category filter, result size: " + filteredItems.size());
                 System.out.println("Items after category filter: " + filteredItems);
             }
 
-            // Step 2: Filter by name if specified
+            // filter by name if specified
             if (name != null && !name.trim().isEmpty()) {
                 filteredItems = filteredItems.stream()
+                        // filter items where product name contains the specified name (case-insensitive)
                         .filter(item -> {
                             boolean matches = item.getProductName().toLowerCase().contains(name.toLowerCase());
                             System.out.println("Checking name for item " + item.getProductName() + ": contains " + name + " -> " + matches);
                             return matches;
                         })
+                        // add filtered items into a new ArrayList
                         .collect(Collectors.toCollection(ArrayList::new));
+                // print number of items and filtered list after name filter
                 System.out.println("After name filter, result size: " + filteredItems.size());
                 System.out.println("Items after name filter: " + filteredItems);
             }
 
-            // Step 3: Filter by price range
-            // Apply minPrice filter
+            // filter by price range apply minPrice filter
             if (minPriceStr != null && !minPriceStr.trim().isEmpty()) {
                 try {
+                    // parse the minimum price as a double
                     double minPrice = Double.parseDouble(minPriceStr);
                     filteredItems = filteredItems.stream()
+                            // filter items where price is greater than or equal to minPrice
                             .filter(item -> {
                                 boolean matches = item.getProductPrice() >= minPrice;
                                 System.out.println("Checking minPrice for item " + item.getProductName() + ": " + item.getProductPrice() + " >= " + minPrice + " -> " + matches);
                                 return matches;
                             })
+                            // add filtered items into a new ArrayList
                             .collect(Collectors.toCollection(ArrayList::new));
+                    // print number of items and filtered list after minPrice filter
                     System.out.println("After minPrice filter (" + minPrice + "), result size: " + filteredItems.size());
                     System.out.println("Items after minPrice filter: " + filteredItems);
                 } catch (NumberFormatException e) {
+                    // print error if minPrice is invalid
                     System.out.println("Invalid minPrice: " + minPriceStr);
                 }
             }
 
-            // Apply maxPrice filter
+            // maxPrice filter
             if (maxPriceStr != null && !maxPriceStr.trim().isEmpty()) {
                 try {
+                    // parse the maximum price as a double
                     double maxPrice = Double.parseDouble(maxPriceStr);
                     filteredItems = filteredItems.stream()
+                            // filter items where price is less than or equal to maxPrice
                             .filter(item -> {
                                 boolean matches = item.getProductPrice() <= maxPrice;
                                 System.out.println("Checking maxPrice for item " + item.getProductName() + ": " + item.getProductPrice() + " <= " + maxPrice + " -> " + matches);
                                 return matches;
                             })
+                            // add filtered items into a new ArrayList
                             .collect(Collectors.toCollection(ArrayList::new));
+                    // print number of items and filtered list after maxPrice filter
                     System.out.println("After maxPrice filter (" + maxPrice + "), result size: " + filteredItems.size());
                     System.out.println("Items after maxPrice filter: " + filteredItems);
                 } catch (NumberFormatException e) {
@@ -159,12 +174,13 @@ public class CartServlet extends HttpServlet {
                 }
             }
 
-            // Step 4: Sort the filtered items using MergeServlet
+            // Sort the filtered items using MergeServlet
             if (!filteredItems.isEmpty()) {
-                MergeServlet.SortCriterion sortCriterion = MergeServlet.SortCriterion.NAME; // Default to name
+                MergeServlet.SortCriterion sortCriterion = MergeServlet.SortCriterion.NAME; // default to name
 
                 // Map sortBy parameter to SortCriterion
                 if (sortBy != null) {
+                    //default sorting to name
                     switch (sortBy.toLowerCase()) {
                         case "name":
                             sortCriterion = MergeServlet.SortCriterion.NAME;
@@ -173,25 +189,29 @@ public class CartServlet extends HttpServlet {
                             sortCriterion = MergeServlet.SortCriterion.PRICE;
                             break;
                         default:
+                            // print if sortBy parameter is invalid and default to name
                             System.out.println("Invalid sortBy parameter: " + sortBy + ", defaulting to NAME");
                     }
                 }
-
+                // print the sorting criterion
                 System.out.println("Sorting items with sortCriterion=" + sortCriterion);
+                // sort the filtered items using MergeServlet
                 mergeServlet.sortItems(filteredItems, sortCriterion);
             }
 
-            // Determine if we're showing search results or a specific category
+            // determine if we're showing search results or a specific category
             boolean isSearchResult = (name != null && !name.trim().isEmpty()) ||
                     (minPriceStr != null && !minPriceStr.trim().isEmpty()) ||
                     (maxPriceStr != null && !maxPriceStr.trim().isEmpty());
-
+            // set request attributes for the cartIndex.jsp page
             request.setAttribute("items", filteredItems);
             request.setAttribute("cart", cart);
             request.setAttribute("totalPrice", totalPrice);
             request.setAttribute("category", category);
             request.setAttribute("isSearchResult", isSearchResult);
+            //print forwarding details
             System.out.println("Forwarding to cartIndex.jsp with items size: " + filteredItems.size() + ", isSearchResult: " + isSearchResult);
+            // forward the request to the cartIndex.jsp page
             request.getRequestDispatcher("/cartAndOrders/cartIndex.jsp").forward(request, response);
         }
     }
