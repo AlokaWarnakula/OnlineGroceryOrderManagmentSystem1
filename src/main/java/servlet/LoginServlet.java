@@ -22,9 +22,9 @@ public class LoginServlet extends HttpServlet {
         LOGGED_IN_USER_FILE = basePath + "/loggedInUser.txt";
         USERS_FILE = basePath + "/users.txt";
         ADMINS_FILE = basePath + "/admins.txt";
-        System.out.println("LOGGED_IN_USER_FILE path: " + LOGGED_IN_USER_FILE);
-        System.out.println("USERS_FILE path: " + USERS_FILE);
-        System.out.println("ADMINS_FILE path: " + ADMINS_FILE);
+        System.out.println("LOGGED_IN_USER_FILE path: " + this.LOGGED_IN_USER_FILE);
+        System.out.println("USERS_FILE path: " + this.USERS_FILE);
+        System.out.println("ADMINS_FILE path: " + this.ADMINS_FILE);
     }
 
     @Override
