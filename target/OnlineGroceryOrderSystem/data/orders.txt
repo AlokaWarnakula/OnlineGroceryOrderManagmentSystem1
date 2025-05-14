@@ -183,22 +183,3 @@ productID=15, quantity=1
 totalPrice=1458.00
 --- Order End ---
 
---- Order Start: OD716202148796 ---
-orderNumber=OD716202148796
-userNumber=US021583101081
-name=aloka warnakula mn
-phoneNum=0711641638
-address=21/6/6A, somanada mawatha, pitumpe, padukka
-deliveryMethod=same-day
-paymentMethod=online card
-confirmationDate=2025-05-09 21:15:06
-paymentStatus=Paid
-deliveryStatus=Pending
-orderStatus=Pending
-deliveredDate=
-[products]
-productID=27, quantity=4
-[total]
-totalPrice=5348.00
---- Order End ---
-

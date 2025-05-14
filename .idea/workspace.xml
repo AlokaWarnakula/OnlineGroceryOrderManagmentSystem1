@@ -9,7 +9,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7feb0de7-0214-41fa-b444-d82370075b7f" name="Changes" comment="project main init" />
+    <list default="true" id="7feb0de7-0214-41fa-b444-d82370075b7f" name="Changes" comment="project main init">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/CartServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/CartServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/MergeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/MergeServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/logIn.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/logIn.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/data/items.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/data/items.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/data/loggedInUser.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/data/loggedInUser.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/data/orders.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/data/orders.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/userLogin/Success.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/userLogin/Success.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/userLogin/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/userLogin/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/OnlineGroceryOrderSystem/WEB-INF/classes/items.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/OnlineGroceryOrderSystem/WEB-INF/classes/items.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/OnlineGroceryOrderSystem/css/logIn.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/OnlineGroceryOrderSystem/css/logIn.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/OnlineGroceryOrderSystem/data/items.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/OnlineGroceryOrderSystem/data/items.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/OnlineGroceryOrderSystem/data/loggedInUser.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/OnlineGroceryOrderSystem/data/loggedInUser.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/OnlineGroceryOrderSystem/data/orders.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/OnlineGroceryOrderSystem/data/orders.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/OnlineGroceryOrderSystem/userLogin/Success.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/OnlineGroceryOrderSystem/userLogin/Success.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/OnlineGroceryOrderSystem/userLogin/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/OnlineGroceryOrderSystem/userLogin/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/servlet/CartServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/servlet/MergeServlet$SortCriterion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/servlet/MergeServlet.class" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -244,6 +265,7 @@
         </TomcatInfo>
       </option>
       <option name="vmOptions" value="" />
+      <module name="OnlineGroceryOrderSystem" />
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
@@ -270,6 +292,7 @@
         </TomcatInfo>
       </option>
       <option name="vmOptions" value="" />
+      <module name="OnlineGroceryOrderSystem" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -841,7 +864,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="user profile delete pop up button size change" />
     <MESSAGE value="User profile order history update, cancel and previous one's." />
     <MESSAGE value="user profile order cancel button new page to check and review user's order list." />
     <MESSAGE value="UserProfile Branch Initiate" />
@@ -866,7 +888,8 @@
     <MESSAGE value="Index.jsp page Deal Section Finished and Entire Project Work Done" />
     <MESSAGE value="new branch cart init" />
     <MESSAGE value="project main init" />
-    <option name="LAST_COMMIT_MESSAGE" value="project main init" />
+    <MESSAGE value="Rebase error fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rebase error fixed" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

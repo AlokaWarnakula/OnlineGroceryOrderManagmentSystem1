@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             height: 100vh; /* Full viewport height */
-            background-image: url('https://thumbs.dreamstime.com/b/casual-cheerful-family-moment-shopping-needs-together-flat-vector-family-grocery-shopping-supermarket-346622194.jpg');
+            background-image: url('https://img.freepik.com/free-photo/woman-shopping-vegetables-supermarket_1157-37875.jpg?ga=GA1.1.1475331235.1731237648&semt=ais_hybrid&w=740');
             background-size: cover;
             background-repeat: no-repeat;
             display: flex; /* Use flexbox to center */

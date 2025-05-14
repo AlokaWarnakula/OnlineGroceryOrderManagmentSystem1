@@ -79,7 +79,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background: url('https://img.freepik.com/free-photo/shopping-cart-full-products-inside-supermarket_123827-28165.jpg?ga=GA1.1.1475331235.1731237648&semt=ais_hybrid&w=740') no-repeat center center fixed; background-size: cover">
 <div class="overlay" id="popupOverlay"></div>
 <div class="popup" id="errorPopup">
     <div class="popup-content">
@@ -92,14 +92,14 @@
     <input type="checkbox" id="flip">
     <div class="cover">
         <div class="front">
-            <img src="https://i.pinimg.com/736x/6a/3a/1c/6a3a1c241f4e81ac57975037ab928d8b.jpg" alt="">
+            <img src="https://img.freepik.com/free-photo/delivery-concept-handsome-african-american-delivery-man-carrying-package-box-grocery-food-drink-from-store-isolated-grey-studio-background-copy-space_1258-1230.jpg?ga=GA1.1.1475331235.1731237648&w=740" alt="">
             <div class="text">
                 <span class="text-1">Every new friend is a <br> new adventure</span>
                 <span class="text-2">Let's get connected</span>
             </div>
         </div>
         <div class="back">
-            <img src="https://cdn.donmai.us/original/56/9f/569f8455732d366e27f396611ead70b8.jpg">
+            <img src="https://img.freepik.com/free-photo/woman-holding-glass-juice-showing-phone-mock-up_23-2148332116.jpg?ga=GA1.1.1475331235.1731237648&semt=ais_hybrid&w=740">
             <div class="text">
                 <span class="text-1">Complete miles of journey <br> with one step</span>
                 <span class="text-2">Let's get started</span>
