@@ -1,0 +1,323 @@
+Index: target/OnlineGroceryOrderSystem/WEB-INF/classes/orders.txt
+===================================================================
+diff --git a/target/OnlineGroceryOrderSystem/WEB-INF/classes/orders.txt b/target/OnlineGroceryOrderSystem/WEB-INF/classes/orders.txt
+deleted file mode 100644
+--- a/target/OnlineGroceryOrderSystem/WEB-INF/classes/orders.txt	(revision 3980ffd4a853f70722a8fbb8a9b23f3e0ef9edd4)
++++ /dev/null	(revision 3980ffd4a853f70722a8fbb8a9b23f3e0ef9edd4)
+@@ -1,136 +0,0 @@
+---- Order Start: OD431569765512 ---
+-orderNumber=OD431569765512
+-userNumber=US111111111111
+-name=aloka warnakula
+-phoneNum=0711641638
+-address=21/6/6/A soma
+-deliveryMethod=same-day
+-paymentMethod=cash on delivery
+-deliveryDate=2025-03-16
+-confirmationDate=2025-03-16 21:10:58
+-paymentStatus=Pending
+-deliveryStatus=Pending
+-orderStatus=active
+-[products]
+-productID=1, quantity=2
+-productID=2, quantity=2
+-[total]
+-totalPrice=1.60
+---- Order End ---
+-
+---- Order Start: OD083338893972 ---
+-orderNumber=OD083338893972
+-userNumber=US111111111111
+-name=AI.Picture8
+-phoneNum=0711641638
+-address=21/6/6A, somanada mawatha, pitumpe, padukka
+-deliveryMethod=store pickup
+-paymentMethod=online card
+-deliveryDate=2025-03-23
+-confirmationDate=2025-03-16 21:12:33
+-paymentStatus=Paid
+-deliveryStatus=Pending
+-orderStatus=active
+-[products]
+-productID=1, quantity=3
+-productID=2, quantity=3
+-[total]
+-totalPrice=2.40
+---- Order End ---
+-
+---- Order Start: OD089517536572 ---
+-orderNumber=OD089517536572
+-userNumber=US111111111111
+-name=aloka warnakula
+-phoneNum=0711641638
+-address=21/6/6A, somanada mawatha, pitumpe, padukka
+-deliveryMethod=store pickup
+-paymentMethod=online card
+-deliveryDate=2025-03-23
+-confirmationDate=2025-03-16 21:51:12
+-paymentStatus=Paid
+-deliveryStatus=Pending
+-orderStatus=active
+-[products]
+-productID=1, quantity=10
+-productID=2, quantity=10
+-[total]
+-totalPrice=8.00
+---- Order End ---
+-
+---- Order Start: OD003506322177 ---
+-orderNumber=OD003506322177
+-userNumber=US111111111111
+-name=aloka warnakula
+-phoneNum=00
+-address=21/6/6/A soma
+-deliveryMethod=store pickup
+-paymentMethod=online card
+-deliveryDate=2025-03-23
+-confirmationDate=2025-03-16 22:33:09
+-paymentStatus=Paid
+-deliveryStatus=Pending
+-orderStatus=active
+-[products]
+-productID=27, quantity=10
+-[total]
+-totalPrice=700.00
+---- Order End ---
+-
+---- Order Start: OD028829163551 ---
+-orderNumber=OD028829163551
+-userNumber=US111111111111
+-name=jayashan guruge
+-phoneNum=0764350677
+-address="Sampatha"
+-deliveryMethod=store pickup
+-paymentMethod=cash on delivery
+-deliveryDate=2025-03-18
+-confirmationDate=2025-03-17 08:13:05
+-paymentStatus=Pending
+-deliveryStatus=Pending
+-orderStatus=active
+-[products]
+-productID=27, quantity=10
+-[total]
+-totalPrice=700.00
+---- Order End ---
+-
+---- Order Start: OD434364219642 ---
+-orderNumber=OD434364219642
+-userNumber=US111111111111
+-name=AI.Picture8
+-phoneNum=0711641638
+-address=21/6/6A, somanada mawatha, pitumpe, padukka
+-deliveryMethod=store pickup
+-paymentMethod=online card
+-deliveryDate=2025-03-20
+-confirmationDate=2025-03-17 12:03:51
+-paymentStatus=Paid
+-deliveryStatus=Pending
+-orderStatus=active
+-[products]
+-productID=2, quantity=10
+-[total]
+-totalPrice=4500.00
+---- Order End ---
+-
+---- Order Start: OD480097990033 ---
+-orderNumber=OD480097990033
+-userNumber=US111111111111
+-name=aloka warnakula
+-phoneNum=0711641638
+-address=21/6/6A, somanada mawatha, pitumpe, padukka
+-deliveryMethod=store pickup
+-paymentMethod=cash on delivery
+-deliveryDate=2025-03-26
+-confirmationDate=2025-03-17 12:12:04
+-paymentStatus=Pending
+-deliveryStatus=Pending
+-orderStatus=active
+-[products]
+-productID=1, quantity=10
+-[total]
+-totalPrice=2000.00
+---- Order End ---
+-
+Index: target/OnlineGroceryOrderSystem/WEB-INF/classes/loggedInUser.txt
+===================================================================
+diff --git a/target/OnlineGroceryOrderSystem/WEB-INF/classes/loggedInUser.txt b/target/OnlineGroceryOrderSystem/WEB-INF/classes/loggedInUser.txt
+deleted file mode 100644
+--- a/target/OnlineGroceryOrderSystem/WEB-INF/classes/loggedInUser.txt	(revision 3980ffd4a853f70722a8fbb8a9b23f3e0ef9edd4)
++++ /dev/null	(revision 3980ffd4a853f70722a8fbb8a9b23f3e0ef9edd4)
+@@ -1,5 +0,0 @@
+-userNumber=US143000078979
+-fullName=aloka warnakula
+-email=alokawarnakula77@gmail.com
+-phoneNumber=0711641638
+-address=21/6/6A, somanada mawatha, pitumpe, padukka
+Index: target/OnlineGroceryOrderSystem/WEB-INF/web.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-app xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\"\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd\"\n         version=\"4.0\">\n\n  <!-- Define the CartServlet -->\n  <servlet>\n    <servlet-name>CartServlet</servlet-name>\n    <servlet-class>servlet.CartServlet</servlet-class>\n  </servlet>\n\n  <!-- Map the CartServlet to /CartServlet URL pattern -->\n  <servlet-mapping>\n    <servlet-name>CartServlet</servlet-name>\n    <url-pattern>/CartServlet</url-pattern>\n  </servlet-mapping>\n\n  <!-- Define the ProductDetailsServlet -->\n  <servlet>\n    <servlet-name>ProductDetailsServlet</servlet-name>\n    <servlet-class>servlet.ProductDetailsServlet</servlet-class>\n  </servlet>\n\n  <!-- Map the ProductDetailsServlet to /ProductDetailsServlet URL pattern -->\n  <servlet-mapping>\n    <servlet-name>ProductDetailsServlet</servlet-name>\n    <url-pattern>/ProductDetailsServlet</url-pattern>\n  </servlet-mapping>\n\n  <!-- Define the OrderServlet -->\n  <servlet>\n    <servlet-name>OrderServlet</servlet-name>\n    <servlet-class>servlet.OrderServlet</servlet-class>\n  </servlet>\n\n  <!-- Map the OrderServlet to /OrderServlet URL pattern -->\n  <servlet-mapping>\n    <servlet-name>OrderServlet</servlet-name>\n    <url-pattern>/OrderServlet</url-pattern>\n  </servlet-mapping>\n\n  <!-- Define the RegisterServlet -->\n  <servlet>\n    <servlet-name>RegisterServlet</servlet-name>\n    <servlet-class>servlet.RegisterServlet</servlet-class>\n  </servlet>\n\n  <!-- Map the RegisterServlet to /RegisterServlet URL pattern -->\n  <servlet-mapping>\n    <servlet-name>RegisterServlet</servlet-name>\n    <url-pattern>/RegisterServlet</url-pattern>\n  </servlet-mapping>\n\n  <!-- Define the LoginServlet -->\n  <servlet>\n    <servlet-name>LoginServlet</servlet-name>\n    <servlet-class>servlet.LoginServlet</servlet-class>\n  </servlet>\n\n  <!-- Map the LoginServlet to /LoginServlet URL pattern -->\n  <servlet-mapping>\n    <servlet-name>LoginServlet</servlet-name>\n    <url-pattern>/LoginServlet</url-pattern>\n  </servlet-mapping>\n\n  <!-- Map log out -->\n  <servlet>\n    <servlet-name>LogoutServlet</servlet-name>\n    <servlet-class>servlet.LogoutServlet</servlet-class>\n  </servlet>\n  <servlet-mapping>\n    <servlet-name>LogoutServlet</servlet-name>\n    <url-pattern>/LogoutServlet</url-pattern>\n  </servlet-mapping>\n\n  <!-- Servlet Definition for UserProfileServlet -->\n  <servlet>\n    <servlet-name>UserProfileServlet</servlet-name>\n    <servlet-class>servlet.UserProfileServlet</servlet-class>\n  </servlet>\n\n  <!-- Servlet Mapping for UserProfileServlet -->\n  <servlet-mapping>\n    <servlet-name>UserProfileServlet</servlet-name>\n    <url-pattern>/UserProfileServlet</url-pattern>\n  </servlet-mapping>\n\n  <servlet>\n    <servlet-name>UserProfileSearchServlet</servlet-name>\n    <servlet-class>servlet.UserProfileSearchServlet</servlet-class>\n  </servlet>\n  <servlet-mapping>\n    <servlet-name>UserProfileSearchServlet</servlet-name>\n    <url-pattern>/UserProfileSearchServlet</url-pattern>\n  </servlet-mapping>\n\n\n  <!-- Add AdminServlet mapping -->\n  <servlet>\n    <servlet-name>AdminServlet</servlet-name>\n    <servlet-class>servlet.AdminServlet</servlet-class>\n  </servlet>\n  <servlet-mapping>\n    <servlet-name>AdminServlet</servlet-name>\n    <url-pattern>/AdminServlet</url-pattern>\n  </servlet-mapping>\n\n\n  <!-- Define the OrderAdminServlet -->\n  <servlet>\n    <servlet-name>OrderAdminServlet</servlet-name>\n    <servlet-class>servlet.OrderAdminServlet</servlet-class>\n  </servlet>\n\n  <!-- Map the OrderAdminServlet to /OrderAdminServlet URL pattern -->\n  <servlet-mapping>\n    <servlet-name>OrderAdminServlet</servlet-name>\n    <url-pattern>/OrderAdminServlet</url-pattern>\n  </servlet-mapping>\n\n  <!-- Servlet Definition for StockAdminServlet -->\n  <servlet>\n    <servlet-name>StockAdminServlet</servlet-name>\n    <servlet-class>servlet.StockAdminServlet</servlet-class>\n  </servlet>\n  <servlet-mapping>\n    <servlet-name>StockAdminServlet</servlet-name>\n    <url-pattern>/StockAdminServlet</url-pattern>\n  </servlet-mapping>\n\n\n  <!-- Servlet Definition for ProductAdminServlet -->\n  <servlet>\n    <servlet-name>ProductAdminServlet</servlet-name>\n    <servlet-class>servlet.ProductAdminServlet</servlet-class>\n  </servlet>\n  <servlet-mapping>\n    <servlet-name>ProductAdminServlet</servlet-name>\n    <url-pattern>/ProductAdminServlet</url-pattern>\n  </servlet-mapping>\n\n\n  <!-- Servlet Definition for UserAdminServlet -->\n  <servlet>\n    <servlet-name>UserAdminServlet</servlet-name>\n    <servlet-class>servlet.UserAdminServlet</servlet-class>\n  </servlet>\n\n  <!-- Servlet Mapping for UserAdminServlet -->\n  <servlet-mapping>\n    <servlet-name>UserAdminServlet</servlet-name>\n    <url-pattern>/UserAdminServlet</url-pattern>\n  </servlet-mapping>\n\n\n  <!-- Servlet Definition for DealServlet -->\n  <servlet>\n    <servlet-name>DealServlet</servlet-name>\n    <servlet-class>servlet.DealServlet</servlet-class>\n  </servlet>\n\n  <!-- Servlet Mapping for DealServlet -->\n  <servlet-mapping>\n    <servlet-name>DealServlet</servlet-name>\n    <url-pattern>/DealServlet</url-pattern>\n  </servlet-mapping>\n\n\n  <!-- Optional: Welcome file list -->\n  <welcome-file-list>\n    <welcome-file>index.jsp</welcome-file>\n  </welcome-file-list>\n</web-app>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/OnlineGroceryOrderSystem/WEB-INF/web.xml b/target/OnlineGroceryOrderSystem/WEB-INF/web.xml
+--- a/target/OnlineGroceryOrderSystem/WEB-INF/web.xml	(revision 3980ffd4a853f70722a8fbb8a9b23f3e0ef9edd4)
++++ b/target/OnlineGroceryOrderSystem/WEB-INF/web.xml	(date 1746805782514)
+@@ -74,98 +74,6 @@
+     <url-pattern>/LogoutServlet</url-pattern>
+   </servlet-mapping>
+ 
+-  <!-- Servlet Definition for UserProfileServlet -->
+-  <servlet>
+-    <servlet-name>UserProfileServlet</servlet-name>
+-    <servlet-class>servlet.UserProfileServlet</servlet-class>
+-  </servlet>
+-
+-  <!-- Servlet Mapping for UserProfileServlet -->
+-  <servlet-mapping>
+-    <servlet-name>UserProfileServlet</servlet-name>
+-    <url-pattern>/UserProfileServlet</url-pattern>
+-  </servlet-mapping>
+-
+-  <servlet>
+-    <servlet-name>UserProfileSearchServlet</servlet-name>
+-    <servlet-class>servlet.UserProfileSearchServlet</servlet-class>
+-  </servlet>
+-  <servlet-mapping>
+-    <servlet-name>UserProfileSearchServlet</servlet-name>
+-    <url-pattern>/UserProfileSearchServlet</url-pattern>
+-  </servlet-mapping>
+-
+-
+-  <!-- Add AdminServlet mapping -->
+-  <servlet>
+-    <servlet-name>AdminServlet</servlet-name>
+-    <servlet-class>servlet.AdminServlet</servlet-class>
+-  </servlet>
+-  <servlet-mapping>
+-    <servlet-name>AdminServlet</servlet-name>
+-    <url-pattern>/AdminServlet</url-pattern>
+-  </servlet-mapping>
+-
+-
+-  <!-- Define the OrderAdminServlet -->
+-  <servlet>
+-    <servlet-name>OrderAdminServlet</servlet-name>
+-    <servlet-class>servlet.OrderAdminServlet</servlet-class>
+-  </servlet>
+-
+-  <!-- Map the OrderAdminServlet to /OrderAdminServlet URL pattern -->
+-  <servlet-mapping>
+-    <servlet-name>OrderAdminServlet</servlet-name>
+-    <url-pattern>/OrderAdminServlet</url-pattern>
+-  </servlet-mapping>
+-
+-  <!-- Servlet Definition for StockAdminServlet -->
+-  <servlet>
+-    <servlet-name>StockAdminServlet</servlet-name>
+-    <servlet-class>servlet.StockAdminServlet</servlet-class>
+-  </servlet>
+-  <servlet-mapping>
+-    <servlet-name>StockAdminServlet</servlet-name>
+-    <url-pattern>/StockAdminServlet</url-pattern>
+-  </servlet-mapping>
+-
+-
+-  <!-- Servlet Definition for ProductAdminServlet -->
+-  <servlet>
+-    <servlet-name>ProductAdminServlet</servlet-name>
+-    <servlet-class>servlet.ProductAdminServlet</servlet-class>
+-  </servlet>
+-  <servlet-mapping>
+-    <servlet-name>ProductAdminServlet</servlet-name>
+-    <url-pattern>/ProductAdminServlet</url-pattern>
+-  </servlet-mapping>
+-
+-
+-  <!-- Servlet Definition for UserAdminServlet -->
+-  <servlet>
+-    <servlet-name>UserAdminServlet</servlet-name>
+-    <servlet-class>servlet.UserAdminServlet</servlet-class>
+-  </servlet>
+-
+-  <!-- Servlet Mapping for UserAdminServlet -->
+-  <servlet-mapping>
+-    <servlet-name>UserAdminServlet</servlet-name>
+-    <url-pattern>/UserAdminServlet</url-pattern>
+-  </servlet-mapping>
+-
+-
+-  <!-- Servlet Definition for DealServlet -->
+-  <servlet>
+-    <servlet-name>DealServlet</servlet-name>
+-    <servlet-class>servlet.DealServlet</servlet-class>
+-  </servlet>
+-
+-  <!-- Servlet Mapping for DealServlet -->
+-  <servlet-mapping>
+-    <servlet-name>DealServlet</servlet-name>
+-    <url-pattern>/DealServlet</url-pattern>
+-  </servlet-mapping>
+-
+ 
+   <!-- Optional: Welcome file list -->
+   <welcome-file-list>
+Index: src/main/webapp/data/loggedInUser.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/webapp/data/loggedInUser.txt b/src/main/webapp/data/loggedInUser.txt
+--- a/src/main/webapp/data/loggedInUser.txt	(revision 3980ffd4a853f70722a8fbb8a9b23f3e0ef9edd4)
++++ b/src/main/webapp/data/loggedInUser.txt	(date 1746805799498)
+@@ -1,0 +1,5 @@
++userNumber=US143000078979
++fullName=aloka warnakula
++email=alokawarnakula77@gmail.com
++phoneNumber=0711641638
++address=21/6/6A, somanada mawatha, pitumpe, padukka
+Index: target/OnlineGroceryOrderSystem/cartAndOrders/cartIndex.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><%@ page import=\"java.util.List\" %>\n<%@ page import=\"java.util.ArrayList\" %>\n<%@ page import=\"model.GroceryItem\" %>\n<%@ page import=\"model.User\" %>\n<%@ page contentType=\"text/html; charset=UTF-8\" language=\"java\" %>\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Cart Page</title>\n  <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css\">\n  <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\">\n  <link rel=\"stylesheet\" href=\"${pageContext.request.contextPath}/css/cart.css\">\n</head>\n<body>\n<%\n  User loggedInUser = (User) session.getAttribute(\"user\");\n  if (loggedInUser == null) {\n    response.sendRedirect(request.getContextPath() + \"/userLogin/login.jsp?error=Please log in to access the cart.\");\n    return;\n  }\n\n  List<GroceryItem> items = (List<GroceryItem>) request.getAttribute(\"items\");\n  if (items == null) {\n    items = new ArrayList<>();\n  }\n  String category = request.getParameter(\"category\");\n  if (category == null || category.isEmpty()) {\n    category = \"Produce\"; // Default category\n  }\n%>\n<header>\n  <a href=\"${pageContext.request.contextPath}/index.jsp\" class=\"logo\"><i class=\"fa-solid fa-basket-shopping\"></i> GROCERY</a>\n  <nav class=\"navbar\">\n    <a href=\"${pageContext.request.contextPath}/CartServlet?category=Produce\">Produce</a>\n    <a href=\"${pageContext.request.contextPath}/CartServlet?category=Proteins\">Proteins</a>\n    <a href=\"${pageContext.request.contextPath}/CartServlet?category=Dairy\">Dairy</a>\n    <a href=\"${pageContext.request.contextPath}/CartServlet?category=Bakery\">Bakery</a>\n    <a href=\"${pageContext.request.contextPath}/CartServlet?category=Pantry\">Pantry</a>\n    <a href=\"${pageContext.request.contextPath}/CartServlet?category=Snacks\">Snacks</a>\n  </nav>\n  <div class=\"search-container\">\n    <form class=\"search-bar\" id=\"search-form\" action=\"${pageContext.request.contextPath}/CartServlet\" method=\"get\">\n      <input type=\"text\" placeholder=\"Search groceries...\" name=\"name\" id=\"name\">\n      <button type=\"submit\" class=\"search-btn\">Search</button>\n      <span class=\"dropdown-toggle\" id=\"dropdown-toggle\">▼</span>\n    </form>\n    <div class=\"dropdown-menu\" id=\"dropdown-menu\">\n      <div class=\"filter-item\">\n        <label for=\"category\">Category:</label>\n        <select name=\"category\" id=\"category\">\n          <option value=\"\">All</option>\n          <option value=\"Produce\">Produce</option>\n          <option value=\"Proteins\">Proteins</option>\n          <option value=\"Dairy\">Dairy</option>\n          <option value=\"Bakery\">Bakery</option>\n          <option value=\"Pantry\">Pantry</option>\n          <option value=\"Snacks\">Snacks</option>\n        </select>\n      </div>\n      <div class=\"filter-item\">\n        <label for=\"minPrice\">Min Price:</label>\n        <input type=\"number\" name=\"minPrice\" id=\"minPrice\" min=\"0\" step=\"0.01\" placeholder=\"0.00\">\n      </div>\n      <div class=\"filter-item\">\n        <label for=\"maxPrice\">Max Price:</label>\n        <input type=\"number\" name=\"maxPrice\" id=\"maxPrice\" min=\"0\" step=\"0.01\" placeholder=\"100.00\">\n      </div>\n    </div>\n  </div>\n  <div class=\"cart-icon\" id=\"cart-icon\">\n    <i class=\"fas fa-shopping-cart\"></i>\n    <span class=\"cart-item-count\">0</span>\n  </div>\n</header>\n<section class=\"shop\">\n  <h2 class=\"section-title\">Shop <%= category %></h2>\n  <div class=\"product-content\">\n    <%\n      if (items.isEmpty()) {\n        out.println(\"<p>No products available in the \" + category + \" category.</p>\");\n      } else {\n        for (GroceryItem item : items) {\n          boolean outOfStock = item.getQuantity() <= 0;\n    %>\n    <div class=\"product-box\">\n      <div class=\"img-box\">\n        <a href=\"${pageContext.request.contextPath}/ProductDetailsServlet?productId=<%= item.getProductID() %>\">\n          <img src=\"<%= item.getProductImageLink() %>\" alt=\"<%= item.getProductName() %>\">\n        </a>\n      </div>\n      <h2 class=\"product-title\"><%= item.getProductName() %></h2>\n      <div class=\"price-and-cart\">\n        <span class=\"price\">Rs. <%= String.format(\"%.2f\", item.getProductPrice()) %></span>\n        <% if (outOfStock) { %>\n        <p class=\"out-of-stock\" style=\"font-size: 16px; color: #e74c3c; margin: 10px 0; font-weight: 500;\">Out of Stock</p>\n        <% } else { %>\n        <button class=\"add-cart\" data-item-id=\"<%= item.getProductID() %>\"><i class=\"fas fa-shopping-cart\"></i></button>\n        <% } %>\n      </div>\n    </div>\n    <%\n        }\n      }\n    %>\n  </div>\n</section>\n<div class=\"cart\">\n  <h2 class=\"cart-title\">Your Cart</h2>\n  <i class=\"ri-close-line\" id=\"cart-close\"></i>\n  <div class=\"cart-content\">\n    <p>Your cart is empty.</p>\n  </div>\n  <div class=\"total\" id=\"total-container\" style=\"display: none;\">\n    <div class=\"total-price\" id=\"total-price\">Total Rs. 0.00</div>\n    <a href=\"${pageContext.request.contextPath}/cartAndOrders/checkOut.jsp\" class=\"btn-buy\">Buy Now</a>\n  </div>\n</div>\n<script>\n  window.contextPath = '${pageContext.request.contextPath}';\n</script>\n<script src=\"${pageContext.request.contextPath}/js/cart.js\"></script>\n</body>\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/OnlineGroceryOrderSystem/cartAndOrders/cartIndex.jsp b/target/OnlineGroceryOrderSystem/cartAndOrders/cartIndex.jsp
+--- a/target/OnlineGroceryOrderSystem/cartAndOrders/cartIndex.jsp	(revision 3980ffd4a853f70722a8fbb8a9b23f3e0ef9edd4)
++++ b/target/OnlineGroceryOrderSystem/cartAndOrders/cartIndex.jsp	(date 1746805782515)
+@@ -122,4 +122,4 @@
+ </script>
+ <script src="${pageContext.request.contextPath}/js/cart.js"></script>
+ </body>
+-</html>
+\ No newline at end of file
++</html> <!--cart -->
+\ No newline at end of file
+Index: target/OnlineGroceryOrderSystem/userLogin/login.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><%@ page language=\"java\" contentType=\"text/html; charset=UTF-8\" pageEncoding=\"UTF-8\"%>\n<!DOCTYPE html>\n<html lang=\"en\" dir=\"ltr\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Login and Registration</title>\n    <link rel=\"stylesheet\" href=\"${pageContext.request.contextPath}/css/logIn.css\">\n    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n</head>\n<body style=\"background: url('https://wallpapers.com/images/hd/japan-farm-anime-landscape-yvqut0t4ra7u0j6l.jpg') no-repeat center center fixed; background-size: cover\">\n<div class=\"container\">\n    <input type=\"checkbox\" id=\"flip\">\n    <div class=\"cover\">\n        <div class=\"front\">\n            <img src=\"https://i.pinimg.com/736x/6a/3a/1c/6a3a1c241f4e81ac57975037ab928d8b.jpg\" alt=\"\">\n            <div class=\"text\">\n                <span class=\"text-1\">Every new friend is a <br> new adventure</span>\n                <span class=\"text-2\">Let's get connected</span>\n            </div>\n        </div>\n        <div class=\"back\">\n            <img src=\"https://cdn.donmai.us/original/56/9f/569f8455732d366e27f396611ead70b8.jpg\">\n            <div class=\"text\">\n                <span class=\"text-1\">Complete miles of journey <br> with one step</span>\n                <span class=\"text-2\">Let's get started</span>\n            </div>\n        </div>\n    </div>\n    <div class=\"forms\">\n        <div class=\"form-content\">\n            <div class=\"login-form\">\n                <div class=\"title\">Login</div>\n                <%\n                    // Check for error from LoginServlet (invalid credentials)\n                    String error = (String) request.getAttribute(\"error\");\n                    if (error != null) {\n                %>\n                <p style=\"color: red;\"><%= error %></p>\n                <%\n                    }\n                    // Check for error from CartServlet (not logged in)\n                    String loginError = request.getParameter(\"error\");\n                    if (\"notLoggedIn\".equals(loginError)) {\n                %>\n                <p style=\"color: red;\">Login first before shopping</p>\n                <%\n                    }\n                %>\n                <form action=\"${pageContext.request.contextPath}/LoginServlet\" method=\"post\">\n                    <div class=\"input-boxes\">\n                        <div class=\"input-box\">\n                            <i class=\"fas fa-envelope\"></i>\n                            <input type=\"email\" name=\"email\" placeholder=\"Enter your email\" required>\n                        </div>\n                        <div class=\"input-box\">\n                            <i class=\"fas fa-lock\"></i>\n                            <input type=\"password\" name=\"password\" placeholder=\"Enter your password\" required>\n                        </div>\n                        <div class=\"text\"><a href=\"#\">Forgot password?</a></div>\n                        <div class=\"button input-box\">\n                            <input type=\"submit\" value=\"Submit\">\n                        </div>\n                        <div class=\"text sign-up-text\">Don't have an account? <label for=\"flip\">Signup now</label></div>\n                    </div>\n                </form>\n            </div>\n            <div class=\"signup-form\">\n                <div class=\"title\">Signup</div>\n                <%\n                    error = (String) request.getAttribute(\"error\");\n                    if (error != null) {\n                %>\n                <p style=\"color: red;\"><%= error %></p>\n                <%\n                    }\n                %>\n                <form action=\"${pageContext.request.contextPath}/RegisterServlet\" method=\"post\">\n                    <div class=\"input-boxes\">\n                        <div class=\"input-box\">\n                            <i class=\"fas fa-user\"></i>\n                            <input type=\"text\" name=\"fullName\" placeholder=\"Enter your full name\" required>\n                        </div>\n                        <div class=\"input-box\">\n                            <i class=\"fas fa-envelope\"></i>\n                            <input type=\"email\" name=\"email\" placeholder=\"Enter your email\" required>\n                        </div>\n                        <div class=\"input-box\">\n                            <i class=\"fas fa-phone\"></i>\n                            <input type=\"text\" name=\"phoneNumber\" placeholder=\"Enter your phone number\" required>\n                        </div>\n                        <div class=\"input-box\">\n                            <i class=\"fas fa-home\"></i>\n                            <input type=\"text\" name=\"address\" placeholder=\"Enter your address\" required>\n                        </div>\n                        <div class=\"input-box\">\n                            <i class=\"fas fa-lock\"></i>\n                            <input type=\"password\" name=\"password\" placeholder=\"Enter your password\" required>\n                        </div>\n                        <div class=\"button input-box\">\n                            <input type=\"submit\" value=\"Submit\">\n                        </div>\n                        <div class=\"text sign-up-text\">Already have an account? <label for=\"flip\">Login now</label></div>\n                    </div>\n                </form>\n            </div>\n        </div>\n    </div>\n</div>\n</body>\n</html> <!-- LogIn branch-->
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/OnlineGroceryOrderSystem/userLogin/login.jsp b/target/OnlineGroceryOrderSystem/userLogin/login.jsp
+--- a/target/OnlineGroceryOrderSystem/userLogin/login.jsp	(revision 3980ffd4a853f70722a8fbb8a9b23f3e0ef9edd4)
++++ b/target/OnlineGroceryOrderSystem/userLogin/login.jsp	(date 1746805782511)
+@@ -8,7 +8,7 @@
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ </head>
+-<body style="background: url('https://wallpapers.com/images/hd/japan-farm-anime-landscape-yvqut0t4ra7u0j6l.jpg') no-repeat center center fixed; background-size: cover">
++<body>
+ <div class="container">
+     <input type="checkbox" id="flip">
+     <div class="cover">
+@@ -108,4 +108,4 @@
+     </div>
+ </div>
+ </body>
+-</html> <!-- LogIn branch-->
+\ No newline at end of file
++</html>
+\ No newline at end of file

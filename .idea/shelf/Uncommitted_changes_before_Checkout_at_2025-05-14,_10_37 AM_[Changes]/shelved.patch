@@ -1,0 +1,1110 @@
+Index: src/main/webapp/userLogin/login.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><%@ page language=\"java\" contentType=\"text/html; charset=UTF-8\" pageEncoding=\"UTF-8\"%>\n<!DOCTYPE html>\n<html lang=\"en\" dir=\"ltr\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Login and Registration</title>\n    <link rel=\"stylesheet\" href=\"${pageContext.request.contextPath}/css/logIn.css\">\n    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        .popup {\n            display: none;\n            position: fixed;\n            top: 50%;\n            left: 50%;\n            transform: translate(-50%, -50%) scale(0.8);\n            background: rgba(255, 255, 255, 0.98);\n            border-radius: 15px;\n            padding: 30px;\n            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);\n            max-width: 400px;\n            width: 90%;\n            text-align: center;\n            z-index: 1000;\n            border: 3px solid #3E7B27;\n            opacity: 0;\n            transition: opacity 0.3s ease, transform 0.3s ease;\n        }\n        .popup.active {\n            display: block;\n            opacity: 1;\n            transform: translate(-50%, -50%) scale(1);\n        }\n        .popup-content {\n            position: relative;\n        }\n        .popup-icon {\n            color: #3E7B27;\n            font-size: 24px;\n            margin-bottom: 15px;\n        }\n        .popup-content p {\n            margin: 0 0 20px;\n            font-size: 15px;\n            color: #721c24;\n            line-height: 1.5;\n        }\n        .popup-content .ok-btn {\n            background: #5CB338;\n            color: white;\n            border: none;\n            padding: 10px 20px;\n            border-radius: 8px;\n            cursor: pointer;\n            font-size: 14px;\n            text-transform: uppercase;\n            letter-spacing: 1px;\n            transition: background 0.3s, transform 0.2s;\n        }\n        .popup-content .ok-btn:hover {\n            background: #3E7B27;\n            transform: translateY(-2px);\n        }\n        .overlay {\n            display: none;\n            position: fixed;\n            top: 0;\n            left: 0;\n            width: 100%;\n            height: 100%;\n            background: rgba(0, 0, 0, 0.6);\n            z-index: 999;\n            opacity: 0;\n            transition: opacity 0.3s ease;\n        }\n        .overlay.active {\n            display: block;\n            opacity: 1;\n        }\n    </style>\n</head>\n<body>\n<div class=\"overlay\" id=\"popupOverlay\"></div>\n<div class=\"popup\" id=\"errorPopup\">\n    <div class=\"popup-content\">\n        <i class=\"fas fa-exclamation-circle popup-icon\"></i>\n        <p id=\"popupMessage\"></p>\n        <button class=\"ok-btn\" onclick=\"closePopup()\">OK</button>\n    </div>\n</div>\n<div class=\"container\">\n    <input type=\"checkbox\" id=\"flip\">\n    <div class=\"cover\">\n        <div class=\"front\">\n            <img src=\"https://i.pinimg.com/736x/6a/3a/1c/6a3a1c241f4e81ac57975037ab928d8b.jpg\" alt=\"\">\n            <div class=\"text\">\n                <span class=\"text-1\">Every new friend is a <br> new adventure</span>\n                <span class=\"text-2\">Let's get connected</span>\n            </div>\n        </div>\n        <div class=\"back\">\n            <img src=\"https://cdn.donmai.us/original/56/9f/569f8455732d366e27f396611ead70b8.jpg\">\n            <div class=\"text\">\n                <span class=\"text-1\">Complete miles of journey <br> with one step</span>\n                <span class=\"text-2\">Let's get started</span>\n            </div>\n        </div>\n    </div>\n    <div class=\"forms\">\n        <div class=\"form-content\">\n            <div class=\"login-form\">\n                <div class=\"title\">Login</div>\n                <%\n                    String error = (String) request.getAttribute(\"error\");\n                    if (error != null) {\n                %>\n                <p style=\"color: red;\"><%= error %></p>\n                <%\n                    }\n                    String loginError = request.getParameter(\"error\");\n                    if (\"notLoggedIn\".equals(loginError)) {\n                %>\n                <p style=\"color: red;\">Login first before shopping</p>\n                <%\n                    }\n                %>\n                <form action=\"${pageContext.request.contextPath}/LoginServlet\" method=\"post\">\n                    <div class=\"input-boxes\">\n                        <div class=\"input-box\">\n                            <i class=\"fas fa-envelope\"></i>\n                            <input type=\"email\" name=\"email\" placeholder=\"Enter your email\" required>\n                        </div>\n                        <div class=\"input-box\">\n                            <i class=\"fas fa-lock\"></i>\n                            <input type=\"password\" name=\"password\" placeholder=\"Enter your password\" required>\n                        </div>\n                        <div class=\"text\"><a href=\"${pageContext.request.contextPath}/userLogin/forgotPassword.jsp\">Forgot password?</a></div>\n                        <div class=\"button input-box\">\n                            <input type=\"submit\" value=\"Submit\">\n                        </div>\n                        <div class=\"text sign-up-text\">Don't have an account? <label for=\"flip\">Signup now</label></div>\n                    </div>\n                </form>\n            </div>\n            <div class=\"signup-form\">\n                <div class=\"title\">Signup</div>\n                <form id=\"signupForm\" action=\"${pageContext.request.contextPath}/RegisterServlet\" method=\"post\">\n                    <div class=\"input-boxes\">\n                        <div class=\"input-box\">\n                            <i class=\"fas fa-user\"></i>\n                            <input type=\"text\" name=\"fullName\" placeholder=\"Enter your full name\" required>\n                        </div>\n                        <div class=\"input-box\">\n                            <i class=\"fas fa-envelope\"></i>\n                            <input type=\"email\" name=\"email\" placeholder=\"Enter your email\" required>\n                        </div>\n                        <div class=\"input-box\">\n                            <i class=\"fas fa-phone\"></i>\n                            <input type=\"text\" name=\"phoneNumber\" placeholder=\"Enter your phone number\" required>\n                        </div>\n                        <div class=\"input-box\">\n                            <i class=\"fas fa-home\"></i>\n                            <input type=\"text\" name=\"address\" placeholder=\"Enter your address\" required>\n                        </div>\n                        <div class=\"input-box\">\n                            <i class=\"fas fa-lock\"></i>\n                            <input type=\"password\" id=\"password\" name=\"password\" placeholder=\"Enter your password\" required>\n                        </div>\n                        <div class=\"button input-box\">\n                            <input type=\"submit\" value=\"Submit\">\n                        </div>\n                        <div class=\"text sign-up-text\">Already have an account? <label for=\"flip\">Login now</label></div>\n                    </div>\n                </form>\n            </div>\n        </div>\n    </div>\n</div>\n<script>\n    const signupForm = document.getElementById('signupForm');\n    const passwordInput = document.getElementById('password');\n    const popup = document.getElementById('errorPopup');\n    const popupMessage = document.getElementById('popupMessage');\n    const popupOverlay = document.getElementById('popupOverlay');\n\n    signupForm.addEventListener('submit', handleSubmit);\n    popupOverlay.addEventListener('click', closePopup);\n\n    function showPopup(message) {\n        popupMessage.textContent = message;\n        popup.classList.add('active');\n        popupOverlay.classList.add('active');\n    }\n\n    function closePopup() {\n        popup.classList.remove('active');\n        popupOverlay.classList.remove('active');\n    }\n\n    function handleSubmit(event) {\n        const password = passwordInput.value;\n        const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$!%*?&])[A-Za-z\\d@#$!%*?&]{8,}$/;\n\n        if (!passwordRegex.test(password)) {\n            event.preventDefault();\n            showPopup('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character (@#$!%*?&).');\n            return false;\n        }\n        return true;\n    }\n</script>\n</body>\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/webapp/userLogin/login.jsp b/src/main/webapp/userLogin/login.jsp
+--- a/src/main/webapp/userLogin/login.jsp	(revision 08e3c60cfd3afdcb680002fbb745406974304a7e)
++++ b/src/main/webapp/userLogin/login.jsp	(date 1747199087858)
+@@ -79,7 +79,7 @@
+         }
+     </style>
+ </head>
+-<body>
++<body style="background: url('https://img.freepik.com/free-photo/shopping-cart-full-products-inside-supermarket_123827-28165.jpg?ga=GA1.1.1475331235.1731237648&semt=ais_hybrid&w=740') no-repeat center center fixed; background-size: cover">
+ <div class="overlay" id="popupOverlay"></div>
+ <div class="popup" id="errorPopup">
+     <div class="popup-content">
+@@ -92,14 +92,14 @@
+     <input type="checkbox" id="flip">
+     <div class="cover">
+         <div class="front">
+-            <img src="https://i.pinimg.com/736x/6a/3a/1c/6a3a1c241f4e81ac57975037ab928d8b.jpg" alt="">
++            <img src="https://img.freepik.com/free-photo/delivery-concept-handsome-african-american-delivery-man-carrying-package-box-grocery-food-drink-from-store-isolated-grey-studio-background-copy-space_1258-1230.jpg?ga=GA1.1.1475331235.1731237648&w=740" alt="">
+             <div class="text">
+                 <span class="text-1">Every new friend is a <br> new adventure</span>
+                 <span class="text-2">Let's get connected</span>
+             </div>
+         </div>
+         <div class="back">
+-            <img src="https://cdn.donmai.us/original/56/9f/569f8455732d366e27f396611ead70b8.jpg">
++            <img src="https://img.freepik.com/free-photo/woman-holding-glass-juice-showing-phone-mock-up_23-2148332116.jpg?ga=GA1.1.1475331235.1731237648&semt=ais_hybrid&w=740">
+             <div class="text">
+                 <span class="text-1">Complete miles of journey <br> with one step</span>
+                 <span class="text-2">Let's get started</span>
+Index: src/main/webapp/userLogin/Success.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><%@ page language=\"java\" contentType=\"text/html; charset=UTF-8\" pageEncoding=\"UTF-8\"%>\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Success</title>\n    <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css\">\n    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.3/animate.min.css'>\n    <style>\n        body {\n            margin: 0;\n            padding: 0;\n            height: 100vh; /* Full viewport height */\n            background-image: url('https://thumbs.dreamstime.com/b/casual-cheerful-family-moment-shopping-needs-together-flat-vector-family-grocery-shopping-supermarket-346622194.jpg');\n            background-size: cover;\n            background-repeat: no-repeat;\n            display: flex; /* Use flexbox to center */\n            justify-content: center; /* Center horizontally */\n            align-items: center; /* Center vertically */\n        }\n\n        #card {\n            width: 1000px;\n            background: rgba(255, 255, 255, 0.9);\n            border-radius: 10px;\n            overflow: hidden;\n            margin: 0 auto; /* Horizontal centering fallback */\n            text-align: center;\n            font-family: 'Source Sans Pro', sans-serif;\n            animation: fadeIn 1s ease-in-out; /* Keep the fadeIn animation */\n        }\n\n        #upper-side {\n            padding: 4em;\n            background-color: #8BC34A;\n            background: rgba(0, 255, 0, 0.3);\n            display: block;\n            color: #fff;\n            border-top-right-radius: 8px;\n            border-top-left-radius: 8px;\n        }\n\n        #checkmark {\n            font-weight: lighter;\n            fill: #3E7B27;\n            margin: -3.5em auto auto 65px;\n        }\n\n        #status {\n            font-weight: lighter;\n            text-transform: uppercase;\n            letter-spacing: 2px;\n            font-size: 1.2em; /* Slightly larger for emphasis */\n            margin-top: -0.2em;\n            margin-bottom: 10px;\n            color: #3E7B27;\n        }\n\n        #lower-side {\n            padding: 2em 2em 5em 2em;\n            background: #fff;\n            display: block;\n            border-bottom-right-radius: 8px;\n            border-bottom-left-radius: 8px;\n        }\n\n        #message {\n            margin-top: -0.5em;\n            color: #757575;\n            letter-spacing: 1px;\n            font-size: 1.1em; /* Improved readability */\n            line-height: 1.5;\n        }\n\n        #contBtn {\n            position: relative;\n            top: 1.5em;\n            text-decoration: none;\n            background: #8BC34A;\n            color: #fff;\n            margin: auto;\n            padding: 0.8em 3em;\n            box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.21);\n            border-radius: 25px;\n            transition: all 0.4s ease;\n            font-size: 1.1em; /* Slightly larger for better visibility */\n            text-transform: uppercase;\n        }\n\n        #contBtn:hover {\n            box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.41);\n            transition: all 0.4s ease;\n        }\n    </style>\n</head>\n<body>\n<div id='card'>\n    <div id='upper-side'>\n        <svg version=\"1.1\" id=\"checkmark\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" xml:space=\"preserve\">\n            <path d=\"M131.583,92.152l-0.026-0.041c-0.713-1.118-2.197-1.447-3.316-0.734l-31.782,20.257l-4.74-12.65\n            c-0.483-1.29-1.882-1.958-3.124-1.493l-0.045,0.017c-1.242,0.465-1.857,1.888-1.374,3.178l5.763,15.382\n            c0.131,0.351,0.334,0.65,0.579,0.898c0.028,0.029,0.06,0.052,0.089,0.08c0.08,0.073,0.159,0.147,0.246,0.209\n            c0.071,0.051,0.147,0.091,0.222,0.133c0.058,0.033,0.115,0.069,0.175,0.097c0.081,0.037,0.165,0.063,0.249,0.091\n            c0.065,0.022,0.128,0.047,0.195,0.063c0.079,0.019,0.159,0.026,0.239,0.037c0.074,0.01,0.147,0.024,0.221,0.027\n            c0.097,0.004,0.194-0.006,0.292-0.014c0.055-0.005,0.109-0.003,0.163-0.012c0.323-0.048,0.641-0.16,0.933-0.346l34.305-21.865\n            C131.967,94.755,132.296,93.271,131.583,92.152z\" />\n            <circle fill=\"none\" stroke=\"#3E7B27\" stroke-width=\"5\" stroke-miterlimit=\"10\" cx=\"109.486\" cy=\"104.353\" r=\"32.53\" />\n        </svg>\n        <h3 id='status'>Success</h3>\n    </div>\n    <div id='lower-side'>\n        <p id='message'>\n            <%\n                String type = request.getParameter(\"type\");\n                if (\"login\".equals(type)) {\n            %>\n            Login successful! Welcome back to your account.\n            <% } else if (\"signup\".equals(type)) { %>\n            Congratulations! Your account has been successfully created.\n            <% } else { %>\n            An action was completed successfully.\n            <% }\n            %>\n        </p>\n        <a href=\"${pageContext.request.contextPath}/index.jsp\" id=\"contBtn\">Go to Main Page</a>\n    </div>\n</div>\n</body>\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/webapp/userLogin/Success.jsp b/src/main/webapp/userLogin/Success.jsp
+--- a/src/main/webapp/userLogin/Success.jsp	(revision 08e3c60cfd3afdcb680002fbb745406974304a7e)
++++ b/src/main/webapp/userLogin/Success.jsp	(date 1747198776739)
+@@ -11,7 +11,7 @@
+             margin: 0;
+             padding: 0;
+             height: 100vh; /* Full viewport height */
+-            background-image: url('https://thumbs.dreamstime.com/b/casual-cheerful-family-moment-shopping-needs-together-flat-vector-family-grocery-shopping-supermarket-346622194.jpg');
++            background-image: url('https://img.freepik.com/free-photo/woman-shopping-vegetables-supermarket_1157-37875.jpg?ga=GA1.1.1475331235.1731237648&semt=ais_hybrid&w=740');
+             background-size: cover;
+             background-repeat: no-repeat;
+             display: flex; /* Use flexbox to center */
+Index: target/OnlineGroceryOrderSystem/css/logIn.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');\n* {\n    margin: 0;\n    padding: 0;\n    box-sizing: border-box;\n    font-family: \"Poppins\", sans-serif;\n}\nbody {\n    background: url(\"https://wallpapers.com/images/hd/japan-farm-anime-landscape-yvqut0t4ra7u0j6l.jpg\");\n    min-height: 100vh;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    /*background: #6EC207;*/\n    padding: 30px;\n}\n.container {\n    position: relative;\n    max-width: 850px;\n    width: 100%;\n    background: #fff;\n    padding: 40px 30px;\n    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);\n    perspective: 2700px;\n}\n.container .cover {\n    position: absolute;\n    top: 0;\n    left: 50%;\n    height: 100%;\n    width: 50%;\n    z-index: 98;\n    transition: all 1s ease;\n    transform-origin: left;\n    transform-style: preserve-3d;\n    backface-visibility: hidden;\n}\n.container #flip:checked ~ .cover {\n    transform: rotateY(-180deg);\n}\n.container #flip:checked ~ .forms .login-form {\n    pointer-events: none;\n}\n.container .cover .front,\n.container .cover .back {\n    position: absolute;\n    top: 0;\n    left: 0;\n    height: 100%;\n    width: 100%;\n}\n.cover .back {\n    transform: rotateY(180deg);\n}\n.container .cover img {\n    position: absolute;\n    height: 100%;\n    width: 100%;\n    object-fit: cover;\n    z-index: 10;\n}\n.container .cover .text {\n    position: absolute;\n    z-index: 10;\n    height: 100%;\n    width: 100%;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n}\n.container .cover .text::before {\n    content: '';\n    position: absolute;\n    height: 100%;\n    width: 100%;\n    opacity: 0.5;\n    background: #0C9463;\n}\n.cover .text .text-1,\n.cover .text .text-2 {\n    z-index: 20;\n    font-size: 26px;\n    font-weight: 600;\n    color: #fff;\n    text-align: center;\n}\n.cover .text .text-2 {\n    font-size: 15px;\n    font-weight: 500;\n}\n.container .forms {\n    height: 100%;\n    width: 100%;\n    background: #fff;\n}\n.container .form-content {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n}\n.form-content .login-form,\n.form-content .signup-form {\n    width: calc(100% / 2 - 25px);\n}\n.forms .form-content .title {\n    position: relative;\n    font-size: 24px;\n    font-weight: 500;\n    color: #333;\n}\n.forms .form-content .title:before {\n    content: '';\n    position: absolute;\n    left: 0;\n    bottom: 0;\n    height: 3px;\n    width: 25px;\n    background: #3E7B27;\n}\n.forms .signup-form .title:before {\n    width: 20px;\n}\n.forms .form-content .input-boxes {\n    margin-top: 30px;\n}\n.forms .form-content .input-box {\n    display: flex;\n    align-items: center;\n    height: 50px;\n    width: 100%;\n    margin: 10px 0;\n    position: relative;\n}\n.form-content .input-box input {\n    height: 100%;\n    width: 100%;\n    outline: none;\n    border: none;\n    padding: 0 30px;\n    font-size: 16px;\n    font-weight: 500;\n    border-bottom: 2px solid rgba(0, 0, 0, 0.2);\n    transition: all 0.3s ease;\n}\n.form-content .input-box input:focus,\n.form-content .input-box input:valid {\n    border-color: #3E7B27;\n}\n.form-content .input-box i {\n    position: absolute;\n    color: #3E7B27;\n    font-size: 17px;\n}\n.forms .form-content .text {\n    font-size: 14px;\n    font-weight: 500;\n    color: #3E7B27;\n}\n.forms .form-content .text a {\n    color:#3E7B27;\n    text-decoration: none;\n}\n.forms .form-content .text a:hover {\n    text-decoration: underline;\n}\n.forms .form-content .button {\n    color: #fff;\n    margin-top: 40px;\n}\n.forms .form-content .button input {\n    color: #fff;\n    background: #5CB338;\n    border-radius: 6px;\n    padding: 0;\n    cursor: pointer;\n    transition: all 0.4s ease;\n}\n.forms .form-content .button input:hover {\n    background: #3E7B27;\n}\n.forms .form-content label {\n    color: #191919;\n    cursor: pointer;\n}\n.forms .form-content label:hover {\n    text-decoration: underline;\n}\n.forms .form-content .login-text,\n.forms .form-content .sign-up-text {\n    text-align: center;\n    margin-top: 25px;\n}\n.container #flip {\n    display: none;\n}\n@media (max-width: 730px) {\n    .container .cover {\n        display: none;\n    }\n    .form-content .login-form,\n    .form-content .signup-form {\n        width: 100%;\n    }\n    .form-content .signup-form {\n        display: none;\n    }\n    .container #flip:checked ~ .forms .signup-form {\n        display: block;\n    }\n    .container #flip:checked ~ .forms .login-form {\n        display: none;\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/OnlineGroceryOrderSystem/css/logIn.css b/target/OnlineGroceryOrderSystem/css/logIn.css
+--- a/target/OnlineGroceryOrderSystem/css/logIn.css	(revision 08e3c60cfd3afdcb680002fbb745406974304a7e)
++++ b/target/OnlineGroceryOrderSystem/css/logIn.css	(date 1747199055216)
+@@ -6,7 +6,7 @@
+     font-family: "Poppins", sans-serif;
+ }
+ body {
+-    background: url("https://wallpapers.com/images/hd/japan-farm-anime-landscape-yvqut0t4ra7u0j6l.jpg");
++    background: url("https://img.freepik.com/free-photo/shopping-cart-full-products-inside-supermarket_123827-28165.jpg?ga=GA1.1.1475331235.1731237648&semt=ais_hybrid&w=740");
+     min-height: 100vh;
+     display: flex;
+     align-items: center;
+Index: target/OnlineGroceryOrderSystem/data/loggedInUser.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>--- User Start: US021583101081 ---\nusername=alokawarnakula77@gmail.com\npassword=12345678A@a\nuserNumber=US021583101081\nfullName=aloka warnakula mn\nemail=alokawarnakula77@gmail.com\nphoneNumber=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\n--- User End ---\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/OnlineGroceryOrderSystem/data/loggedInUser.txt b/target/OnlineGroceryOrderSystem/data/loggedInUser.txt
+--- a/target/OnlineGroceryOrderSystem/data/loggedInUser.txt	(revision 08e3c60cfd3afdcb680002fbb745406974304a7e)
++++ b/target/OnlineGroceryOrderSystem/data/loggedInUser.txt	(date 1747198822185)
+@@ -1,9 +1,0 @@
+---- User Start: US021583101081 ---
+-username=alokawarnakula77@gmail.com
+-password=12345678A@a
+-userNumber=US021583101081
+-fullName=aloka warnakula mn
+-email=alokawarnakula77@gmail.com
+-phoneNumber=0711641638
+-address=21/6/6A, somanada mawatha, pitumpe, padukka
+---- User End ---
+Index: target/OnlineGroceryOrderSystem/data/items.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>1,Produce,Red Onions,250.00,https://www.shutterstock.com/image-photo/isolated-red-big-onions-white-600nw-1782386771.jpg,300,Fresh Big Onions 1kg a\n2,Produce,Coconut,230.00,https://img.freepik.com/premium-photo/coconut-isolated-white-background_252965-356.jpg,259,Fresh Coconut Price of One Unit\n3,Produce,Tomato,160.00,https://t4.ftcdn.net/jpg/00/29/78/85/360_F_29788505_PbGEDPBhQIxW2soJMOpLlYOybLrvPt2e.jpg,300,Only 500g\n4,Produce,Potatoes,190.00,https://i.pinimg.com/736x/33/7e/fa/337efa818550fce97fa5991ea513c16b.jpg,500,Only 500g\n5,Produce,Carrot,425.00,https://t4.ftcdn.net/jpg/00/80/96/17/360_F_80961739_hep1UZaQRsy5WQOYU3jkOr5CB7A6xc3U.jpg,99,Only 500g\n6,Produce,Garlic,260.00,https://as2.ftcdn.net/v2/jpg/03/20/58/51/1000_F_320585105_SRCBaxOcZg6lmllMmtt6tKTu9eN4s30B.jpg,8,Only 250g\n7,Produce,Brinjal,67.00,https://static.vecteezy.com/system/resources/previews/004/158/962/non_2x/eggplant-isolated-on-a-white-background-photo.jpg,0,Only 350g\n8,Produce,Raw Ginger,278.00,https://static.vecteezy.com/system/resources/previews/030/668/174/non_2x/ginger-with-white-background-high-quality-ultra-hd-free-photo.jpg,8,Only 150g\n9,Produce,Cabbage,215.00,https://as2.ftcdn.net/jpg/02/96/54/63/1000_F_296546395_Tw3FfCAV6Ss6U0tufcgVE3Twf01LZutt.jpg,6,Only 500g\n10,Produce,Pumpkin,90.00,https://t4.ftcdn.net/jpg/00/69/19/07/360_F_69190757_a37tIJk6fq40BADf78ewXZyc0HIL3mBU.jpg,8,Only 500g\n11,Produce,Bitter Gourd,118.00,https://t4.ftcdn.net/jpg/03/89/85/85/360_F_389858598_TSNp6HysawjDuyAtRrJdru6Kf8LEZXbt.jpg,0,Only 250g\n12,Produce,Sweet Potatoes,139.00,https://img.freepik.com/premium-photo/sweet-potato-isolated-white-background_316968-712.jpg,8,Only 500g\n13,Produce,Cauliflower,269.00,https://media.istockphoto.com/id/186828790/photo/cauliflower-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=oLL9OeCwhHolL-MqXb3CZEkL0NyE483_vEqm3Tj0Lzo=,7,Only 300g\n14,Produce,Cucumber,92.00,https://img.freepik.com/premium-photo/cucumber-vegetable-isolated-white-background_42033-135.jpg,8,Only 400g\n15,Produce,Broccoli,1458.00,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9WtHcQiqLRmr827_jDvo_NlEceWQsQ7xRiw&s,1,Only 300g\n16,Produce,Kesel Muwa,60.00,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoKGxtMpNYFRMtMSzC8U4RtMz_qamZ-WNriw&s,0,Only 500g\n17,Produce,Bell Pepper Green,1200.00,https://media.istockphoto.com/id/922745944/photo/green-peppers-on-white-background.jpg?s=612x612&w=0&k=20&c=ANUMSGzCw2oEd44ZVOmlgjDd8gAhJN0gSg6dLqBai6I=,0,Only 500g\n18,Produce,Lettuce,24.00,https://thumbs.dreamstime.com/b/organic-vegetable-salad-green-frillice-iceberg-lettuce-isolated-white-background-151715371.jpg,0,Only 100g\n19,Pantry,Rice,260.00,https://media.istockphoto.com/id/483226970/photo/heap-of-raw-basmati-rice.jpg?s=612x612&w=0&k=20&c=aaNOxz6AvGftzj3pyJ7SWjXTXyz79mPB9hdphbOZDwc=,6,Only 1kg\n20,Produce,Pineapple,650.00,https://static5.depositphotos.com/1000188/481/i/950/depositphotos_4810705-stock-photo-fresh-slice-pineapple-on-white.jpg,7,Only 1.25kg\n21,Produce,Imported Red Grapes,1164.00,https://gabbarfarms.com/cdn/shop/products/ImportedGrpes_600x.jpg?v=1634633431,5,Only 500g\n22,Produce,Imported Mandarin,864.00,https://media.istockphoto.com/id/504384796/photo/fresh-ripe-tangerines.jpg?s=612x612&w=0&k=20&c=12Gp6Nkk_Vef64j29TDtXt3JZHY-jV9H3DMmuDHsRAE=,5,Only 600g\n23,Produce,Sweet Water Melon,400.00,https://thumbs.dreamstime.com/b/whole-ripe-watermelon-quarter-isolated-white-background-full-depth-field-whole-ripe-watermelon-quarter-isolated-156340918.jpg,9,Only 2kg\n24,Produce,Papaya,450.00,https://t3.ftcdn.net/jpg/05/13/26/84/360_F_513268409_H7YzF29YTUuJ4KvoC8VNxUM40m9PfIdx.jpg,8,Only 1.25kg\n25,Produce,Kolikuttu,140.00,https://spar2u.lk/cdn/shop/files/Kolikuttubanana.jpg?v=1739447092,7,Only 500g\n26,Produce,Imported Pomegranate,1530.00,https://media.istockphoto.com/id/940118920/photo/ripe-pomegranate-fruit-and-one-cut-in-half-with-leaf.jpg?s=612x612&w=0&k=20&c=iVTrJvW6rtFTlsWk5J3v1r1NeCgNtZMD4qDJIh3sfik=,5,Only 500g\n27,Produce,Apple,1337.00,https://png.pngtree.com/png-vector/20240612/ourmid/pngtree-red-fresh-apple-white-background-png-image_12643725.png,20,Only 700g\n28,Produce,King Coconut,240.00,https://t4.ftcdn.net/jpg/05/24/15/17/360_F_524151797_uBpqhFFLGqSNHht2ORoWypI03yY5SGaN.jpg,8,Only 1Pcs\n29,Produce,Kiwi Fruit,1460.00,https://i.pinimg.com/736x/13/fe/74/13fe7434de9b4c36410744dbd843fdff.jpg,6,Only 500g\n30,Produce,Soursop,525.00,https://media.istockphoto.com/id/1369037177/photo/soursop-or-custard-apple-fruit-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=3iHof9sefP0PNUh4rnXM4hBuMS_YnOgOnNbDzap9DPU=,9,Only 1kg\n31,Pantry,Dahal,289.00,https://www.shutterstock.com/image-photo/red-lentils-isolated-on-white-600nw-2332458631.jpg,9,Only 1kg\n32,Produce,Strawberry,1290.00,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9KZF0L6SWyX0c6SRYlltKJZuWeHfcbbDiTw&s,32,Only 250g\n33,Proteins,Large prawns,1875.00,https://media.istockphoto.com/id/1255181693/photo/banana-prawn-or-shrimp-isolated-on-white-background-white-shrimp-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=X_sO0D9U1J98JcubDdEuR6kGOxbHZVc-OxVKeqzjXtY=,10,Only 1kg\n34,Proteins,Lobster,4375.00,https://meatmart.lk/wp-content/uploads/2023/06/Lobster-KG.webp,9,Only 1kg\n35,Proteins,Cuttle Fish,2250.00,https://meatmart.lk/wp-content/uploads/2023/06/frozen-squid-fish-500x500-1-768x768.webp.webp,9,Only 1kg\n36,Proteins,Gar fish (Habarali),3500.00,https://tropicalshellfish.com/wp-content/uploads/2021/09/habaralli.jpg,6,Only 1kg\n37,Proteins,Big Crab,4375.00,https://media.istockphoto.com/id/453209605/photo/isolated-whole-dungeness-crab.jpg?s=612x612&w=0&k=20&c=OINq23e6m6kOS20psfnnkGN-RU33L__34IH-7rG8F7Y=,9,Only 1kg\n38,Proteins,Big Anchovy,1500.00,https://www.shutterstock.com/image-photo/close-anchovies-gray-anchovy-isolated-260nw-2324973519.jpg,9,Only 1kg\n39,Proteins,Tuna,3422.00,https://media.istockphoto.com/id/473827068/photo/bluefin-tuna-really-fresh-isolated-on-white.jpg?s=612x612&w=0&k=20&c=AK8XBCRAc50bDQ5YFFSayT8TbujkZPEhk5xzGHrkSIk=,10,Only 1kg\n40,Proteins,Turkey S/L,4999.00,https://img.freepik.com/premium-photo/natural-fresh-raw-turkey-meat-isolated-white-background_787273-69566.jpg,8,Only 1kg\n42,Proteins,Chicken boneless,3450.00,https://static.vecteezy.com/system/resources/previews/050/024/853/large_2x/a-pile-of-boneless-skinless-chicken-breasts-on-a-white-background-free-photo.jpg,10,Only 1kg\n43,Proteins,Chicken Whole Leg,2450.00,https://spar2u.lk/cdn/shop/files/Chickenwholelegskinon_458x595.jpg?v=1739447117,10,ONly 500g\n44,Proteins,Thalapath Fish,2242.00,https://ican-mall.oss-ap-southeast-1.aliyuncs.com/2024/05/c0c5fb6126924c28bd13355baaaaf32f.webp,9,Only 600g\n45,Proteins,Squid,1525.00,https://thumbs.dreamstime.com/b/fresh-squid-isolated-white-background-44144491.jpg,10,Only 500g\n46,Proteins,Brown Egg,55.00,https://img.freepik.com/premium-photo/chicken-egg-white-background_55716-1235.jpg,10,Only 1Pcs\n47,Proteins,White Egg,40.00,https://media.istockphoto.com/id/467061077/photo/eggs-isolated-on-a-white-background.jpg?s=612x612&w=0&k=20&c=K6RZK8UR5hzHy4auNEKHV0EdkBVnVlyLlfBflpUXP-g=,20,Only 1Pcs\n48,Proteins,Sausage,690.00,https://static.vecteezy.com/system/resources/previews/026/978/295/large_2x/grilled-pork-sausages-with-lettuce-isolated-on-white-background-photo.jpg,10,Only 500g\n41,Produce,anime,456.00,https://uchi.imgix.net/properties/anime2.png?crop=focalpoint&domain=uchi.imgix.net&fit=crop&fm=pjpg&fp-x=0.5&fp-y=0.5&h=558&ixlib=php-3.3.1&q=82&usm=20&w=992,18,anime watch and enjoy it.\n49,Bakery,Tiara Rollo Cake,70.00,https://essstr.blob.core.windows.net/essimg/ItemAsset/Pic12171.jpg,39,25.00g Rollo Cake\n50,Produce,Dragon Fruit,1500.00,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPEFyc7mDC49UthRxicEvU6UaS1nShvCsJlQ&s,200,Only 1kg\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/OnlineGroceryOrderSystem/data/items.txt b/target/OnlineGroceryOrderSystem/data/items.txt
+--- a/target/OnlineGroceryOrderSystem/data/items.txt	(revision 08e3c60cfd3afdcb680002fbb745406974304a7e)
++++ b/target/OnlineGroceryOrderSystem/data/items.txt	(date 1747198709227)
+@@ -2,7 +2,7 @@
+ 2,Produce,Coconut,230.00,https://img.freepik.com/premium-photo/coconut-isolated-white-background_252965-356.jpg,259,Fresh Coconut Price of One Unit
+ 3,Produce,Tomato,160.00,https://t4.ftcdn.net/jpg/00/29/78/85/360_F_29788505_PbGEDPBhQIxW2soJMOpLlYOybLrvPt2e.jpg,300,Only 500g
+ 4,Produce,Potatoes,190.00,https://i.pinimg.com/736x/33/7e/fa/337efa818550fce97fa5991ea513c16b.jpg,500,Only 500g
+-5,Produce,Carrot,425.00,https://t4.ftcdn.net/jpg/00/80/96/17/360_F_80961739_hep1UZaQRsy5WQOYU3jkOr5CB7A6xc3U.jpg,99,Only 500g
++5,Produce,Carrot,425.00,https://t4.ftcdn.net/jpg/00/80/96/17/360_F_80961739_hep1UZaQRsy5WQOYU3jkOr5CB7A6xc3U.jpg,300,Only 500g
+ 6,Produce,Garlic,260.00,https://as2.ftcdn.net/v2/jpg/03/20/58/51/1000_F_320585105_SRCBaxOcZg6lmllMmtt6tKTu9eN4s30B.jpg,8,Only 250g
+ 7,Produce,Brinjal,67.00,https://static.vecteezy.com/system/resources/previews/004/158/962/non_2x/eggplant-isolated-on-a-white-background-photo.jpg,0,Only 350g
+ 8,Produce,Raw Ginger,278.00,https://static.vecteezy.com/system/resources/previews/030/668/174/non_2x/ginger-with-white-background-high-quality-ultra-hd-free-photo.jpg,8,Only 150g
+@@ -16,14 +16,14 @@
+ 16,Produce,Kesel Muwa,60.00,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoKGxtMpNYFRMtMSzC8U4RtMz_qamZ-WNriw&s,0,Only 500g
+ 17,Produce,Bell Pepper Green,1200.00,https://media.istockphoto.com/id/922745944/photo/green-peppers-on-white-background.jpg?s=612x612&w=0&k=20&c=ANUMSGzCw2oEd44ZVOmlgjDd8gAhJN0gSg6dLqBai6I=,0,Only 500g
+ 18,Produce,Lettuce,24.00,https://thumbs.dreamstime.com/b/organic-vegetable-salad-green-frillice-iceberg-lettuce-isolated-white-background-151715371.jpg,0,Only 100g
+-19,Pantry,Rice,260.00,https://media.istockphoto.com/id/483226970/photo/heap-of-raw-basmati-rice.jpg?s=612x612&w=0&k=20&c=aaNOxz6AvGftzj3pyJ7SWjXTXyz79mPB9hdphbOZDwc=,6,Only 1kg
++19,Pantry,Rice,260.00,https://media.istockphoto.com/id/483226970/photo/heap-of-raw-basmati-rice.jpg?s=612x612&w=0&k=20&c=aaNOxz6AvGftzj3pyJ7SWjXTXyz79mPB9hdphbOZDwc=,10,Only 1kg
+ 20,Produce,Pineapple,650.00,https://static5.depositphotos.com/1000188/481/i/950/depositphotos_4810705-stock-photo-fresh-slice-pineapple-on-white.jpg,7,Only 1.25kg
+ 21,Produce,Imported Red Grapes,1164.00,https://gabbarfarms.com/cdn/shop/products/ImportedGrpes_600x.jpg?v=1634633431,5,Only 500g
+ 22,Produce,Imported Mandarin,864.00,https://media.istockphoto.com/id/504384796/photo/fresh-ripe-tangerines.jpg?s=612x612&w=0&k=20&c=12Gp6Nkk_Vef64j29TDtXt3JZHY-jV9H3DMmuDHsRAE=,5,Only 600g
+ 23,Produce,Sweet Water Melon,400.00,https://thumbs.dreamstime.com/b/whole-ripe-watermelon-quarter-isolated-white-background-full-depth-field-whole-ripe-watermelon-quarter-isolated-156340918.jpg,9,Only 2kg
+ 24,Produce,Papaya,450.00,https://t3.ftcdn.net/jpg/05/13/26/84/360_F_513268409_H7YzF29YTUuJ4KvoC8VNxUM40m9PfIdx.jpg,8,Only 1.25kg
+ 25,Produce,Kolikuttu,140.00,https://spar2u.lk/cdn/shop/files/Kolikuttubanana.jpg?v=1739447092,7,Only 500g
+-26,Produce,Imported Pomegranate,1530.00,https://media.istockphoto.com/id/940118920/photo/ripe-pomegranate-fruit-and-one-cut-in-half-with-leaf.jpg?s=612x612&w=0&k=20&c=iVTrJvW6rtFTlsWk5J3v1r1NeCgNtZMD4qDJIh3sfik=,5,Only 500g
++26,Produce,Imported Pomegranate,1530.00,https://media.istockphoto.com/id/940118920/photo/ripe-pomegranate-fruit-and-one-cut-in-half-with-leaf.jpg?s=612x612&w=0&k=20&c=iVTrJvW6rtFTlsWk5J3v1r1NeCgNtZMD4qDJIh3sfik=,7,Only 500g
+ 27,Produce,Apple,1337.00,https://png.pngtree.com/png-vector/20240612/ourmid/pngtree-red-fresh-apple-white-background-png-image_12643725.png,20,Only 700g
+ 28,Produce,King Coconut,240.00,https://t4.ftcdn.net/jpg/05/24/15/17/360_F_524151797_uBpqhFFLGqSNHht2ORoWypI03yY5SGaN.jpg,8,Only 1Pcs
+ 29,Produce,Kiwi Fruit,1460.00,https://i.pinimg.com/736x/13/fe/74/13fe7434de9b4c36410744dbd843fdff.jpg,6,Only 500g
+Index: target/OnlineGroceryOrderSystem/data/orders.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>--- Order Start: OD092021244402 ---\norderNumber=OD092021244402\nuserNumber=US021583101081\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=online card\ndeliveryDate=\nconfirmationDate=2025-03-31 09:48:55\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=Pending\ndeliveredDate=\n[products]\nproductID=29, quantity=1\n[total]\ntotalPrice=1460.00\n--- Order End ---\n\n--- Order Start: OD543785297309 ---\norderNumber=OD543785297309\nuserNumber=US021583101081\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=online card\ndeliveryDate=\nconfirmationDate=2025-04-01 10:24:30\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=Pending\ndeliveredDate=\n[products]\nproductID=18, quantity=4\n[total]\ntotalPrice=96.00\n--- Order End ---\n\n--- Order Start: OD261952394242 ---\norderNumber=OD261952394242\nuserNumber=US021583101081\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=cash on delivery\ndeliveryDate=\nconfirmationDate=2025-04-01 11:28:45\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=Pending\ndeliveredDate=\n[products]\nproductID=15, quantity=1\n[total]\ntotalPrice=1458.00\n--- Order End ---\n\n--- Order Start: OD753079415721 ---\norderNumber=OD753079415721\nuserNumber=US021583101081\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=cash on delivery\ndeliveryDate=\nconfirmationDate=2025-04-05 16:42:44\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=Pending\ndeliveredDate=\n[products]\nproductID=27, quantity=15\nproductID=41, quantity=1\n[total]\ntotalPrice=20511.00\n--- Order End ---\n\n--- Order Start: OD113125118289 ---\norderNumber=OD113125118289\nuserNumber=US021583101081\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=online card\ndeliveryDate=\nconfirmationDate=2025-04-05 16:43:56\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=Pending\ndeliveredDate=\n[products]\nproductID=27, quantity=1\n[total]\ntotalPrice=1337.00\n--- Order End ---\n\n--- Order Start: OD959211235390 ---\norderNumber=OD959211235390\nuserNumber=US021583101081\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=cash on delivery\ndeliveryDate=\nconfirmationDate=2025-04-05 16:44:35\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=Pending\ndeliveredDate=\n[products]\nproductID=41, quantity=1\n[total]\ntotalPrice=456.00\n--- Order End ---\n\n--- Order Start: OD529482646567 ---\norderNumber=OD529482646567\nuserNumber=US021583101081\nname=aloka warnakula \nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=cash on delivery\nconfirmationDate=2025-05-02 11:15:12\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=Pending\ndeliveredDate=\n[products]\nproductID=49, quantity=1\n[total]\ntotalPrice=70.00\n--- Order End ---\n\n--- Order Start: OD176924944754 ---\norderNumber=OD176924944754\nuserNumber=US021583101081\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=cash on delivery\nconfirmationDate=2025-05-04 19:50:39\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=Pending\ndeliveredDate=\n[products]\nproductID=27, quantity=3\nproductID=15, quantity=1\nproductID=5, quantity=1\nproductID=9, quantity=1\nproductID=2, quantity=1\nproductID=22, quantity=1\nproductID=29, quantity=1\nproductID=25, quantity=1\n[total]\ntotalPrice=8803.00\n--- Order End ---\n\n--- Order Start: OD997161013374 ---\norderNumber=OD997161013374\nuserNumber=US021583101081\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=cash on delivery\nconfirmationDate=2025-05-06 08:57:36\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=Pending\ndeliveredDate=\n[products]\nproductID=15, quantity=1\n[total]\ntotalPrice=1458.00\n--- Order End ---\n\n--- Order Start: OD500188660771 ---\norderNumber=OD500188660771\nuserNumber=US021583101081\nname=aloka warnakula mn\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=cash on delivery\nconfirmationDate=2025-05-09 20:59:33\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=Pending\ndeliveredDate=\n[products]\nproductID=26, quantity=2\nproductID=19, quantity=4\n[total]\ntotalPrice=4100.00\n--- Order End ---\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/OnlineGroceryOrderSystem/data/orders.txt b/target/OnlineGroceryOrderSystem/data/orders.txt
+--- a/target/OnlineGroceryOrderSystem/data/orders.txt	(revision 08e3c60cfd3afdcb680002fbb745406974304a7e)
++++ b/target/OnlineGroceryOrderSystem/data/orders.txt	(date 1747198532106)
+@@ -183,23 +183,3 @@
+ totalPrice=1458.00
+ --- Order End ---
+ 
+---- Order Start: OD500188660771 ---
+-orderNumber=OD500188660771
+-userNumber=US021583101081
+-name=aloka warnakula mn
+-phoneNum=0711641638
+-address=21/6/6A, somanada mawatha, pitumpe, padukka
+-deliveryMethod=same-day
+-paymentMethod=cash on delivery
+-confirmationDate=2025-05-09 20:59:33
+-paymentStatus=Pending
+-deliveryStatus=Pending
+-orderStatus=Pending
+-deliveredDate=
+-[products]
+-productID=26, quantity=2
+-productID=19, quantity=4
+-[total]
+-totalPrice=4100.00
+---- Order End ---
+-
+Index: target/OnlineGroceryOrderSystem/WEB-INF/classes/cart.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/OnlineGroceryOrderSystem/WEB-INF/classes/cart.txt b/target/OnlineGroceryOrderSystem/WEB-INF/classes/cart.txt
+--- a/target/OnlineGroceryOrderSystem/WEB-INF/classes/cart.txt	(revision 08e3c60cfd3afdcb680002fbb745406974304a7e)
++++ b/target/OnlineGroceryOrderSystem/WEB-INF/classes/cart.txt	(date 1746687367000)
+@@ -1,0 +1,2 @@
++27,Produce,Apple,1337.00,https://png.pngtree.com/png-vector/20240612/ourmid/pngtree-red-fresh-apple-white-background-png-image_12643725.png,3,Only 700g
++20,Produce,Pineapple,650.00,https://static5.depositphotos.com/1000188/481/i/950/depositphotos_4810705-stock-photo-fresh-slice-pineapple-on-white.jpg,1,Only 1.25kg
+Index: src/main/java/servlet/CartServlet.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// Package for servlet-related classes handling HTTP requests\npackage servlet;\n\n// Import Jakarta Servlet APIs for HTTP request handling and session management\nimport jakarta.servlet.ServletException;\nimport jakarta.servlet.http.HttpServlet;\nimport jakarta.servlet.http.HttpServletRequest;\nimport jakarta.servlet.http.HttpServletResponse;\nimport jakarta.servlet.http.HttpSession;\n// Import model classes for file operations, grocery items, and user data\nimport model.FileUtil;\nimport model.GroceryItem;\nimport model.User;\n// Import Java I/O and utility classes for file operations and stream processing\nimport java.io.*;\nimport java.util.ArrayList;\nimport java.util.stream.Collectors;\n\n// CartServlet handles HTTP requests for cart operations in an online grocery system\npublic class CartServlet extends HttpServlet {\n    // File path for storing available grocery items\n    private static final String ITEMS_FILE = \"/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/items.txt\";\n    // File path for storing cart items used in order creation\n    private static final String CART_FILE = \"/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/cart.txt\";\n    // Instance of MergeServlet for sorting grocery items\n    private MergeServlet mergeServlet;\n\n    // Initializes the servlet, ensuring the data directory exists and is writable\n    @Override\n    public void init() throws ServletException {\n        // Create data directory if it does not exist\n        File dataDir = new File(\"/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data\");\n        if (!dataDir.exists()) {\n            if (dataDir.mkdirs()) {\n                // Log successful creation of data directory\n                System.out.println(\"Created data directory: \" + dataDir.getAbsolutePath());\n            } else {\n                // Log and throw exception if directory creation fails\n                System.err.println(\"Failed to create data directory: \" + dataDir.getAbsolutePath());\n                throw new ServletException(\"Unable to create data directory for file operations\");\n            }\n        } else if (!dataDir.canWrite()) {\n            // Log and throw exception if directory is not writable\n            System.err.println(\"Data directory is not writable: \" + dataDir.getAbsolutePath());\n            throw new ServletException(\"Data directory is not writable for file operations\");\n        }\n        // Log file paths for debugging\n        System.out.println(\"ITEMS_FILE path: \" + ITEMS_FILE);\n        System.out.println(\"CART_FILE path: \" + CART_FILE);\n        // Initialize MergeServlet for sorting operations\n        mergeServlet = new MergeServlet();\n    }\n\n    // Handles HTTP GET requests for cart retrieval or item filtering\n    @Override\n    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {\n        // Retrieve the current HTTP session\n        HttpSession session = request.getSession();\n        // Get the logged-in user from the session\n        User loggedInUser = (User) session.getAttribute(\"user\");\n        // Redirect to login page if user is not authenticated\n        if (loggedInUser == null) {\n            response.sendRedirect(request.getContextPath() + \"/userLogin/login.jsp?error=notLoggedIn\");\n            return;\n        }\n\n        // Declare list to store cart items\n        ArrayList<GroceryItem> cart;\n        // Synchronize to ensure thread-safe file operations\n        synchronized (this) {\n            // Load cart items from file\n            cart = FileUtil.readItems(CART_FILE);\n            if (cart == null) {\n                // Initialize empty cart if file read fails\n                cart = new ArrayList<>();\n                // Log initialization for debugging\n                System.out.println(\"Initialized empty cart for \" + CART_FILE + \" (file not found or invalid)\");\n            } else {\n                // Log loaded cart for debugging\n                System.out.println(\"Loaded cart from \" + CART_FILE + \": \" + cart);\n            }\n        }\n\n        // Load available grocery items from file\n        ArrayList<GroceryItem> items = FileUtil.readItems(ITEMS_FILE);\n        if (items == null) {\n            // Initialize empty items list if file read fails\n            items = new ArrayList<>();\n            // Log initialization for debugging\n            System.out.println(\"Initialized empty items list for \" + ITEMS_FILE + \" (file not found or invalid)\");\n        }\n        // Log loaded items for debugging\n        System.out.println(\"All loaded items: \" + items);\n        // Calculate total cart price by summing item prices\n        double totalPrice = cart.stream().mapToDouble(GroceryItem::getTotalPrice).sum();\n\n        // Retrieve action parameter from request\n        String action = request.getParameter(\"action\");\n        // Log action for debugging\n        System.out.println(\"doGet action: \" + action);\n        if (\"getCart\".equals(action)) {\n            // Set response content type to JSON\n            response.setContentType(\"application/json\");\n            // Initialize response writer\n            PrintWriter out = response.getWriter();\n            if (cart.isEmpty()) {\n                // Send JSON response for empty cart\n                out.println(\"{\\\"success\\\": true, \\\"message\\\": \\\"Cart is empty\\\", \\\"cart\\\": [], \\\"totalPrice\\\": 0.00}\");\n            } else {\n                // Send JSON response with cart details\n                sendCartResponse(out, cart, totalPrice, items);\n            }\n            // Flush output to ensure delivery\n            out.flush();\n        } else {\n            // Retrieve filter parameters from request\n            String category = request.getParameter(\"category\");\n            String minPriceStr = request.getParameter(\"minPrice\");\n            String maxPriceStr = request.getParameter(\"maxPrice\");\n            String name = request.getParameter(\"name\");\n            String sortBy = request.getParameter(\"sortBy\");\n            // Log filter parameters for debugging\n            System.out.println(\"Parameters - category: \" + category + \", minPrice: \" + minPriceStr + \", maxPrice: \" + maxPriceStr + \", name: \" + name + \", sortBy: \" + sortBy);\n\n            // Set category to null to show all items if unspecified or \"All\"\n            if (category == null || category.trim().isEmpty() || category.equalsIgnoreCase(\"All\")) {\n                category = null;\n                // Log that all categories are displayed\n                System.out.println(\"No specific category selected, showing all products\");\n            }\n            // Create final category variable for lambda expressions\n            final String finalCategory = category;\n\n            // Initialize filtered items list with all items\n            ArrayList<GroceryItem> filteredItems = new ArrayList<>(items);\n            // Log initial item count for debugging\n            System.out.println(\"Initial items count: \" + filteredItems.size());\n\n            // Filter items by category if specified\n            if (finalCategory != null && !finalCategory.trim().isEmpty()) {\n                filteredItems = filteredItems.stream()\n                        // Keep items matching the specified category (case-insensitive)\n                        .filter(item -> {\n                            boolean matches = item.getProductCategory().equalsIgnoreCase(finalCategory);\n                            // Log category check for debugging\n                            System.out.println(\"Checking category for item \" + item.getProductName() + \": \" + item.getProductCategory() + \" == \" + finalCategory + \" -> \" + matches);\n                            return matches;\n                        })\n                        // Collect filtered items into a new ArrayList\n                        .collect(Collectors.toCollection(ArrayList::new));\n                // Log filtered item count and list for debugging\n                System.out.println(\"After category filter, result size: \" + filteredItems.size());\n                System.out.println(\"Items after category filter: \" + filteredItems);\n            }\n\n            // Filter items by name if specified\n            if (name != null && !name.trim().isEmpty()) {\n                filteredItems = filteredItems.stream()\n                        // Keep items with names containing the search term (case-insensitive)\n                        .filter(item -> {\n                            boolean matches = item.getProductName().toLowerCase().contains(name.toLowerCase());\n                            // Log name check for debugging\n                            System.out.println(\"Checking name for item \" + item.getProductName() + \": contains \" + name + \" -> \" + matches);\n                            return matches;\n                        })\n                        // Collect filtered items into a new ArrayList\n                        .collect(Collectors.toCollection(ArrayList::new));\n                // Log filtered item count and list for debugging\n                System.out.println(\"After name filter, result size: \" + filteredItems.size());\n                System.out.println(\"Items after name filter: \" + filteredItems);\n            }\n\n            // Filter items by minimum price if specified\n            if (minPriceStr != null && !minPriceStr.trim().isEmpty()) {\n                try {\n                    // Parse minimum price from string\n                    double minPrice = Double.parseDouble(minPriceStr);\n                    filteredItems = filteredItems.stream()\n                            // Keep items with price at least the minimum\n                            .filter(item -> {\n                                boolean matches = item.getProductPrice() >= minPrice;\n                                // Log price check for debugging\n                                System.out.println(\"Checking minPrice for item \" + item.getProductName() + \": \" + item.getProductPrice() + \" >= \" + minPrice + \" -> \" + matches);\n                                return matches;\n                            })\n                            // Collect filtered items into a new ArrayList\n                            .collect(Collectors.toCollection(ArrayList::new));\n                    // Log filtered item count and list for debugging\n                    System.out.println(\"After minPrice filter (\" + minPrice + \"), result size: \" + filteredItems.size());\n                    System.out.println(\"Items after minPrice filter: \" + filteredItems);\n                } catch (NumberFormatException e) {\n                    // Log invalid minimum price for debugging\n                    System.out.println(\"Invalid minPrice: \" + minPriceStr);\n                }\n            }\n\n            // Filter items by maximum price if specified\n            if (maxPriceStr != null && !maxPriceStr.trim().isEmpty()) {\n                try {\n                    // Parse maximum price from string\n                    double maxPrice = Double.parseDouble(maxPriceStr);\n                    filteredItems = filteredItems.stream()\n                            // Keep items with price at most the maximum\n                            .filter(item -> {\n                                boolean matches = item.getProductPrice() <= maxPrice;\n                                // Log price check for debugging\n                                System.out.println(\"Checking maxPrice for item \" + item.getProductName() + \": \" + item.getProductPrice() + \" <= \" + maxPrice + \" -> \" + matches);\n                                return matches;\n                            })\n                            // Collect filtered items into a new ArrayList\n                            .collect(Collectors.toCollection(ArrayList::new));\n                    // Log filtered item count and list for debugging\n                    System.out.println(\"After maxPrice filter (\" + maxPrice + \"), result size: \" + filteredItems.size());\n                    System.out.println(\"Items after maxPrice filter: \" + filteredItems);\n                } catch (NumberFormatException e) {\n                    // Log invalid maximum price for debugging\n                    System.out.println(\"Invalid maxPrice: \" + maxPriceStr);\n                }\n            }\n\n            // Sort filtered items if the list is not empty\n            if (!filteredItems.isEmpty()) {\n                // Default to sorting by name\n                MergeServlet.SortCriterion sortCriterion = MergeServlet.SortCriterion.NAME;\n                // Map sortBy parameter to sorting criterion\n                if (sortBy != null) {\n                    switch (sortBy.toLowerCase()) {\n                        case \"name\":\n                            sortCriterion = MergeServlet.SortCriterion.NAME;\n                            break;\n                        case \"price\":\n                            sortCriterion = MergeServlet.SortCriterion.PRICE;\n                            break;\n                        default:\n                            // Log invalid sort parameter and default to name\n                            System.out.println(\"Invalid sortBy parameter: \" + sortBy + \", defaulting to NAME\");\n                    }\n                }\n                // Log sorting criterion for debugging\n                System.out.println(\"Sorting items with sortCriterion=\" + sortCriterion);\n                // Sort items using MergeServlet\n                mergeServlet.sortItems(filteredItems, sortCriterion);\n            }\n\n            // Determine if the response is a search result (name or price filters applied)\n            boolean isSearchResult = (name != null && !name.trim().isEmpty()) ||\n                    (minPriceStr != null && !minPriceStr.trim().isEmpty()) ||\n                    (maxPriceStr != null && !maxPriceStr.trim().isEmpty());\n            // Set attributes for the JSP page\n            request.setAttribute(\"items\", filteredItems);\n            request.setAttribute(\"cart\", cart);\n            request.setAttribute(\"totalPrice\", totalPrice);\n            request.setAttribute(\"category\", category);\n            request.setAttribute(\"isSearchResult\", isSearchResult);\n            // Log forwarding details for debugging\n            System.out.println(\"Forwarding to cartIndex.jsp with items size: \" + filteredItems.size() + \", isSearchResult: \" + isSearchResult);\n            // Forward request to cartIndex.jsp for rendering\n            request.getRequestDispatcher(\"/cartAndOrders/cartIndex.jsp\").forward(request, response);\n        }\n    }\n\n    // Handles HTTP POST requests for adding, updating, or removing cart items\n    @Override\n    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {\n        // Retrieve the current HTTP session\n        HttpSession session = request.getSession();\n        // Get the logged-in user from the session\n        User loggedInUser = (User) session.getAttribute(\"user\");\n        // Require authentication for cart operations\n        if (loggedInUser == null) {\n            // Set response content type to JSON\n            response.setContentType(\"application/json\");\n            // Initialize response writer\n            PrintWriter out = response.getWriter();\n            // Send JSON error response for unauthenticated access\n            out.println(\"{\\\"success\\\": false, \\\"message\\\": \\\"Please log in to access the cart.\\\"}\");\n            // Flush output to ensure delivery\n            out.flush();\n            return;\n        }\n\n        // Log POST request action for debugging\n        System.out.println(\"Received POST request to CartServlet with action: \" + request.getParameter(\"action\"));\n        // Set response content type to JSON\n        response.setContentType(\"application/json\");\n        // Initialize response writer\n        PrintWriter out = response.getWriter();\n\n        // Declare list to store cart items\n        ArrayList<GroceryItem> cart;\n        // Load available grocery items from file\n        ArrayList<GroceryItem> items = FileUtil.readItems(ITEMS_FILE);\n        if (items == null) {\n            // Initialize empty items list if file read fails\n            items = new ArrayList<>();\n            // Log initialization for debugging\n            System.out.println(\"Initialized empty items list for \" + ITEMS_FILE + \" (file not found or invalid)\");\n        }\n        // Log loaded items for debugging\n        System.out.println(\"Loaded items from \" + ITEMS_FILE + \": \" + items);\n\n        // Synchronize to ensure thread-safe cart operations\n        synchronized (this) {\n            // Load cart items from file\n            cart = FileUtil.readItems(CART_FILE);\n            if (cart == null) {\n                // Initialize empty cart if file read fails\n                cart = new ArrayList<>();\n                // Log initialization for debugging\n                System.out.println(\"Initialized empty cart for \" + CART_FILE);\n            }\n            // Log loaded cart for debugging\n            System.out.println(\"Loaded cart before modification: \" + cart);\n\n            try {\n                // Handle add action to include a new item in the cart\n                if (\"add\".equals(request.getParameter(\"action\"))) {\n                    // Log item ID for debugging\n                    System.out.println(\"Processing 'add' action with itemId: \" + request.getParameter(\"itemId\"));\n                    // Parse item ID from request\n                    int itemId = Integer.parseInt(request.getParameter(\"itemId\"));\n                    // Find item by ID in the items list\n                    GroceryItem itemToAdd = items.stream().filter(item -> item.getProductID() == itemId).findFirst().orElse(null);\n                    if (itemToAdd == null) {\n                        // Log and send error if item is not found\n                        System.out.println(\"Item not found for itemId: \" + itemId);\n                        out.println(\"{\\\"success\\\": false, \\\"message\\\": \\\"Item not found\\\"}\");\n                    } else if (itemToAdd.getQuantity() <= 0) {\n                        // Log and send error if item is out of stock\n                        System.out.println(\"Item out of stock: \" + itemToAdd);\n                        out.println(\"{\\\"success\\\": false, \\\"message\\\": \\\"Item is out of stock\\\"}\");\n                    } else {\n                        // Check if item is already in the cart\n                        GroceryItem existingItem = cart.stream().filter(item -> item.getProductID() == itemId).findFirst().orElse(null);\n                        if (existingItem != null) {\n                            // Send error if item is already in cart\n                            out.println(\"{\\\"success\\\": false, \\\"message\\\": \\\"Item already in cart, use cart to increase quantity\\\"}\");\n                        } else {\n                            // Create new cart item with quantity 1\n                            GroceryItem cartItem = new GroceryItem(itemToAdd.getProductID(), itemToAdd.getProductCategory(),\n                                    itemToAdd.getProductName(), itemToAdd.getProductPrice(), itemToAdd.getProductImageLink(),\n                                    1, itemToAdd.getDescription());\n                            // Add item to cart\n                            cart.add(cartItem);\n                            // Decrease stock quantity\n                            itemToAdd.setQuantity(itemToAdd.getQuantity() - 1);\n                            // Update items file\n                            FileUtil.writeItems(ITEMS_FILE, items);\n                            // Update cart file\n                            FileUtil.writeItems(CART_FILE, cart);\n                            // Log addition for debugging\n                            System.out.println(\"Added new item to cart and updated stock: \" + cartItem);\n                            // Calculate total cart price\n                            double totalPrice = cart.stream().mapToDouble(GroceryItem::getTotalPrice).sum();\n                            // Send JSON response with updated cart\n                            sendCartResponse(out, cart, totalPrice, items);\n                        }\n                    }\n                } else if (\"update\".equals(request.getParameter(\"action\"))) {\n                    // Log item ID for debugging\n                    System.out.println(\"Processing 'update' action with itemId: \" + request.getParameter(\"itemId\"));\n                    // Parse item ID and quantity change\n                    int itemId = Integer.parseInt(request.getParameter(\"itemId\"));\n                    int change = Integer.parseInt(request.getParameter(\"change\"));\n                    // Find item in cart by ID\n                    GroceryItem item = cart.stream().filter(i -> i.getProductID() == itemId).findFirst().orElse(null);\n                    if (item == null) {\n                        // Log and send error if item is not in cart\n                        System.out.println(\"Item not found in cart for itemId: \" + itemId);\n                        out.println(\"{\\\"success\\\": false, \\\"message\\\": \\\"Item not found in cart\\\"}\");\n                    } else {\n                        // Get stock quantity for the item\n                        int stockQuantity = items.stream()\n                                .filter(i -> i.getProductID() == itemId)\n                                .findFirst()\n                                .map(GroceryItem::getQuantity)\n                                .orElse(0);\n                        // Calculate available stock\n                        int currentCartQuantity = item.getQuantity();\n                        int totalAvailableStock = stockQuantity + currentCartQuantity;\n                        // Adjust quantity within valid range\n                        int newQuantity = Math.max(0, Math.min(currentCartQuantity + change, totalAvailableStock));\n                        int quantityChange = newQuantity - currentCartQuantity;\n                        if (quantityChange != 0) {\n                            // Update stock quantity\n                            GroceryItem stockItem = items.stream()\n                                    .filter(i -> i.getProductID() == itemId)\n                                    .findFirst()\n                                    .orElse(null);\n                            if (stockItem != null) {\n                                stockItem.setQuantity(stockItem.getQuantity() - quantityChange);\n                                // Update items file\n                                FileUtil.writeItems(ITEMS_FILE, items);\n                                // Log stock update\n                                System.out.println(\"Updated stock in \" + ITEMS_FILE + \": \" + items);\n                            }\n                            // Update cart quantity\n                            item.setQuantity(newQuantity);\n                            if (newQuantity == 0) {\n                                // Remove item if quantity is zero\n                                cart.remove(item);\n                                // Log removal\n                                System.out.println(\"Removed item from cart: \" + item);\n                            } else {\n                                // Log quantity update\n                                System.out.println(\"Updated item quantity in cart: \" + item);\n                            }\n                            // Update cart file\n                            FileUtil.writeItems(CART_FILE, cart);\n                            // Log cart update\n                            System.out.println(\"Wrote cart to \" + CART_FILE + \": \" + cart);\n                        }\n                        // Calculate total cart price\n                        double totalPrice = cart.stream().mapToDouble(GroceryItem::getTotalPrice).sum();\n                        // Send JSON response with updated cart\n                        sendCartResponse(out, cart, totalPrice, items);\n                    }\n                } else if (\"remove\".equals(request.getParameter(\"action\"))) {\n                    // Log item ID for debugging\n                    System.out.println(\"Processing 'remove' action with itemId: \" + request.getParameter(\"itemId\"));\n                    // Parse item ID\n                    int itemId = Integer.parseInt(request.getParameter(\"itemId\"));\n                    // Find item in cart by ID\n                    GroceryItem itemToRemove = cart.stream().filter(item -> item.getProductID() == itemId).findFirst().orElse(null);\n                    if (itemToRemove != null) {\n                        // Restore stock quantity\n                        int quantityRemoved = itemToRemove.getQuantity();\n                        cart.remove(itemToRemove);\n                        GroceryItem stockItem = items.stream()\n                                .filter(item -> item.getProductID() == itemId)\n                                .findFirst()\n                                .orElse(null);\n                        if (stockItem != null) {\n                            stockItem.setQuantity(stockItem.getQuantity() + quantityRemoved);\n                            // Update items file\n                            FileUtil.writeItems(ITEMS_FILE, items);\n                            // Log stock update\n                            System.out.println(\"Updated stock in \" + ITEMS_FILE + \": \" + items);\n                        }\n                        // Update cart file\n                        FileUtil.writeItems(CART_FILE, cart);\n                        // Log cart update\n                        System.out.println(\"Wrote cart to \" + CART_FILE + \": \" + cart);\n                        // Calculate total cart price\n                        double totalPrice = cart.stream().mapToDouble(GroceryItem::getTotalPrice).sum();\n                        // Send JSON response with updated cart\n                        sendCartResponse(out, cart, totalPrice, items);\n                    } else {\n                        // Log and send error if item is not in cart\n                        System.out.println(\"Item not found in cart for itemId: \" + itemId);\n                        out.println(\"{\\\"success\\\": false, \\\"message\\\": \\\"Item not found in cart\\\"}\");\n                    }\n                } else {\n                    // Log and send error for invalid action\n                    System.out.println(\"Invalid action received: \" + request.getParameter(\"action\"));\n                    out.println(\"{\\\"success\\\": false, \\\"message\\\": \\\"Invalid action\\\"}\");\n                }\n            } catch (NumberFormatException e) {\n                // Log and send error for invalid numeric input\n                System.out.println(\"Invalid item ID or change value: \" + e.getMessage());\n                out.println(\"{\\\"success\\\": false, \\\"message\\\": \\\"Invalid item ID or change value\\\"}\");\n            } catch (IOException e) {\n                // Log and send error for file operation failures\n                System.err.println(\"I/O error during cart operation: \" + e.getMessage());\n                out.println(\"{\\\"success\\\": false, \\\"message\\\": \\\"Failed to update cart due to I/O error\\\"}\");\n            }\n        }\n        // Flush output to ensure delivery\n        out.flush();\n    }\n\n    // Generates a JSON response with cart details and stock information\n    private void sendCartResponse(PrintWriter out, ArrayList<GroceryItem> cart, double totalPrice, ArrayList<GroceryItem> items) {\n        // Start JSON response with success status and cart array\n        out.println(\"{\\\"success\\\": true, \\\"message\\\": \\\"Cart retrieved successfully\\\", \\\"cart\\\": [\");\n        // Iterate through cart items\n        for (int i = 0; i < cart.size(); i++) {\n            // Get current cart item\n            GroceryItem cartItem = cart.get(i);\n            // Retrieve stock quantity for the item\n            int stockQuantity = items.stream()\n                    .filter(item -> item.getProductID() == cartItem.getProductID())\n                    .findFirst()\n                    .map(GroceryItem::getQuantity)\n                    .orElse(0);\n            // Calculate total available stock\n            int totalAvailableStock = stockQuantity + cartItem.getQuantity();\n            // Write JSON object for the cart item\n            out.println(String.format(\"{\\\"productID\\\": %d, \\\"productName\\\": \\\"%s\\\", \\\"productPrice\\\": %.2f, \" +\n                            \"\\\"productImageLink\\\": \\\"%s\\\", \\\"quantity\\\": %d, \\\"description\\\": \\\"%s\\\", \\\"stockQuantity\\\": %d, \\\"totalAvailableStock\\\": %d}\",\n                    cartItem.getProductID(), escapeJson(cartItem.getProductName()), cartItem.getProductPrice(),\n                    escapeJson(cartItem.getProductImageLink()), cartItem.getQuantity(),\n                    escapeJson(cartItem.getDescription() != null ? cartItem.getDescription() : \"\"),\n                    stockQuantity, totalAvailableStock));\n            // Add comma between items except for the last\n            if (i < cart.size() - 1) out.println(\",\");\n        }\n        // Close cart array and add total price\n        out.println(\"], \\\"totalPrice\\\": \" + String.format(\"%.2f\", totalPrice) + \"}\");\n    }\n\n    // Escapes special characters in strings for valid JSON output\n    private String escapeJson(String str) {\n        // Return empty string if null, otherwise escape quotes and newlines\n        return str != null ? str.replace(\"\\\"\", \"\\\\\\\"\").replace(\"\\n\", \"\\\\n\") : \"\";\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/servlet/CartServlet.java b/src/main/java/servlet/CartServlet.java
+--- a/src/main/java/servlet/CartServlet.java	(revision 08e3c60cfd3afdcb680002fbb745406974304a7e)
++++ b/src/main/java/servlet/CartServlet.java	(date 1742654919000)
+@@ -1,228 +1,169 @@
+-// Package for servlet-related classes handling HTTP requests
+ package servlet;
+ 
+-// Import Jakarta Servlet APIs for HTTP request handling and session management
+ import jakarta.servlet.ServletException;
+ import jakarta.servlet.http.HttpServlet;
+ import jakarta.servlet.http.HttpServletRequest;
+ import jakarta.servlet.http.HttpServletResponse;
+ import jakarta.servlet.http.HttpSession;
+-// Import model classes for file operations, grocery items, and user data
+ import model.FileUtil;
+ import model.GroceryItem;
+ import model.User;
+-// Import Java I/O and utility classes for file operations and stream processing
++
+ import java.io.*;
+ import java.util.ArrayList;
+ import java.util.stream.Collectors;
+ 
+-// CartServlet handles HTTP requests for cart operations in an online grocery system
+ public class CartServlet extends HttpServlet {
+-    // File path for storing available grocery items
+     private static final String ITEMS_FILE = "/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/items.txt";
+-    // File path for storing cart items used in order creation
+     private static final String CART_FILE = "/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/cart.txt";
+-    // Instance of MergeServlet for sorting grocery items
+-    private MergeServlet mergeServlet;
++    private MergeServlet mergeServlet; // Instance of MergeServlet
+ 
+-    // Initializes the servlet, ensuring the data directory exists and is writable
+     @Override
+     public void init() throws ServletException {
+-        // Create data directory if it does not exist
+         File dataDir = new File("/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data");
+         if (!dataDir.exists()) {
+             if (dataDir.mkdirs()) {
+-                // Log successful creation of data directory
+                 System.out.println("Created data directory: " + dataDir.getAbsolutePath());
+             } else {
+-                // Log and throw exception if directory creation fails
+                 System.err.println("Failed to create data directory: " + dataDir.getAbsolutePath());
+                 throw new ServletException("Unable to create data directory for file operations");
+             }
+         } else if (!dataDir.canWrite()) {
+-            // Log and throw exception if directory is not writable
+             System.err.println("Data directory is not writable: " + dataDir.getAbsolutePath());
+             throw new ServletException("Data directory is not writable for file operations");
+         }
+-        // Log file paths for debugging
++
+         System.out.println("ITEMS_FILE path: " + ITEMS_FILE);
+         System.out.println("CART_FILE path: " + CART_FILE);
+-        // Initialize MergeServlet for sorting operations
+-        mergeServlet = new MergeServlet();
++        mergeServlet = new MergeServlet(); // Initialize MergeServlet
+     }
+ 
+-    // Handles HTTP GET requests for cart retrieval or item filtering
+     @Override
+     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+-        // Retrieve the current HTTP session
+         HttpSession session = request.getSession();
+-        // Get the logged-in user from the session
+         User loggedInUser = (User) session.getAttribute("user");
+-        // Redirect to login page if user is not authenticated
+         if (loggedInUser == null) {
+             response.sendRedirect(request.getContextPath() + "/userLogin/login.jsp?error=notLoggedIn");
+             return;
+         }
+ 
+-        // Declare list to store cart items
+         ArrayList<GroceryItem> cart;
+-        // Synchronize to ensure thread-safe file operations
+         synchronized (this) {
+-            // Load cart items from file
+             cart = FileUtil.readItems(CART_FILE);
+             if (cart == null) {
+-                // Initialize empty cart if file read fails
+                 cart = new ArrayList<>();
+-                // Log initialization for debugging
+                 System.out.println("Initialized empty cart for " + CART_FILE + " (file not found or invalid)");
+             } else {
+-                // Log loaded cart for debugging
+                 System.out.println("Loaded cart from " + CART_FILE + ": " + cart);
+             }
+         }
+ 
+-        // Load available grocery items from file
+         ArrayList<GroceryItem> items = FileUtil.readItems(ITEMS_FILE);
+         if (items == null) {
+-            // Initialize empty items list if file read fails
+             items = new ArrayList<>();
+-            // Log initialization for debugging
+             System.out.println("Initialized empty items list for " + ITEMS_FILE + " (file not found or invalid)");
+         }
+-        // Log loaded items for debugging
+         System.out.println("All loaded items: " + items);
+-        // Calculate total cart price by summing item prices
+         double totalPrice = cart.stream().mapToDouble(GroceryItem::getTotalPrice).sum();
+ 
+-        // Retrieve action parameter from request
+         String action = request.getParameter("action");
+-        // Log action for debugging
+         System.out.println("doGet action: " + action);
+         if ("getCart".equals(action)) {
+-            // Set response content type to JSON
+             response.setContentType("application/json");
+-            // Initialize response writer
+             PrintWriter out = response.getWriter();
+             if (cart.isEmpty()) {
+-                // Send JSON response for empty cart
+-                out.println("{\"success\": true, \"message\": \"Cart is empty\", \"cart\": [], \"totalPrice\": 0.00}");
++                out.write("{\"success\": true, \"message\": \"Cart is empty\", \"cart\": [], \"totalPrice\": 0.00}");
+             } else {
+-                // Send JSON response with cart details
+                 sendCartResponse(out, cart, totalPrice, items);
+             }
+-            // Flush output to ensure delivery
+             out.flush();
+         } else {
+-            // Retrieve filter parameters from request
+             String category = request.getParameter("category");
+             String minPriceStr = request.getParameter("minPrice");
+             String maxPriceStr = request.getParameter("maxPrice");
+             String name = request.getParameter("name");
+-            String sortBy = request.getParameter("sortBy");
+-            // Log filter parameters for debugging
++            String sortBy = request.getParameter("sortBy"); // Primary sorting criterion
++
+             System.out.println("Parameters - category: " + category + ", minPrice: " + minPriceStr + ", maxPrice: " + maxPriceStr + ", name: " + name + ", sortBy: " + sortBy);
+ 
+-            // Set category to null to show all items if unspecified or "All"
++            // Default category to null (show all) if not specified or "All"
+             if (category == null || category.trim().isEmpty() || category.equalsIgnoreCase("All")) {
+-                category = null;
+-                // Log that all categories are displayed
++                category = null; // Show all categories
+                 System.out.println("No specific category selected, showing all products");
+             }
+-            // Create final category variable for lambda expressions
+-            final String finalCategory = category;
++            final String finalCategory = category; // Create a final copy for lambda expression
+ 
+-            // Initialize filtered items list with all items
+             ArrayList<GroceryItem> filteredItems = new ArrayList<>(items);
+-            // Log initial item count for debugging
+             System.out.println("Initial items count: " + filteredItems.size());
+ 
+-            // Filter items by category if specified
++            // Step 1: Filter by category if specified
+             if (finalCategory != null && !finalCategory.trim().isEmpty()) {
+                 filteredItems = filteredItems.stream()
+-                        // Keep items matching the specified category (case-insensitive)
+                         .filter(item -> {
+                             boolean matches = item.getProductCategory().equalsIgnoreCase(finalCategory);
+-                            // Log category check for debugging
+                             System.out.println("Checking category for item " + item.getProductName() + ": " + item.getProductCategory() + " == " + finalCategory + " -> " + matches);
+                             return matches;
+                         })
+-                        // Collect filtered items into a new ArrayList
+                         .collect(Collectors.toCollection(ArrayList::new));
+-                // Log filtered item count and list for debugging
+                 System.out.println("After category filter, result size: " + filteredItems.size());
+                 System.out.println("Items after category filter: " + filteredItems);
+             }
+ 
+-            // Filter items by name if specified
++            // Step 2: Filter by name if specified
+             if (name != null && !name.trim().isEmpty()) {
+                 filteredItems = filteredItems.stream()
+-                        // Keep items with names containing the search term (case-insensitive)
+                         .filter(item -> {
+                             boolean matches = item.getProductName().toLowerCase().contains(name.toLowerCase());
+-                            // Log name check for debugging
+                             System.out.println("Checking name for item " + item.getProductName() + ": contains " + name + " -> " + matches);
+                             return matches;
+                         })
+-                        // Collect filtered items into a new ArrayList
+                         .collect(Collectors.toCollection(ArrayList::new));
+-                // Log filtered item count and list for debugging
+                 System.out.println("After name filter, result size: " + filteredItems.size());
+                 System.out.println("Items after name filter: " + filteredItems);
+             }
+ 
+-            // Filter items by minimum price if specified
++            // Step 3: Filter by price range
++            // Apply minPrice filter
+             if (minPriceStr != null && !minPriceStr.trim().isEmpty()) {
+                 try {
+-                    // Parse minimum price from string
+                     double minPrice = Double.parseDouble(minPriceStr);
+                     filteredItems = filteredItems.stream()
+-                            // Keep items with price at least the minimum
+                             .filter(item -> {
+                                 boolean matches = item.getProductPrice() >= minPrice;
+-                                // Log price check for debugging
+                                 System.out.println("Checking minPrice for item " + item.getProductName() + ": " + item.getProductPrice() + " >= " + minPrice + " -> " + matches);
+                                 return matches;
+                             })
+-                            // Collect filtered items into a new ArrayList
+                             .collect(Collectors.toCollection(ArrayList::new));
+-                    // Log filtered item count and list for debugging
+                     System.out.println("After minPrice filter (" + minPrice + "), result size: " + filteredItems.size());
+                     System.out.println("Items after minPrice filter: " + filteredItems);
+                 } catch (NumberFormatException e) {
+-                    // Log invalid minimum price for debugging
+                     System.out.println("Invalid minPrice: " + minPriceStr);
+                 }
+             }
+ 
+-            // Filter items by maximum price if specified
++            // Apply maxPrice filter
+             if (maxPriceStr != null && !maxPriceStr.trim().isEmpty()) {
+                 try {
+-                    // Parse maximum price from string
+                     double maxPrice = Double.parseDouble(maxPriceStr);
+                     filteredItems = filteredItems.stream()
+-                            // Keep items with price at most the maximum
+                             .filter(item -> {
+                                 boolean matches = item.getProductPrice() <= maxPrice;
+-                                // Log price check for debugging
+                                 System.out.println("Checking maxPrice for item " + item.getProductName() + ": " + item.getProductPrice() + " <= " + maxPrice + " -> " + matches);
+                                 return matches;
+                             })
+-                            // Collect filtered items into a new ArrayList
+                             .collect(Collectors.toCollection(ArrayList::new));
+-                    // Log filtered item count and list for debugging
+                     System.out.println("After maxPrice filter (" + maxPrice + "), result size: " + filteredItems.size());
+                     System.out.println("Items after maxPrice filter: " + filteredItems);
+                 } catch (NumberFormatException e) {
+-                    // Log invalid maximum price for debugging
+                     System.out.println("Invalid maxPrice: " + maxPriceStr);
+                 }
+             }
+ 
+-            // Sort filtered items if the list is not empty
++            // Step 4: Sort the filtered items using MergeServlet
+             if (!filteredItems.isEmpty()) {
+-                // Default to sorting by name
+-                MergeServlet.SortCriterion sortCriterion = MergeServlet.SortCriterion.NAME;
+-                // Map sortBy parameter to sorting criterion
++                MergeServlet.SortCriterion sortCriterion = MergeServlet.SortCriterion.NAME; // Default to name
++
++                // Map sortBy parameter to SortCriterion
+                 if (sortBy != null) {
+                     switch (sortBy.toLowerCase()) {
+                         case "name":
+@@ -232,198 +173,135 @@
+                             sortCriterion = MergeServlet.SortCriterion.PRICE;
+                             break;
+                         default:
+-                            // Log invalid sort parameter and default to name
+                             System.out.println("Invalid sortBy parameter: " + sortBy + ", defaulting to NAME");
+                     }
+                 }
+-                // Log sorting criterion for debugging
++
+                 System.out.println("Sorting items with sortCriterion=" + sortCriterion);
+-                // Sort items using MergeServlet
+                 mergeServlet.sortItems(filteredItems, sortCriterion);
+             }
+ 
+-            // Determine if the response is a search result (name or price filters applied)
++            // Determine if we're showing search results or a specific category
+             boolean isSearchResult = (name != null && !name.trim().isEmpty()) ||
+                     (minPriceStr != null && !minPriceStr.trim().isEmpty()) ||
+                     (maxPriceStr != null && !maxPriceStr.trim().isEmpty());
+-            // Set attributes for the JSP page
++
+             request.setAttribute("items", filteredItems);
+             request.setAttribute("cart", cart);
+             request.setAttribute("totalPrice", totalPrice);
+             request.setAttribute("category", category);
+             request.setAttribute("isSearchResult", isSearchResult);
+-            // Log forwarding details for debugging
+             System.out.println("Forwarding to cartIndex.jsp with items size: " + filteredItems.size() + ", isSearchResult: " + isSearchResult);
+-            // Forward request to cartIndex.jsp for rendering
+             request.getRequestDispatcher("/cartAndOrders/cartIndex.jsp").forward(request, response);
+         }
+     }
+ 
+-    // Handles HTTP POST requests for adding, updating, or removing cart items
+     @Override
+     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+-        // Retrieve the current HTTP session
+         HttpSession session = request.getSession();
+-        // Get the logged-in user from the session
+         User loggedInUser = (User) session.getAttribute("user");
+-        // Require authentication for cart operations
+         if (loggedInUser == null) {
+-            // Set response content type to JSON
+             response.setContentType("application/json");
+-            // Initialize response writer
+             PrintWriter out = response.getWriter();
+-            // Send JSON error response for unauthenticated access
+-            out.println("{\"success\": false, \"message\": \"Please log in to access the cart.\"}");
+-            // Flush output to ensure delivery
++            out.write("{\"success\": false, \"message\": \"Please log in to access the cart.\"}");
+             out.flush();
+             return;
+         }
+ 
+-        // Log POST request action for debugging
+         System.out.println("Received POST request to CartServlet with action: " + request.getParameter("action"));
+-        // Set response content type to JSON
+         response.setContentType("application/json");
+-        // Initialize response writer
+         PrintWriter out = response.getWriter();
+ 
+-        // Declare list to store cart items
+         ArrayList<GroceryItem> cart;
+-        // Load available grocery items from file
+         ArrayList<GroceryItem> items = FileUtil.readItems(ITEMS_FILE);
+         if (items == null) {
+-            // Initialize empty items list if file read fails
+             items = new ArrayList<>();
+-            // Log initialization for debugging
+             System.out.println("Initialized empty items list for " + ITEMS_FILE + " (file not found or invalid)");
+         }
+-        // Log loaded items for debugging
+         System.out.println("Loaded items from " + ITEMS_FILE + ": " + items);
+ 
+-        // Synchronize to ensure thread-safe cart operations
+         synchronized (this) {
+-            // Load cart items from file
+             cart = FileUtil.readItems(CART_FILE);
+             if (cart == null) {
+-                // Initialize empty cart if file read fails
+                 cart = new ArrayList<>();
+-                // Log initialization for debugging
+                 System.out.println("Initialized empty cart for " + CART_FILE);
+             }
+-            // Log loaded cart for debugging
+             System.out.println("Loaded cart before modification: " + cart);
+ 
+             try {
+-                // Handle add action to include a new item in the cart
+                 if ("add".equals(request.getParameter("action"))) {
+-                    // Log item ID for debugging
+                     System.out.println("Processing 'add' action with itemId: " + request.getParameter("itemId"));
+-                    // Parse item ID from request
+                     int itemId = Integer.parseInt(request.getParameter("itemId"));
+-                    // Find item by ID in the items list
+                     GroceryItem itemToAdd = items.stream().filter(item -> item.getProductID() == itemId).findFirst().orElse(null);
+                     if (itemToAdd == null) {
+-                        // Log and send error if item is not found
+                         System.out.println("Item not found for itemId: " + itemId);
+-                        out.println("{\"success\": false, \"message\": \"Item not found\"}");
++                        out.write("{\"success\": false, \"message\": \"Item not found\"}");
+                     } else if (itemToAdd.getQuantity() <= 0) {
+-                        // Log and send error if item is out of stock
+                         System.out.println("Item out of stock: " + itemToAdd);
+-                        out.println("{\"success\": false, \"message\": \"Item is out of stock\"}");
++                        out.write("{\"success\": false, \"message\": \"Item is out of stock\"}");
+                     } else {
+-                        // Check if item is already in the cart
+                         GroceryItem existingItem = cart.stream().filter(item -> item.getProductID() == itemId).findFirst().orElse(null);
+                         if (existingItem != null) {
+-                            // Send error if item is already in cart
+-                            out.println("{\"success\": false, \"message\": \"Item already in cart, use cart to increase quantity\"}");
++                            out.write("{\"success\": false, \"message\": \"Item already in cart, use cart to increase quantity\"}");
+                         } else {
+-                            // Create new cart item with quantity 1
+                             GroceryItem cartItem = new GroceryItem(itemToAdd.getProductID(), itemToAdd.getProductCategory(),
+                                     itemToAdd.getProductName(), itemToAdd.getProductPrice(), itemToAdd.getProductImageLink(),
+                                     1, itemToAdd.getDescription());
+-                            // Add item to cart
+                             cart.add(cartItem);
+-                            // Decrease stock quantity
+                             itemToAdd.setQuantity(itemToAdd.getQuantity() - 1);
+-                            // Update items file
+                             FileUtil.writeItems(ITEMS_FILE, items);
+-                            // Update cart file
+                             FileUtil.writeItems(CART_FILE, cart);
+-                            // Log addition for debugging
+                             System.out.println("Added new item to cart and updated stock: " + cartItem);
+-                            // Calculate total cart price
+                             double totalPrice = cart.stream().mapToDouble(GroceryItem::getTotalPrice).sum();
+-                            // Send JSON response with updated cart
+                             sendCartResponse(out, cart, totalPrice, items);
+                         }
+                     }
+                 } else if ("update".equals(request.getParameter("action"))) {
+-                    // Log item ID for debugging
+                     System.out.println("Processing 'update' action with itemId: " + request.getParameter("itemId"));
+-                    // Parse item ID and quantity change
+                     int itemId = Integer.parseInt(request.getParameter("itemId"));
+                     int change = Integer.parseInt(request.getParameter("change"));
+-                    // Find item in cart by ID
+                     GroceryItem item = cart.stream().filter(i -> i.getProductID() == itemId).findFirst().orElse(null);
+                     if (item == null) {
+-                        // Log and send error if item is not in cart
+                         System.out.println("Item not found in cart for itemId: " + itemId);
+-                        out.println("{\"success\": false, \"message\": \"Item not found in cart\"}");
++                        out.write("{\"success\": false, \"message\": \"Item not found in cart\"}");
+                     } else {
+-                        // Get stock quantity for the item
+                         int stockQuantity = items.stream()
+                                 .filter(i -> i.getProductID() == itemId)
+                                 .findFirst()
+                                 .map(GroceryItem::getQuantity)
+                                 .orElse(0);
+-                        // Calculate available stock
+                         int currentCartQuantity = item.getQuantity();
+                         int totalAvailableStock = stockQuantity + currentCartQuantity;
+-                        // Adjust quantity within valid range
+                         int newQuantity = Math.max(0, Math.min(currentCartQuantity + change, totalAvailableStock));
+                         int quantityChange = newQuantity - currentCartQuantity;
+                         if (quantityChange != 0) {
+-                            // Update stock quantity
+                             GroceryItem stockItem = items.stream()
+                                     .filter(i -> i.getProductID() == itemId)
+                                     .findFirst()
+                                     .orElse(null);
+                             if (stockItem != null) {
+                                 stockItem.setQuantity(stockItem.getQuantity() - quantityChange);
+-                                // Update items file
+                                 FileUtil.writeItems(ITEMS_FILE, items);
+-                                // Log stock update
+                                 System.out.println("Updated stock in " + ITEMS_FILE + ": " + items);
+                             }
+-                            // Update cart quantity
+                             item.setQuantity(newQuantity);
+                             if (newQuantity == 0) {
+-                                // Remove item if quantity is zero
+                                 cart.remove(item);
+-                                // Log removal
+                                 System.out.println("Removed item from cart: " + item);
+                             } else {
+-                                // Log quantity update
+                                 System.out.println("Updated item quantity in cart: " + item);
+                             }
+-                            // Update cart file
+                             FileUtil.writeItems(CART_FILE, cart);
+-                            // Log cart update
+                             System.out.println("Wrote cart to " + CART_FILE + ": " + cart);
+                         }
+-                        // Calculate total cart price
+                         double totalPrice = cart.stream().mapToDouble(GroceryItem::getTotalPrice).sum();
+-                        // Send JSON response with updated cart
+                         sendCartResponse(out, cart, totalPrice, items);
+                     }
+                 } else if ("remove".equals(request.getParameter("action"))) {
+-                    // Log item ID for debugging
+                     System.out.println("Processing 'remove' action with itemId: " + request.getParameter("itemId"));
+-                    // Parse item ID
+                     int itemId = Integer.parseInt(request.getParameter("itemId"));
+-                    // Find item in cart by ID
+                     GroceryItem itemToRemove = cart.stream().filter(item -> item.getProductID() == itemId).findFirst().orElse(null);
+                     if (itemToRemove != null) {
+-                        // Restore stock quantity
+                         int quantityRemoved = itemToRemove.getQuantity();
+                         cart.remove(itemToRemove);
+                         GroceryItem stockItem = items.stream()
+@@ -432,76 +310,54 @@
+                                 .orElse(null);
+                         if (stockItem != null) {
+                             stockItem.setQuantity(stockItem.getQuantity() + quantityRemoved);
+-                            // Update items file
+                             FileUtil.writeItems(ITEMS_FILE, items);
+-                            // Log stock update
+                             System.out.println("Updated stock in " + ITEMS_FILE + ": " + items);
+                         }
+-                        // Update cart file
+                         FileUtil.writeItems(CART_FILE, cart);
+-                        // Log cart update
+                         System.out.println("Wrote cart to " + CART_FILE + ": " + cart);
+-                        // Calculate total cart price
+                         double totalPrice = cart.stream().mapToDouble(GroceryItem::getTotalPrice).sum();
+-                        // Send JSON response with updated cart
+                         sendCartResponse(out, cart, totalPrice, items);
+                     } else {
+-                        // Log and send error if item is not in cart
+                         System.out.println("Item not found in cart for itemId: " + itemId);
+-                        out.println("{\"success\": false, \"message\": \"Item not found in cart\"}");
++                        out.write("{\"success\": false, \"message\": \"Item not found in cart\"}");
+                     }
+                 } else {
+-                    // Log and send error for invalid action
+                     System.out.println("Invalid action received: " + request.getParameter("action"));
+-                    out.println("{\"success\": false, \"message\": \"Invalid action\"}");
++                    out.write("{\"success\": false, \"message\": \"Invalid action\"}");
+                 }
+             } catch (NumberFormatException e) {
+-                // Log and send error for invalid numeric input
+                 System.out.println("Invalid item ID or change value: " + e.getMessage());
+-                out.println("{\"success\": false, \"message\": \"Invalid item ID or change value\"}");
++                out.write("{\"success\": false, \"message\": \"Invalid item ID or change value\"}");
+             } catch (IOException e) {
+-                // Log and send error for file operation failures
+                 System.err.println("I/O error during cart operation: " + e.getMessage());
+-                out.println("{\"success\": false, \"message\": \"Failed to update cart due to I/O error\"}");
++                out.write("{\"success\": false, \"message\": \"Failed to update cart due to I/O error\"}");
+             }
+         }
+-        // Flush output to ensure delivery
+         out.flush();
+     }
+ 
+-    // Generates a JSON response with cart details and stock information
+     private void sendCartResponse(PrintWriter out, ArrayList<GroceryItem> cart, double totalPrice, ArrayList<GroceryItem> items) {
+-        // Start JSON response with success status and cart array
+-        out.println("{\"success\": true, \"message\": \"Cart retrieved successfully\", \"cart\": [");
+-        // Iterate through cart items
++        out.write("{\"success\": true, \"message\": \"Cart retrieved successfully\", \"cart\": [");
+         for (int i = 0; i < cart.size(); i++) {
+-            // Get current cart item
+             GroceryItem cartItem = cart.get(i);
+-            // Retrieve stock quantity for the item
+             int stockQuantity = items.stream()
+                     .filter(item -> item.getProductID() == cartItem.getProductID())
+                     .findFirst()
+                     .map(GroceryItem::getQuantity)
+                     .orElse(0);
+-            // Calculate total available stock
+             int totalAvailableStock = stockQuantity + cartItem.getQuantity();
+-            // Write JSON object for the cart item
+-            out.println(String.format("{\"productID\": %d, \"productName\": \"%s\", \"productPrice\": %.2f, " +
++            out.write(String.format("{\"productID\": %d, \"productName\": \"%s\", \"productPrice\": %.2f, " +
+                             "\"productImageLink\": \"%s\", \"quantity\": %d, \"description\": \"%s\", \"stockQuantity\": %d, \"totalAvailableStock\": %d}",
+                     cartItem.getProductID(), escapeJson(cartItem.getProductName()), cartItem.getProductPrice(),
+                     escapeJson(cartItem.getProductImageLink()), cartItem.getQuantity(),
+                     escapeJson(cartItem.getDescription() != null ? cartItem.getDescription() : ""),
+                     stockQuantity, totalAvailableStock));
+-            // Add comma between items except for the last
+-            if (i < cart.size() - 1) out.println(",");
++            if (i < cart.size() - 1) out.write(",");
+         }
+-        // Close cart array and add total price
+-        out.println("], \"totalPrice\": " + String.format("%.2f", totalPrice) + "}");
++        out.write("], \"totalPrice\": " + String.format("%.2f", totalPrice) + "}");
+     }
+ 
+-    // Escapes special characters in strings for valid JSON output
+     private String escapeJson(String str) {
+-        // Return empty string if null, otherwise escape quotes and newlines
+         return str != null ? str.replace("\"", "\\\"").replace("\n", "\\n") : "";
+     }
+ }
+\ No newline at end of file
+Index: src/main/webapp/css/logIn.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');\n* {\n    margin: 0;\n    padding: 0;\n    box-sizing: border-box;\n    font-family: \"Poppins\", sans-serif;\n}\nbody {\n    background: url(\"https://wallpapers.com/images/hd/japan-farm-anime-landscape-yvqut0t4ra7u0j6l.jpg\");\n    min-height: 100vh;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    /*background: #6EC207;*/\n    padding: 30px;\n}\n.container {\n    position: relative;\n    max-width: 850px;\n    width: 100%;\n    background: #fff;\n    padding: 40px 30px;\n    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);\n    perspective: 2700px;\n}\n.container .cover {\n    position: absolute;\n    top: 0;\n    left: 50%;\n    height: 100%;\n    width: 50%;\n    z-index: 98;\n    transition: all 1s ease;\n    transform-origin: left;\n    transform-style: preserve-3d;\n    backface-visibility: hidden;\n}\n.container #flip:checked ~ .cover {\n    transform: rotateY(-180deg);\n}\n.container #flip:checked ~ .forms .login-form {\n    pointer-events: none;\n}\n.container .cover .front,\n.container .cover .back {\n    position: absolute;\n    top: 0;\n    left: 0;\n    height: 100%;\n    width: 100%;\n}\n.cover .back {\n    transform: rotateY(180deg);\n}\n.container .cover img {\n    position: absolute;\n    height: 100%;\n    width: 100%;\n    object-fit: cover;\n    z-index: 10;\n}\n.container .cover .text {\n    position: absolute;\n    z-index: 10;\n    height: 100%;\n    width: 100%;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n}\n.container .cover .text::before {\n    content: '';\n    position: absolute;\n    height: 100%;\n    width: 100%;\n    opacity: 0.5;\n    background: #0C9463;\n}\n.cover .text .text-1,\n.cover .text .text-2 {\n    z-index: 20;\n    font-size: 26px;\n    font-weight: 600;\n    color: #fff;\n    text-align: center;\n}\n.cover .text .text-2 {\n    font-size: 15px;\n    font-weight: 500;\n}\n.container .forms {\n    height: 100%;\n    width: 100%;\n    background: #fff;\n}\n.container .form-content {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n}\n.form-content .login-form,\n.form-content .signup-form {\n    width: calc(100% / 2 - 25px);\n}\n.forms .form-content .title {\n    position: relative;\n    font-size: 24px;\n    font-weight: 500;\n    color: #333;\n}\n.forms .form-content .title:before {\n    content: '';\n    position: absolute;\n    left: 0;\n    bottom: 0;\n    height: 3px;\n    width: 25px;\n    background: #3E7B27;\n}\n.forms .signup-form .title:before {\n    width: 20px;\n}\n.forms .form-content .input-boxes {\n    margin-top: 30px;\n}\n.forms .form-content .input-box {\n    display: flex;\n    align-items: center;\n    height: 50px;\n    width: 100%;\n    margin: 10px 0;\n    position: relative;\n}\n.form-content .input-box input {\n    height: 100%;\n    width: 100%;\n    outline: none;\n    border: none;\n    padding: 0 30px;\n    font-size: 16px;\n    font-weight: 500;\n    border-bottom: 2px solid rgba(0, 0, 0, 0.2);\n    transition: all 0.3s ease;\n}\n.form-content .input-box input:focus,\n.form-content .input-box input:valid {\n    border-color: #3E7B27;\n}\n.form-content .input-box i {\n    position: absolute;\n    color: #3E7B27;\n    font-size: 17px;\n}\n.forms .form-content .text {\n    font-size: 14px;\n    font-weight: 500;\n    color: #3E7B27;\n}\n.forms .form-content .text a {\n    color:#3E7B27;\n    text-decoration: none;\n}\n.forms .form-content .text a:hover {\n    text-decoration: underline;\n}\n.forms .form-content .button {\n    color: #fff;\n    margin-top: 40px;\n}\n.forms .form-content .button input {\n    color: #fff;\n    background: #5CB338;\n    border-radius: 6px;\n    padding: 0;\n    cursor: pointer;\n    transition: all 0.4s ease;\n}\n.forms .form-content .button input:hover {\n    background: #3E7B27;\n}\n.forms .form-content label {\n    color: #191919;\n    cursor: pointer;\n}\n.forms .form-content label:hover {\n    text-decoration: underline;\n}\n.forms .form-content .login-text,\n.forms .form-content .sign-up-text {\n    text-align: center;\n    margin-top: 25px;\n}\n.container #flip {\n    display: none;\n}\n@media (max-width: 730px) {\n    .container .cover {\n        display: none;\n    }\n    .form-content .login-form,\n    .form-content .signup-form {\n        width: 100%;\n    }\n    .form-content .signup-form {\n        display: none;\n    }\n    .container #flip:checked ~ .forms .signup-form {\n        display: block;\n    }\n    .container #flip:checked ~ .forms .login-form {\n        display: none;\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/webapp/css/logIn.css b/src/main/webapp/css/logIn.css
+--- a/src/main/webapp/css/logIn.css	(revision 08e3c60cfd3afdcb680002fbb745406974304a7e)
++++ b/src/main/webapp/css/logIn.css	(date 1747199054151)
+@@ -6,7 +6,7 @@
+     font-family: "Poppins", sans-serif;
+ }
+ body {
+-    background: url("https://wallpapers.com/images/hd/japan-farm-anime-landscape-yvqut0t4ra7u0j6l.jpg");
++    background: url("https://img.freepik.com/free-photo/shopping-cart-full-products-inside-supermarket_123827-28165.jpg?ga=GA1.1.1475331235.1731237648&semt=ais_hybrid&w=740");
+     min-height: 100vh;
+     display: flex;
+     align-items: center;
+Index: target/OnlineGroceryOrderSystem/WEB-INF/classes/loggedInUser.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>--- User Start: US021583101081 ---\nusername=alokawarnakula77@gmail.com\npassword=12345678A@a\nuserNumber=US021583101081\nfullName=aloka warnakula mn\nemail=alokawarnakula77@gmail.com\nphoneNumber=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\n--- User End ---\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/OnlineGroceryOrderSystem/WEB-INF/classes/loggedInUser.txt b/target/OnlineGroceryOrderSystem/WEB-INF/classes/loggedInUser.txt
+--- a/target/OnlineGroceryOrderSystem/WEB-INF/classes/loggedInUser.txt	(revision 08e3c60cfd3afdcb680002fbb745406974304a7e)
++++ b/target/OnlineGroceryOrderSystem/WEB-INF/classes/loggedInUser.txt	(date 1747198795031)
+@@ -1,9 +1,0 @@
+---- User Start: US021583101081 ---
+-username=alokawarnakula77@gmail.com
+-password=12345678A@a
+-userNumber=US021583101081
+-fullName=aloka warnakula mn
+-email=alokawarnakula77@gmail.com
+-phoneNumber=0711641638
+-address=21/6/6A, somanada mawatha, pitumpe, padukka
+---- User End ---
+Index: target/OnlineGroceryOrderSystem/userLogin/login.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><%@ page language=\"java\" contentType=\"text/html; charset=UTF-8\" pageEncoding=\"UTF-8\"%>\n<!DOCTYPE html>\n<html lang=\"en\" dir=\"ltr\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Login and Registration</title>\n    <link rel=\"stylesheet\" href=\"${pageContext.request.contextPath}/css/logIn.css\">\n    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        .popup {\n            display: none;\n            position: fixed;\n            top: 50%;\n            left: 50%;\n            transform: translate(-50%, -50%) scale(0.8);\n            background: rgba(255, 255, 255, 0.98);\n            border-radius: 15px;\n            padding: 30px;\n            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);\n            max-width: 400px;\n            width: 90%;\n            text-align: center;\n            z-index: 1000;\n            border: 3px solid #3E7B27;\n            opacity: 0;\n            transition: opacity 0.3s ease, transform 0.3s ease;\n        }\n        .popup.active {\n            display: block;\n            opacity: 1;\n            transform: translate(-50%, -50%) scale(1);\n        }\n        .popup-content {\n            position: relative;\n        }\n        .popup-icon {\n            color: #3E7B27;\n            font-size: 24px;\n            margin-bottom: 15px;\n        }\n        .popup-content p {\n            margin: 0 0 20px;\n            font-size: 15px;\n            color: #721c24;\n            line-height: 1.5;\n        }\n        .popup-content .ok-btn {\n            background: #5CB338;\n            color: white;\n            border: none;\n            padding: 10px 20px;\n            border-radius: 8px;\n            cursor: pointer;\n            font-size: 14px;\n            text-transform: uppercase;\n            letter-spacing: 1px;\n            transition: background 0.3s, transform 0.2s;\n        }\n        .popup-content .ok-btn:hover {\n            background: #3E7B27;\n            transform: translateY(-2px);\n        }\n        .overlay {\n            display: none;\n            position: fixed;\n            top: 0;\n            left: 0;\n            width: 100%;\n            height: 100%;\n            background: rgba(0, 0, 0, 0.6);\n            z-index: 999;\n            opacity: 0;\n            transition: opacity 0.3s ease;\n        }\n        .overlay.active {\n            display: block;\n            opacity: 1;\n        }\n    </style>\n</head>\n<body>\n<div class=\"overlay\" id=\"popupOverlay\"></div>\n<div class=\"popup\" id=\"errorPopup\">\n    <div class=\"popup-content\">\n        <i class=\"fas fa-exclamation-circle popup-icon\"></i>\n        <p id=\"popupMessage\"></p>\n        <button class=\"ok-btn\" onclick=\"closePopup()\">OK</button>\n    </div>\n</div>\n<div class=\"container\">\n    <input type=\"checkbox\" id=\"flip\">\n    <div class=\"cover\">\n        <div class=\"front\">\n            <img src=\"https://i.pinimg.com/736x/6a/3a/1c/6a3a1c241f4e81ac57975037ab928d8b.jpg\" alt=\"\">\n            <div class=\"text\">\n                <span class=\"text-1\">Every new friend is a <br> new adventure</span>\n                <span class=\"text-2\">Let's get connected</span>\n            </div>\n        </div>\n        <div class=\"back\">\n            <img src=\"https://cdn.donmai.us/original/56/9f/569f8455732d366e27f396611ead70b8.jpg\">\n            <div class=\"text\">\n                <span class=\"text-1\">Complete miles of journey <br> with one step</span>\n                <span class=\"text-2\">Let's get started</span>\n            </div>\n        </div>\n    </div>\n    <div class=\"forms\">\n        <div class=\"form-content\">\n            <div class=\"login-form\">\n                <div class=\"title\">Login</div>\n                <%\n                    String error = (String) request.getAttribute(\"error\");\n                    if (error != null) {\n                %>\n                <p style=\"color: red;\"><%= error %></p>\n                <%\n                    }\n                    String loginError = request.getParameter(\"error\");\n                    if (\"notLoggedIn\".equals(loginError)) {\n                %>\n                <p style=\"color: red;\">Login first before shopping</p>\n                <%\n                    }\n                %>\n                <form action=\"${pageContext.request.contextPath}/LoginServlet\" method=\"post\">\n                    <div class=\"input-boxes\">\n                        <div class=\"input-box\">\n                            <i class=\"fas fa-envelope\"></i>\n                            <input type=\"email\" name=\"email\" placeholder=\"Enter your email\" required>\n                        </div>\n                        <div class=\"input-box\">\n                            <i class=\"fas fa-lock\"></i>\n                            <input type=\"password\" name=\"password\" placeholder=\"Enter your password\" required>\n                        </div>\n                        <div class=\"text\"><a href=\"${pageContext.request.contextPath}/userLogin/forgotPassword.jsp\">Forgot password?</a></div>\n                        <div class=\"button input-box\">\n                            <input type=\"submit\" value=\"Submit\">\n                        </div>\n                        <div class=\"text sign-up-text\">Don't have an account? <label for=\"flip\">Signup now</label></div>\n                    </div>\n                </form>\n            </div>\n            <div class=\"signup-form\">\n                <div class=\"title\">Signup</div>\n                <form id=\"signupForm\" action=\"${pageContext.request.contextPath}/RegisterServlet\" method=\"post\">\n                    <div class=\"input-boxes\">\n                        <div class=\"input-box\">\n                            <i class=\"fas fa-user\"></i>\n                            <input type=\"text\" name=\"fullName\" placeholder=\"Enter your full name\" required>\n                        </div>\n                        <div class=\"input-box\">\n                            <i class=\"fas fa-envelope\"></i>\n                            <input type=\"email\" name=\"email\" placeholder=\"Enter your email\" required>\n                        </div>\n                        <div class=\"input-box\">\n                            <i class=\"fas fa-phone\"></i>\n                            <input type=\"text\" name=\"phoneNumber\" placeholder=\"Enter your phone number\" required>\n                        </div>\n                        <div class=\"input-box\">\n                            <i class=\"fas fa-home\"></i>\n                            <input type=\"text\" name=\"address\" placeholder=\"Enter your address\" required>\n                        </div>\n                        <div class=\"input-box\">\n                            <i class=\"fas fa-lock\"></i>\n                            <input type=\"password\" id=\"password\" name=\"password\" placeholder=\"Enter your password\" required>\n                        </div>\n                        <div class=\"button input-box\">\n                            <input type=\"submit\" value=\"Submit\">\n                        </div>\n                        <div class=\"text sign-up-text\">Already have an account? <label for=\"flip\">Login now</label></div>\n                    </div>\n                </form>\n            </div>\n        </div>\n    </div>\n</div>\n<script>\n    const signupForm = document.getElementById('signupForm');\n    const passwordInput = document.getElementById('password');\n    const popup = document.getElementById('errorPopup');\n    const popupMessage = document.getElementById('popupMessage');\n    const popupOverlay = document.getElementById('popupOverlay');\n\n    signupForm.addEventListener('submit', handleSubmit);\n    popupOverlay.addEventListener('click', closePopup);\n\n    function showPopup(message) {\n        popupMessage.textContent = message;\n        popup.classList.add('active');\n        popupOverlay.classList.add('active');\n    }\n\n    function closePopup() {\n        popup.classList.remove('active');\n        popupOverlay.classList.remove('active');\n    }\n\n    function handleSubmit(event) {\n        const password = passwordInput.value;\n        const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$!%*?&])[A-Za-z\\d@#$!%*?&]{8,}$/;\n\n        if (!passwordRegex.test(password)) {\n            event.preventDefault();\n            showPopup('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character (@#$!%*?&).');\n            return false;\n        }\n        return true;\n    }\n</script>\n</body>\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/OnlineGroceryOrderSystem/userLogin/login.jsp b/target/OnlineGroceryOrderSystem/userLogin/login.jsp
+--- a/target/OnlineGroceryOrderSystem/userLogin/login.jsp	(revision 08e3c60cfd3afdcb680002fbb745406974304a7e)
++++ b/target/OnlineGroceryOrderSystem/userLogin/login.jsp	(date 1747199089039)
+@@ -79,7 +79,7 @@
+         }
+     </style>
+ </head>
+-<body>
++<body style="background: url('https://img.freepik.com/free-photo/shopping-cart-full-products-inside-supermarket_123827-28165.jpg?ga=GA1.1.1475331235.1731237648&semt=ais_hybrid&w=740') no-repeat center center fixed; background-size: cover">
+ <div class="overlay" id="popupOverlay"></div>
+ <div class="popup" id="errorPopup">
+     <div class="popup-content">
+@@ -92,14 +92,14 @@
+     <input type="checkbox" id="flip">
+     <div class="cover">
+         <div class="front">
+-            <img src="https://i.pinimg.com/736x/6a/3a/1c/6a3a1c241f4e81ac57975037ab928d8b.jpg" alt="">
++            <img src="https://img.freepik.com/free-photo/delivery-concept-handsome-african-american-delivery-man-carrying-package-box-grocery-food-drink-from-store-isolated-grey-studio-background-copy-space_1258-1230.jpg?ga=GA1.1.1475331235.1731237648&w=740" alt="">
+             <div class="text">
+                 <span class="text-1">Every new friend is a <br> new adventure</span>
+                 <span class="text-2">Let's get connected</span>
+             </div>
+         </div>
+         <div class="back">
+-            <img src="https://cdn.donmai.us/original/56/9f/569f8455732d366e27f396611ead70b8.jpg">
++            <img src="https://img.freepik.com/free-photo/woman-holding-glass-juice-showing-phone-mock-up_23-2148332116.jpg?ga=GA1.1.1475331235.1731237648&semt=ais_hybrid&w=740">
+             <div class="text">
+                 <span class="text-1">Complete miles of journey <br> with one step</span>
+                 <span class="text-2">Let's get started</span>
+Index: src/main/webapp/data/items.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>1,Produce,Red Onions,250.00,https://www.shutterstock.com/image-photo/isolated-red-big-onions-white-600nw-1782386771.jpg,300,Fresh Big Onions 1kg a\n2,Produce,Coconut,230.00,https://img.freepik.com/premium-photo/coconut-isolated-white-background_252965-356.jpg,259,Fresh Coconut Price of One Unit\n3,Produce,Tomato,160.00,https://t4.ftcdn.net/jpg/00/29/78/85/360_F_29788505_PbGEDPBhQIxW2soJMOpLlYOybLrvPt2e.jpg,300,Only 500g\n4,Produce,Potatoes,190.00,https://i.pinimg.com/736x/33/7e/fa/337efa818550fce97fa5991ea513c16b.jpg,500,Only 500g\n5,Produce,Carrot,425.00,https://t4.ftcdn.net/jpg/00/80/96/17/360_F_80961739_hep1UZaQRsy5WQOYU3jkOr5CB7A6xc3U.jpg,99,Only 500g\n6,Produce,Garlic,260.00,https://as2.ftcdn.net/v2/jpg/03/20/58/51/1000_F_320585105_SRCBaxOcZg6lmllMmtt6tKTu9eN4s30B.jpg,8,Only 250g\n7,Produce,Brinjal,67.00,https://static.vecteezy.com/system/resources/previews/004/158/962/non_2x/eggplant-isolated-on-a-white-background-photo.jpg,0,Only 350g\n8,Produce,Raw Ginger,278.00,https://static.vecteezy.com/system/resources/previews/030/668/174/non_2x/ginger-with-white-background-high-quality-ultra-hd-free-photo.jpg,8,Only 150g\n9,Produce,Cabbage,215.00,https://as2.ftcdn.net/jpg/02/96/54/63/1000_F_296546395_Tw3FfCAV6Ss6U0tufcgVE3Twf01LZutt.jpg,6,Only 500g\n10,Produce,Pumpkin,90.00,https://t4.ftcdn.net/jpg/00/69/19/07/360_F_69190757_a37tIJk6fq40BADf78ewXZyc0HIL3mBU.jpg,8,Only 500g\n11,Produce,Bitter Gourd,118.00,https://t4.ftcdn.net/jpg/03/89/85/85/360_F_389858598_TSNp6HysawjDuyAtRrJdru6Kf8LEZXbt.jpg,0,Only 250g\n12,Produce,Sweet Potatoes,139.00,https://img.freepik.com/premium-photo/sweet-potato-isolated-white-background_316968-712.jpg,8,Only 500g\n13,Produce,Cauliflower,269.00,https://media.istockphoto.com/id/186828790/photo/cauliflower-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=oLL9OeCwhHolL-MqXb3CZEkL0NyE483_vEqm3Tj0Lzo=,7,Only 300g\n14,Produce,Cucumber,92.00,https://img.freepik.com/premium-photo/cucumber-vegetable-isolated-white-background_42033-135.jpg,8,Only 400g\n15,Produce,Broccoli,1458.00,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9WtHcQiqLRmr827_jDvo_NlEceWQsQ7xRiw&s,1,Only 300g\n16,Produce,Kesel Muwa,60.00,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoKGxtMpNYFRMtMSzC8U4RtMz_qamZ-WNriw&s,0,Only 500g\n17,Produce,Bell Pepper Green,1200.00,https://media.istockphoto.com/id/922745944/photo/green-peppers-on-white-background.jpg?s=612x612&w=0&k=20&c=ANUMSGzCw2oEd44ZVOmlgjDd8gAhJN0gSg6dLqBai6I=,0,Only 500g\n18,Produce,Lettuce,24.00,https://thumbs.dreamstime.com/b/organic-vegetable-salad-green-frillice-iceberg-lettuce-isolated-white-background-151715371.jpg,0,Only 100g\n19,Pantry,Rice,260.00,https://media.istockphoto.com/id/483226970/photo/heap-of-raw-basmati-rice.jpg?s=612x612&w=0&k=20&c=aaNOxz6AvGftzj3pyJ7SWjXTXyz79mPB9hdphbOZDwc=,6,Only 1kg\n20,Produce,Pineapple,650.00,https://static5.depositphotos.com/1000188/481/i/950/depositphotos_4810705-stock-photo-fresh-slice-pineapple-on-white.jpg,7,Only 1.25kg\n21,Produce,Imported Red Grapes,1164.00,https://gabbarfarms.com/cdn/shop/products/ImportedGrpes_600x.jpg?v=1634633431,5,Only 500g\n22,Produce,Imported Mandarin,864.00,https://media.istockphoto.com/id/504384796/photo/fresh-ripe-tangerines.jpg?s=612x612&w=0&k=20&c=12Gp6Nkk_Vef64j29TDtXt3JZHY-jV9H3DMmuDHsRAE=,5,Only 600g\n23,Produce,Sweet Water Melon,400.00,https://thumbs.dreamstime.com/b/whole-ripe-watermelon-quarter-isolated-white-background-full-depth-field-whole-ripe-watermelon-quarter-isolated-156340918.jpg,9,Only 2kg\n24,Produce,Papaya,450.00,https://t3.ftcdn.net/jpg/05/13/26/84/360_F_513268409_H7YzF29YTUuJ4KvoC8VNxUM40m9PfIdx.jpg,8,Only 1.25kg\n25,Produce,Kolikuttu,140.00,https://spar2u.lk/cdn/shop/files/Kolikuttubanana.jpg?v=1739447092,7,Only 500g\n26,Produce,Imported Pomegranate,1530.00,https://media.istockphoto.com/id/940118920/photo/ripe-pomegranate-fruit-and-one-cut-in-half-with-leaf.jpg?s=612x612&w=0&k=20&c=iVTrJvW6rtFTlsWk5J3v1r1NeCgNtZMD4qDJIh3sfik=,5,Only 500g\n27,Produce,Apple,1337.00,https://png.pngtree.com/png-vector/20240612/ourmid/pngtree-red-fresh-apple-white-background-png-image_12643725.png,20,Only 700g\n28,Produce,King Coconut,240.00,https://t4.ftcdn.net/jpg/05/24/15/17/360_F_524151797_uBpqhFFLGqSNHht2ORoWypI03yY5SGaN.jpg,8,Only 1Pcs\n29,Produce,Kiwi Fruit,1460.00,https://i.pinimg.com/736x/13/fe/74/13fe7434de9b4c36410744dbd843fdff.jpg,6,Only 500g\n30,Produce,Soursop,525.00,https://media.istockphoto.com/id/1369037177/photo/soursop-or-custard-apple-fruit-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=3iHof9sefP0PNUh4rnXM4hBuMS_YnOgOnNbDzap9DPU=,9,Only 1kg\n31,Pantry,Dahal,289.00,https://www.shutterstock.com/image-photo/red-lentils-isolated-on-white-600nw-2332458631.jpg,9,Only 1kg\n32,Produce,Strawberry,1290.00,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9KZF0L6SWyX0c6SRYlltKJZuWeHfcbbDiTw&s,32,Only 250g\n33,Proteins,Large prawns,1875.00,https://media.istockphoto.com/id/1255181693/photo/banana-prawn-or-shrimp-isolated-on-white-background-white-shrimp-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=X_sO0D9U1J98JcubDdEuR6kGOxbHZVc-OxVKeqzjXtY=,10,Only 1kg\n34,Proteins,Lobster,4375.00,https://meatmart.lk/wp-content/uploads/2023/06/Lobster-KG.webp,9,Only 1kg\n35,Proteins,Cuttle Fish,2250.00,https://meatmart.lk/wp-content/uploads/2023/06/frozen-squid-fish-500x500-1-768x768.webp.webp,9,Only 1kg\n36,Proteins,Gar fish (Habarali),3500.00,https://tropicalshellfish.com/wp-content/uploads/2021/09/habaralli.jpg,6,Only 1kg\n37,Proteins,Big Crab,4375.00,https://media.istockphoto.com/id/453209605/photo/isolated-whole-dungeness-crab.jpg?s=612x612&w=0&k=20&c=OINq23e6m6kOS20psfnnkGN-RU33L__34IH-7rG8F7Y=,9,Only 1kg\n38,Proteins,Big Anchovy,1500.00,https://www.shutterstock.com/image-photo/close-anchovies-gray-anchovy-isolated-260nw-2324973519.jpg,9,Only 1kg\n39,Proteins,Tuna,3422.00,https://media.istockphoto.com/id/473827068/photo/bluefin-tuna-really-fresh-isolated-on-white.jpg?s=612x612&w=0&k=20&c=AK8XBCRAc50bDQ5YFFSayT8TbujkZPEhk5xzGHrkSIk=,10,Only 1kg\n40,Proteins,Turkey S/L,4999.00,https://img.freepik.com/premium-photo/natural-fresh-raw-turkey-meat-isolated-white-background_787273-69566.jpg,8,Only 1kg\n42,Proteins,Chicken boneless,3450.00,https://static.vecteezy.com/system/resources/previews/050/024/853/large_2x/a-pile-of-boneless-skinless-chicken-breasts-on-a-white-background-free-photo.jpg,10,Only 1kg\n43,Proteins,Chicken Whole Leg,2450.00,https://spar2u.lk/cdn/shop/files/Chickenwholelegskinon_458x595.jpg?v=1739447117,10,ONly 500g\n44,Proteins,Thalapath Fish,2242.00,https://ican-mall.oss-ap-southeast-1.aliyuncs.com/2024/05/c0c5fb6126924c28bd13355baaaaf32f.webp,9,Only 600g\n45,Proteins,Squid,1525.00,https://thumbs.dreamstime.com/b/fresh-squid-isolated-white-background-44144491.jpg,10,Only 500g\n46,Proteins,Brown Egg,55.00,https://img.freepik.com/premium-photo/chicken-egg-white-background_55716-1235.jpg,10,Only 1Pcs\n47,Proteins,White Egg,40.00,https://media.istockphoto.com/id/467061077/photo/eggs-isolated-on-a-white-background.jpg?s=612x612&w=0&k=20&c=K6RZK8UR5hzHy4auNEKHV0EdkBVnVlyLlfBflpUXP-g=,20,Only 1Pcs\n48,Proteins,Sausage,690.00,https://static.vecteezy.com/system/resources/previews/026/978/295/large_2x/grilled-pork-sausages-with-lettuce-isolated-on-white-background-photo.jpg,10,Only 500g\n41,Produce,anime,456.00,https://uchi.imgix.net/properties/anime2.png?crop=focalpoint&domain=uchi.imgix.net&fit=crop&fm=pjpg&fp-x=0.5&fp-y=0.5&h=558&ixlib=php-3.3.1&q=82&usm=20&w=992,18,anime watch and enjoy it.\n49,Bakery,Tiara Rollo Cake,70.00,https://essstr.blob.core.windows.net/essimg/ItemAsset/Pic12171.jpg,39,25.00g Rollo Cake\n50,Produce,Dragon Fruit,1500.00,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPEFyc7mDC49UthRxicEvU6UaS1nShvCsJlQ&s,200,Only 1kg\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/webapp/data/items.txt b/src/main/webapp/data/items.txt
+--- a/src/main/webapp/data/items.txt	(revision 08e3c60cfd3afdcb680002fbb745406974304a7e)
++++ b/src/main/webapp/data/items.txt	(date 1747198632692)
+@@ -2,7 +2,7 @@
+ 2,Produce,Coconut,230.00,https://img.freepik.com/premium-photo/coconut-isolated-white-background_252965-356.jpg,259,Fresh Coconut Price of One Unit
+ 3,Produce,Tomato,160.00,https://t4.ftcdn.net/jpg/00/29/78/85/360_F_29788505_PbGEDPBhQIxW2soJMOpLlYOybLrvPt2e.jpg,300,Only 500g
+ 4,Produce,Potatoes,190.00,https://i.pinimg.com/736x/33/7e/fa/337efa818550fce97fa5991ea513c16b.jpg,500,Only 500g
+-5,Produce,Carrot,425.00,https://t4.ftcdn.net/jpg/00/80/96/17/360_F_80961739_hep1UZaQRsy5WQOYU3jkOr5CB7A6xc3U.jpg,99,Only 500g
++5,Produce,Carrot,425.00,https://t4.ftcdn.net/jpg/00/80/96/17/360_F_80961739_hep1UZaQRsy5WQOYU3jkOr5CB7A6xc3U.jpg,300,Only 500g
+ 6,Produce,Garlic,260.00,https://as2.ftcdn.net/v2/jpg/03/20/58/51/1000_F_320585105_SRCBaxOcZg6lmllMmtt6tKTu9eN4s30B.jpg,8,Only 250g
+ 7,Produce,Brinjal,67.00,https://static.vecteezy.com/system/resources/previews/004/158/962/non_2x/eggplant-isolated-on-a-white-background-photo.jpg,0,Only 350g
+ 8,Produce,Raw Ginger,278.00,https://static.vecteezy.com/system/resources/previews/030/668/174/non_2x/ginger-with-white-background-high-quality-ultra-hd-free-photo.jpg,8,Only 150g
+@@ -16,14 +16,14 @@
+ 16,Produce,Kesel Muwa,60.00,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoKGxtMpNYFRMtMSzC8U4RtMz_qamZ-WNriw&s,0,Only 500g
+ 17,Produce,Bell Pepper Green,1200.00,https://media.istockphoto.com/id/922745944/photo/green-peppers-on-white-background.jpg?s=612x612&w=0&k=20&c=ANUMSGzCw2oEd44ZVOmlgjDd8gAhJN0gSg6dLqBai6I=,0,Only 500g
+ 18,Produce,Lettuce,24.00,https://thumbs.dreamstime.com/b/organic-vegetable-salad-green-frillice-iceberg-lettuce-isolated-white-background-151715371.jpg,0,Only 100g
+-19,Pantry,Rice,260.00,https://media.istockphoto.com/id/483226970/photo/heap-of-raw-basmati-rice.jpg?s=612x612&w=0&k=20&c=aaNOxz6AvGftzj3pyJ7SWjXTXyz79mPB9hdphbOZDwc=,6,Only 1kg
++19,Pantry,Rice,260.00,https://media.istockphoto.com/id/483226970/photo/heap-of-raw-basmati-rice.jpg?s=612x612&w=0&k=20&c=aaNOxz6AvGftzj3pyJ7SWjXTXyz79mPB9hdphbOZDwc=,10,Only 1kg
+ 20,Produce,Pineapple,650.00,https://static5.depositphotos.com/1000188/481/i/950/depositphotos_4810705-stock-photo-fresh-slice-pineapple-on-white.jpg,7,Only 1.25kg
+ 21,Produce,Imported Red Grapes,1164.00,https://gabbarfarms.com/cdn/shop/products/ImportedGrpes_600x.jpg?v=1634633431,5,Only 500g
+ 22,Produce,Imported Mandarin,864.00,https://media.istockphoto.com/id/504384796/photo/fresh-ripe-tangerines.jpg?s=612x612&w=0&k=20&c=12Gp6Nkk_Vef64j29TDtXt3JZHY-jV9H3DMmuDHsRAE=,5,Only 600g
+ 23,Produce,Sweet Water Melon,400.00,https://thumbs.dreamstime.com/b/whole-ripe-watermelon-quarter-isolated-white-background-full-depth-field-whole-ripe-watermelon-quarter-isolated-156340918.jpg,9,Only 2kg
+ 24,Produce,Papaya,450.00,https://t3.ftcdn.net/jpg/05/13/26/84/360_F_513268409_H7YzF29YTUuJ4KvoC8VNxUM40m9PfIdx.jpg,8,Only 1.25kg
+ 25,Produce,Kolikuttu,140.00,https://spar2u.lk/cdn/shop/files/Kolikuttubanana.jpg?v=1739447092,7,Only 500g
+-26,Produce,Imported Pomegranate,1530.00,https://media.istockphoto.com/id/940118920/photo/ripe-pomegranate-fruit-and-one-cut-in-half-with-leaf.jpg?s=612x612&w=0&k=20&c=iVTrJvW6rtFTlsWk5J3v1r1NeCgNtZMD4qDJIh3sfik=,5,Only 500g
++26,Produce,Imported Pomegranate,1530.00,https://media.istockphoto.com/id/940118920/photo/ripe-pomegranate-fruit-and-one-cut-in-half-with-leaf.jpg?s=612x612&w=0&k=20&c=iVTrJvW6rtFTlsWk5J3v1r1NeCgNtZMD4qDJIh3sfik=,7,Only 500g
+ 27,Produce,Apple,1337.00,https://png.pngtree.com/png-vector/20240612/ourmid/pngtree-red-fresh-apple-white-background-png-image_12643725.png,20,Only 700g
+ 28,Produce,King Coconut,240.00,https://t4.ftcdn.net/jpg/05/24/15/17/360_F_524151797_uBpqhFFLGqSNHht2ORoWypI03yY5SGaN.jpg,8,Only 1Pcs
+ 29,Produce,Kiwi Fruit,1460.00,https://i.pinimg.com/736x/13/fe/74/13fe7434de9b4c36410744dbd843fdff.jpg,6,Only 500g
+Index: target/OnlineGroceryOrderSystem/userLogin/Success.jsp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><%@ page language=\"java\" contentType=\"text/html; charset=UTF-8\" pageEncoding=\"UTF-8\"%>\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Success</title>\n    <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css\">\n    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.3/animate.min.css'>\n    <style>\n        body {\n            margin: 0;\n            padding: 0;\n            height: 100vh; /* Full viewport height */\n            background-image: url('https://thumbs.dreamstime.com/b/casual-cheerful-family-moment-shopping-needs-together-flat-vector-family-grocery-shopping-supermarket-346622194.jpg');\n            background-size: cover;\n            background-repeat: no-repeat;\n            display: flex; /* Use flexbox to center */\n            justify-content: center; /* Center horizontally */\n            align-items: center; /* Center vertically */\n        }\n\n        #card {\n            width: 1000px;\n            background: rgba(255, 255, 255, 0.9);\n            border-radius: 10px;\n            overflow: hidden;\n            margin: 0 auto; /* Horizontal centering fallback */\n            text-align: center;\n            font-family: 'Source Sans Pro', sans-serif;\n            animation: fadeIn 1s ease-in-out; /* Keep the fadeIn animation */\n        }\n\n        #upper-side {\n            padding: 4em;\n            background-color: #8BC34A;\n            background: rgba(0, 255, 0, 0.3);\n            display: block;\n            color: #fff;\n            border-top-right-radius: 8px;\n            border-top-left-radius: 8px;\n        }\n\n        #checkmark {\n            font-weight: lighter;\n            fill: #3E7B27;\n            margin: -3.5em auto auto 65px;\n        }\n\n        #status {\n            font-weight: lighter;\n            text-transform: uppercase;\n            letter-spacing: 2px;\n            font-size: 1.2em; /* Slightly larger for emphasis */\n            margin-top: -0.2em;\n            margin-bottom: 10px;\n            color: #3E7B27;\n        }\n\n        #lower-side {\n            padding: 2em 2em 5em 2em;\n            background: #fff;\n            display: block;\n            border-bottom-right-radius: 8px;\n            border-bottom-left-radius: 8px;\n        }\n\n        #message {\n            margin-top: -0.5em;\n            color: #757575;\n            letter-spacing: 1px;\n            font-size: 1.1em; /* Improved readability */\n            line-height: 1.5;\n        }\n\n        #contBtn {\n            position: relative;\n            top: 1.5em;\n            text-decoration: none;\n            background: #8BC34A;\n            color: #fff;\n            margin: auto;\n            padding: 0.8em 3em;\n            box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.21);\n            border-radius: 25px;\n            transition: all 0.4s ease;\n            font-size: 1.1em; /* Slightly larger for better visibility */\n            text-transform: uppercase;\n        }\n\n        #contBtn:hover {\n            box-shadow: 0px 15px 30px rgba(50, 50, 50, 0.41);\n            transition: all 0.4s ease;\n        }\n    </style>\n</head>\n<body>\n<div id='card'>\n    <div id='upper-side'>\n        <svg version=\"1.1\" id=\"checkmark\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" xml:space=\"preserve\">\n            <path d=\"M131.583,92.152l-0.026-0.041c-0.713-1.118-2.197-1.447-3.316-0.734l-31.782,20.257l-4.74-12.65\n            c-0.483-1.29-1.882-1.958-3.124-1.493l-0.045,0.017c-1.242,0.465-1.857,1.888-1.374,3.178l5.763,15.382\n            c0.131,0.351,0.334,0.65,0.579,0.898c0.028,0.029,0.06,0.052,0.089,0.08c0.08,0.073,0.159,0.147,0.246,0.209\n            c0.071,0.051,0.147,0.091,0.222,0.133c0.058,0.033,0.115,0.069,0.175,0.097c0.081,0.037,0.165,0.063,0.249,0.091\n            c0.065,0.022,0.128,0.047,0.195,0.063c0.079,0.019,0.159,0.026,0.239,0.037c0.074,0.01,0.147,0.024,0.221,0.027\n            c0.097,0.004,0.194-0.006,0.292-0.014c0.055-0.005,0.109-0.003,0.163-0.012c0.323-0.048,0.641-0.16,0.933-0.346l34.305-21.865\n            C131.967,94.755,132.296,93.271,131.583,92.152z\" />\n            <circle fill=\"none\" stroke=\"#3E7B27\" stroke-width=\"5\" stroke-miterlimit=\"10\" cx=\"109.486\" cy=\"104.353\" r=\"32.53\" />\n        </svg>\n        <h3 id='status'>Success</h3>\n    </div>\n    <div id='lower-side'>\n        <p id='message'>\n            <%\n                String type = request.getParameter(\"type\");\n                if (\"login\".equals(type)) {\n            %>\n            Login successful! Welcome back to your account.\n            <% } else if (\"signup\".equals(type)) { %>\n            Congratulations! Your account has been successfully created.\n            <% } else { %>\n            An action was completed successfully.\n            <% }\n            %>\n        </p>\n        <a href=\"${pageContext.request.contextPath}/index.jsp\" id=\"contBtn\">Go to Main Page</a>\n    </div>\n</div>\n</body>\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/OnlineGroceryOrderSystem/userLogin/Success.jsp b/target/OnlineGroceryOrderSystem/userLogin/Success.jsp
+--- a/target/OnlineGroceryOrderSystem/userLogin/Success.jsp	(revision 08e3c60cfd3afdcb680002fbb745406974304a7e)
++++ b/target/OnlineGroceryOrderSystem/userLogin/Success.jsp	(date 1747198778173)
+@@ -11,7 +11,7 @@
+             margin: 0;
+             padding: 0;
+             height: 100vh; /* Full viewport height */
+-            background-image: url('https://thumbs.dreamstime.com/b/casual-cheerful-family-moment-shopping-needs-together-flat-vector-family-grocery-shopping-supermarket-346622194.jpg');
++            background-image: url('https://img.freepik.com/free-photo/woman-shopping-vegetables-supermarket_1157-37875.jpg?ga=GA1.1.1475331235.1731237648&semt=ais_hybrid&w=740');
+             background-size: cover;
+             background-repeat: no-repeat;
+             display: flex; /* Use flexbox to center */
+Index: target/OnlineGroceryOrderSystem/WEB-INF/classes/items.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>1,Produce,Red Onions,250.00,https://www.shutterstock.com/image-photo/isolated-red-big-onions-white-600nw-1782386771.jpg,300,Fresh Big Onions 1kg a\n2,Produce,Coconut,230.00,https://img.freepik.com/premium-photo/coconut-isolated-white-background_252965-356.jpg,259,Fresh Coconut Price of One Unit\n3,Produce,Tomato,160.00,https://t4.ftcdn.net/jpg/00/29/78/85/360_F_29788505_PbGEDPBhQIxW2soJMOpLlYOybLrvPt2e.jpg,300,Only 500g\n4,Produce,Potatoes,190.00,https://i.pinimg.com/736x/33/7e/fa/337efa818550fce97fa5991ea513c16b.jpg,500,Only 500g\n5,Produce,Carrot,425.00,https://t4.ftcdn.net/jpg/00/80/96/17/360_F_80961739_hep1UZaQRsy5WQOYU3jkOr5CB7A6xc3U.jpg,99,Only 500g\n6,Produce,Garlic,260.00,https://as2.ftcdn.net/v2/jpg/03/20/58/51/1000_F_320585105_SRCBaxOcZg6lmllMmtt6tKTu9eN4s30B.jpg,8,Only 250g\n7,Produce,Brinjal,67.00,https://static.vecteezy.com/system/resources/previews/004/158/962/non_2x/eggplant-isolated-on-a-white-background-photo.jpg,0,Only 350g\n8,Produce,Raw Ginger,278.00,https://static.vecteezy.com/system/resources/previews/030/668/174/non_2x/ginger-with-white-background-high-quality-ultra-hd-free-photo.jpg,8,Only 150g\n9,Produce,Cabbage,215.00,https://as2.ftcdn.net/jpg/02/96/54/63/1000_F_296546395_Tw3FfCAV6Ss6U0tufcgVE3Twf01LZutt.jpg,6,Only 500g\n10,Produce,Pumpkin,90.00,https://t4.ftcdn.net/jpg/00/69/19/07/360_F_69190757_a37tIJk6fq40BADf78ewXZyc0HIL3mBU.jpg,8,Only 500g\n11,Produce,Bitter Gourd,118.00,https://t4.ftcdn.net/jpg/03/89/85/85/360_F_389858598_TSNp6HysawjDuyAtRrJdru6Kf8LEZXbt.jpg,0,Only 250g\n12,Produce,Sweet Potatoes,139.00,https://img.freepik.com/premium-photo/sweet-potato-isolated-white-background_316968-712.jpg,8,Only 500g\n13,Produce,Cauliflower,269.00,https://media.istockphoto.com/id/186828790/photo/cauliflower-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=oLL9OeCwhHolL-MqXb3CZEkL0NyE483_vEqm3Tj0Lzo=,7,Only 300g\n14,Produce,Cucumber,92.00,https://img.freepik.com/premium-photo/cucumber-vegetable-isolated-white-background_42033-135.jpg,8,Only 400g\n15,Produce,Broccoli,1458.00,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9WtHcQiqLRmr827_jDvo_NlEceWQsQ7xRiw&s,1,Only 300g\n16,Produce,Kesel Muwa,60.00,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoKGxtMpNYFRMtMSzC8U4RtMz_qamZ-WNriw&s,0,Only 500g\n17,Produce,Bell Pepper Green,1200.00,https://media.istockphoto.com/id/922745944/photo/green-peppers-on-white-background.jpg?s=612x612&w=0&k=20&c=ANUMSGzCw2oEd44ZVOmlgjDd8gAhJN0gSg6dLqBai6I=,0,Only 500g\n18,Produce,Lettuce,24.00,https://thumbs.dreamstime.com/b/organic-vegetable-salad-green-frillice-iceberg-lettuce-isolated-white-background-151715371.jpg,0,Only 100g\n19,Pantry,Rice,260.00,https://media.istockphoto.com/id/483226970/photo/heap-of-raw-basmati-rice.jpg?s=612x612&w=0&k=20&c=aaNOxz6AvGftzj3pyJ7SWjXTXyz79mPB9hdphbOZDwc=,6,Only 1kg\n20,Produce,Pineapple,650.00,https://static5.depositphotos.com/1000188/481/i/950/depositphotos_4810705-stock-photo-fresh-slice-pineapple-on-white.jpg,7,Only 1.25kg\n21,Produce,Imported Red Grapes,1164.00,https://gabbarfarms.com/cdn/shop/products/ImportedGrpes_600x.jpg?v=1634633431,5,Only 500g\n22,Produce,Imported Mandarin,864.00,https://media.istockphoto.com/id/504384796/photo/fresh-ripe-tangerines.jpg?s=612x612&w=0&k=20&c=12Gp6Nkk_Vef64j29TDtXt3JZHY-jV9H3DMmuDHsRAE=,5,Only 600g\n23,Produce,Sweet Water Melon,400.00,https://thumbs.dreamstime.com/b/whole-ripe-watermelon-quarter-isolated-white-background-full-depth-field-whole-ripe-watermelon-quarter-isolated-156340918.jpg,9,Only 2kg\n24,Produce,Papaya,450.00,https://t3.ftcdn.net/jpg/05/13/26/84/360_F_513268409_H7YzF29YTUuJ4KvoC8VNxUM40m9PfIdx.jpg,8,Only 1.25kg\n25,Produce,Kolikuttu,140.00,https://spar2u.lk/cdn/shop/files/Kolikuttubanana.jpg?v=1739447092,7,Only 500g\n26,Produce,Imported Pomegranate,1530.00,https://media.istockphoto.com/id/940118920/photo/ripe-pomegranate-fruit-and-one-cut-in-half-with-leaf.jpg?s=612x612&w=0&k=20&c=iVTrJvW6rtFTlsWk5J3v1r1NeCgNtZMD4qDJIh3sfik=,5,Only 500g\n27,Produce,Apple,1337.00,https://png.pngtree.com/png-vector/20240612/ourmid/pngtree-red-fresh-apple-white-background-png-image_12643725.png,20,Only 700g\n28,Produce,King Coconut,240.00,https://t4.ftcdn.net/jpg/05/24/15/17/360_F_524151797_uBpqhFFLGqSNHht2ORoWypI03yY5SGaN.jpg,8,Only 1Pcs\n29,Produce,Kiwi Fruit,1460.00,https://i.pinimg.com/736x/13/fe/74/13fe7434de9b4c36410744dbd843fdff.jpg,6,Only 500g\n30,Produce,Soursop,525.00,https://media.istockphoto.com/id/1369037177/photo/soursop-or-custard-apple-fruit-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=3iHof9sefP0PNUh4rnXM4hBuMS_YnOgOnNbDzap9DPU=,9,Only 1kg\n31,Pantry,Dahal,289.00,https://www.shutterstock.com/image-photo/red-lentils-isolated-on-white-600nw-2332458631.jpg,9,Only 1kg\n32,Produce,Strawberry,1290.00,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9KZF0L6SWyX0c6SRYlltKJZuWeHfcbbDiTw&s,32,Only 250g\n33,Proteins,Large prawns,1875.00,https://media.istockphoto.com/id/1255181693/photo/banana-prawn-or-shrimp-isolated-on-white-background-white-shrimp-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=X_sO0D9U1J98JcubDdEuR6kGOxbHZVc-OxVKeqzjXtY=,10,Only 1kg\n34,Proteins,Lobster,4375.00,https://meatmart.lk/wp-content/uploads/2023/06/Lobster-KG.webp,9,Only 1kg\n35,Proteins,Cuttle Fish,2250.00,https://meatmart.lk/wp-content/uploads/2023/06/frozen-squid-fish-500x500-1-768x768.webp.webp,9,Only 1kg\n36,Proteins,Gar fish (Habarali),3500.00,https://tropicalshellfish.com/wp-content/uploads/2021/09/habaralli.jpg,6,Only 1kg\n37,Proteins,Big Crab,4375.00,https://media.istockphoto.com/id/453209605/photo/isolated-whole-dungeness-crab.jpg?s=612x612&w=0&k=20&c=OINq23e6m6kOS20psfnnkGN-RU33L__34IH-7rG8F7Y=,9,Only 1kg\n38,Proteins,Big Anchovy,1500.00,https://www.shutterstock.com/image-photo/close-anchovies-gray-anchovy-isolated-260nw-2324973519.jpg,9,Only 1kg\n39,Proteins,Tuna,3422.00,https://media.istockphoto.com/id/473827068/photo/bluefin-tuna-really-fresh-isolated-on-white.jpg?s=612x612&w=0&k=20&c=AK8XBCRAc50bDQ5YFFSayT8TbujkZPEhk5xzGHrkSIk=,10,Only 1kg\n40,Proteins,Turkey S/L,4999.00,https://img.freepik.com/premium-photo/natural-fresh-raw-turkey-meat-isolated-white-background_787273-69566.jpg,8,Only 1kg\n42,Proteins,Chicken boneless,3450.00,https://static.vecteezy.com/system/resources/previews/050/024/853/large_2x/a-pile-of-boneless-skinless-chicken-breasts-on-a-white-background-free-photo.jpg,10,Only 1kg\n43,Proteins,Chicken Whole Leg,2450.00,https://spar2u.lk/cdn/shop/files/Chickenwholelegskinon_458x595.jpg?v=1739447117,10,ONly 500g\n44,Proteins,Thalapath Fish,2242.00,https://ican-mall.oss-ap-southeast-1.aliyuncs.com/2024/05/c0c5fb6126924c28bd13355baaaaf32f.webp,9,Only 600g\n45,Proteins,Squid,1525.00,https://thumbs.dreamstime.com/b/fresh-squid-isolated-white-background-44144491.jpg,10,Only 500g\n46,Proteins,Brown Egg,55.00,https://img.freepik.com/premium-photo/chicken-egg-white-background_55716-1235.jpg,10,Only 1Pcs\n47,Proteins,White Egg,40.00,https://media.istockphoto.com/id/467061077/photo/eggs-isolated-on-a-white-background.jpg?s=612x612&w=0&k=20&c=K6RZK8UR5hzHy4auNEKHV0EdkBVnVlyLlfBflpUXP-g=,20,Only 1Pcs\n48,Proteins,Sausage,690.00,https://static.vecteezy.com/system/resources/previews/026/978/295/large_2x/grilled-pork-sausages-with-lettuce-isolated-on-white-background-photo.jpg,10,Only 500g\n41,Produce,anime,456.00,https://uchi.imgix.net/properties/anime2.png?crop=focalpoint&domain=uchi.imgix.net&fit=crop&fm=pjpg&fp-x=0.5&fp-y=0.5&h=558&ixlib=php-3.3.1&q=82&usm=20&w=992,18,anime watch and enjoy it.\n49,Bakery,Tiara Rollo Cake,70.00,https://essstr.blob.core.windows.net/essimg/ItemAsset/Pic12171.jpg,39,25.00g Rollo Cake\n50,Produce,Dragon Fruit,1500.00,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPEFyc7mDC49UthRxicEvU6UaS1nShvCsJlQ&s,200,Only 1kg\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/OnlineGroceryOrderSystem/WEB-INF/classes/items.txt b/target/OnlineGroceryOrderSystem/WEB-INF/classes/items.txt
+--- a/target/OnlineGroceryOrderSystem/WEB-INF/classes/items.txt	(revision 08e3c60cfd3afdcb680002fbb745406974304a7e)
++++ b/target/OnlineGroceryOrderSystem/WEB-INF/classes/items.txt	(date 1747198632692)
+@@ -2,7 +2,7 @@
+ 2,Produce,Coconut,230.00,https://img.freepik.com/premium-photo/coconut-isolated-white-background_252965-356.jpg,259,Fresh Coconut Price of One Unit
+ 3,Produce,Tomato,160.00,https://t4.ftcdn.net/jpg/00/29/78/85/360_F_29788505_PbGEDPBhQIxW2soJMOpLlYOybLrvPt2e.jpg,300,Only 500g
+ 4,Produce,Potatoes,190.00,https://i.pinimg.com/736x/33/7e/fa/337efa818550fce97fa5991ea513c16b.jpg,500,Only 500g
+-5,Produce,Carrot,425.00,https://t4.ftcdn.net/jpg/00/80/96/17/360_F_80961739_hep1UZaQRsy5WQOYU3jkOr5CB7A6xc3U.jpg,99,Only 500g
++5,Produce,Carrot,425.00,https://t4.ftcdn.net/jpg/00/80/96/17/360_F_80961739_hep1UZaQRsy5WQOYU3jkOr5CB7A6xc3U.jpg,300,Only 500g
+ 6,Produce,Garlic,260.00,https://as2.ftcdn.net/v2/jpg/03/20/58/51/1000_F_320585105_SRCBaxOcZg6lmllMmtt6tKTu9eN4s30B.jpg,8,Only 250g
+ 7,Produce,Brinjal,67.00,https://static.vecteezy.com/system/resources/previews/004/158/962/non_2x/eggplant-isolated-on-a-white-background-photo.jpg,0,Only 350g
+ 8,Produce,Raw Ginger,278.00,https://static.vecteezy.com/system/resources/previews/030/668/174/non_2x/ginger-with-white-background-high-quality-ultra-hd-free-photo.jpg,8,Only 150g
+@@ -16,14 +16,14 @@
+ 16,Produce,Kesel Muwa,60.00,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoKGxtMpNYFRMtMSzC8U4RtMz_qamZ-WNriw&s,0,Only 500g
+ 17,Produce,Bell Pepper Green,1200.00,https://media.istockphoto.com/id/922745944/photo/green-peppers-on-white-background.jpg?s=612x612&w=0&k=20&c=ANUMSGzCw2oEd44ZVOmlgjDd8gAhJN0gSg6dLqBai6I=,0,Only 500g
+ 18,Produce,Lettuce,24.00,https://thumbs.dreamstime.com/b/organic-vegetable-salad-green-frillice-iceberg-lettuce-isolated-white-background-151715371.jpg,0,Only 100g
+-19,Pantry,Rice,260.00,https://media.istockphoto.com/id/483226970/photo/heap-of-raw-basmati-rice.jpg?s=612x612&w=0&k=20&c=aaNOxz6AvGftzj3pyJ7SWjXTXyz79mPB9hdphbOZDwc=,6,Only 1kg
++19,Pantry,Rice,260.00,https://media.istockphoto.com/id/483226970/photo/heap-of-raw-basmati-rice.jpg?s=612x612&w=0&k=20&c=aaNOxz6AvGftzj3pyJ7SWjXTXyz79mPB9hdphbOZDwc=,10,Only 1kg
+ 20,Produce,Pineapple,650.00,https://static5.depositphotos.com/1000188/481/i/950/depositphotos_4810705-stock-photo-fresh-slice-pineapple-on-white.jpg,7,Only 1.25kg
+ 21,Produce,Imported Red Grapes,1164.00,https://gabbarfarms.com/cdn/shop/products/ImportedGrpes_600x.jpg?v=1634633431,5,Only 500g
+ 22,Produce,Imported Mandarin,864.00,https://media.istockphoto.com/id/504384796/photo/fresh-ripe-tangerines.jpg?s=612x612&w=0&k=20&c=12Gp6Nkk_Vef64j29TDtXt3JZHY-jV9H3DMmuDHsRAE=,5,Only 600g
+ 23,Produce,Sweet Water Melon,400.00,https://thumbs.dreamstime.com/b/whole-ripe-watermelon-quarter-isolated-white-background-full-depth-field-whole-ripe-watermelon-quarter-isolated-156340918.jpg,9,Only 2kg
+ 24,Produce,Papaya,450.00,https://t3.ftcdn.net/jpg/05/13/26/84/360_F_513268409_H7YzF29YTUuJ4KvoC8VNxUM40m9PfIdx.jpg,8,Only 1.25kg
+ 25,Produce,Kolikuttu,140.00,https://spar2u.lk/cdn/shop/files/Kolikuttubanana.jpg?v=1739447092,7,Only 500g
+-26,Produce,Imported Pomegranate,1530.00,https://media.istockphoto.com/id/940118920/photo/ripe-pomegranate-fruit-and-one-cut-in-half-with-leaf.jpg?s=612x612&w=0&k=20&c=iVTrJvW6rtFTlsWk5J3v1r1NeCgNtZMD4qDJIh3sfik=,5,Only 500g
++26,Produce,Imported Pomegranate,1530.00,https://media.istockphoto.com/id/940118920/photo/ripe-pomegranate-fruit-and-one-cut-in-half-with-leaf.jpg?s=612x612&w=0&k=20&c=iVTrJvW6rtFTlsWk5J3v1r1NeCgNtZMD4qDJIh3sfik=,7,Only 500g
+ 27,Produce,Apple,1337.00,https://png.pngtree.com/png-vector/20240612/ourmid/pngtree-red-fresh-apple-white-background-png-image_12643725.png,20,Only 700g
+ 28,Produce,King Coconut,240.00,https://t4.ftcdn.net/jpg/05/24/15/17/360_F_524151797_uBpqhFFLGqSNHht2ORoWypI03yY5SGaN.jpg,8,Only 1Pcs
+ 29,Produce,Kiwi Fruit,1460.00,https://i.pinimg.com/736x/13/fe/74/13fe7434de9b4c36410744dbd843fdff.jpg,6,Only 500g
+Index: src/main/webapp/data/orders.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>--- Order Start: OD092021244402 ---\norderNumber=OD092021244402\nuserNumber=US021583101081\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=online card\ndeliveryDate=\nconfirmationDate=2025-03-31 09:48:55\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=Pending\ndeliveredDate=\n[products]\nproductID=29, quantity=1\n[total]\ntotalPrice=1460.00\n--- Order End ---\n\n--- Order Start: OD543785297309 ---\norderNumber=OD543785297309\nuserNumber=US021583101081\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=online card\ndeliveryDate=\nconfirmationDate=2025-04-01 10:24:30\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=Pending\ndeliveredDate=\n[products]\nproductID=18, quantity=4\n[total]\ntotalPrice=96.00\n--- Order End ---\n\n--- Order Start: OD261952394242 ---\norderNumber=OD261952394242\nuserNumber=US021583101081\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=cash on delivery\ndeliveryDate=\nconfirmationDate=2025-04-01 11:28:45\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=Pending\ndeliveredDate=\n[products]\nproductID=15, quantity=1\n[total]\ntotalPrice=1458.00\n--- Order End ---\n\n--- Order Start: OD753079415721 ---\norderNumber=OD753079415721\nuserNumber=US021583101081\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=cash on delivery\ndeliveryDate=\nconfirmationDate=2025-04-05 16:42:44\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=Pending\ndeliveredDate=\n[products]\nproductID=27, quantity=15\nproductID=41, quantity=1\n[total]\ntotalPrice=20511.00\n--- Order End ---\n\n--- Order Start: OD113125118289 ---\norderNumber=OD113125118289\nuserNumber=US021583101081\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=online card\ndeliveryDate=\nconfirmationDate=2025-04-05 16:43:56\npaymentStatus=Paid\ndeliveryStatus=Pending\norderStatus=Pending\ndeliveredDate=\n[products]\nproductID=27, quantity=1\n[total]\ntotalPrice=1337.00\n--- Order End ---\n\n--- Order Start: OD959211235390 ---\norderNumber=OD959211235390\nuserNumber=US021583101081\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=cash on delivery\ndeliveryDate=\nconfirmationDate=2025-04-05 16:44:35\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=Pending\ndeliveredDate=\n[products]\nproductID=41, quantity=1\n[total]\ntotalPrice=456.00\n--- Order End ---\n\n--- Order Start: OD529482646567 ---\norderNumber=OD529482646567\nuserNumber=US021583101081\nname=aloka warnakula \nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=cash on delivery\nconfirmationDate=2025-05-02 11:15:12\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=Pending\ndeliveredDate=\n[products]\nproductID=49, quantity=1\n[total]\ntotalPrice=70.00\n--- Order End ---\n\n--- Order Start: OD176924944754 ---\norderNumber=OD176924944754\nuserNumber=US021583101081\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=store pickup\npaymentMethod=cash on delivery\nconfirmationDate=2025-05-04 19:50:39\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=Pending\ndeliveredDate=\n[products]\nproductID=27, quantity=3\nproductID=15, quantity=1\nproductID=5, quantity=1\nproductID=9, quantity=1\nproductID=2, quantity=1\nproductID=22, quantity=1\nproductID=29, quantity=1\nproductID=25, quantity=1\n[total]\ntotalPrice=8803.00\n--- Order End ---\n\n--- Order Start: OD997161013374 ---\norderNumber=OD997161013374\nuserNumber=US021583101081\nname=aloka warnakula\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=cash on delivery\nconfirmationDate=2025-05-06 08:57:36\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=Pending\ndeliveredDate=\n[products]\nproductID=15, quantity=1\n[total]\ntotalPrice=1458.00\n--- Order End ---\n\n--- Order Start: OD500188660771 ---\norderNumber=OD500188660771\nuserNumber=US021583101081\nname=aloka warnakula mn\nphoneNum=0711641638\naddress=21/6/6A, somanada mawatha, pitumpe, padukka\ndeliveryMethod=same-day\npaymentMethod=cash on delivery\nconfirmationDate=2025-05-09 20:59:33\npaymentStatus=Pending\ndeliveryStatus=Pending\norderStatus=Pending\ndeliveredDate=\n[products]\nproductID=26, quantity=2\nproductID=19, quantity=4\n[total]\ntotalPrice=4100.00\n--- Order End ---\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/webapp/data/orders.txt b/src/main/webapp/data/orders.txt
+--- a/src/main/webapp/data/orders.txt	(revision 08e3c60cfd3afdcb680002fbb745406974304a7e)
++++ b/src/main/webapp/data/orders.txt	(date 1746502056000)
+@@ -183,23 +183,3 @@
+ totalPrice=1458.00
+ --- Order End ---
+ 
+---- Order Start: OD500188660771 ---
+-orderNumber=OD500188660771
+-userNumber=US021583101081
+-name=aloka warnakula mn
+-phoneNum=0711641638
+-address=21/6/6A, somanada mawatha, pitumpe, padukka
+-deliveryMethod=same-day
+-paymentMethod=cash on delivery
+-confirmationDate=2025-05-09 20:59:33
+-paymentStatus=Pending
+-deliveryStatus=Pending
+-orderStatus=Pending
+-deliveredDate=
+-[products]
+-productID=26, quantity=2
+-productID=19, quantity=4
+-[total]
+-totalPrice=4100.00
+---- Order End ---
+-
+Index: src/main/java/servlet/MergeServlet.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// Package for servlet-related classes handling HTTP requests\npackage servlet;\n\n// Import Jakarta Servlet API for servlet functionality\nimport jakarta.servlet.ServletException;\nimport jakarta.servlet.http.HttpServlet;\n// Import model class for grocery items\nimport model.GroceryItem;\n// Import utility for dynamic array operations\nimport java.util.ArrayList;\n\n// MergeServlet implements merge sort for sorting GroceryItem lists by name or price\npublic class MergeServlet extends HttpServlet {\n\n    // Enum defining criteria for sorting GroceryItem objects\n    public enum SortCriterion {\n        NAME,  // Sorts items alphabetically by product name\n        PRICE  // Sorts items by price in ascending order\n    }\n\n    // Sorts a list of GroceryItems using merge sort with the specified criterion\n    public void mergeSort(ArrayList<GroceryItem> items, int left, int right, SortCriterion criterion) {\n        // Log sorting range and criterion for debugging\n        System.out.println(\"MergeServlet: Starting mergeSort with left=\" + left + \", right=\" + right + \", items size=\" + items.size() + \", criterion=\" + criterion);\n        // Proceed only if the subarray has multiple elements\n        if (left < right) {\n            // Calculate midpoint to divide the array, avoiding integer overflow\n            int mid = left + (right - left) / 2;\n            // Log the split point for debugging\n            System.out.println(\"MergeServlet: Splitting at mid=\" + mid);\n            // Recursively sort the left subarray\n            mergeSort(items, left, mid, criterion);\n            // Recursively sort the right subarray\n            mergeSort(items, mid + 1, right, criterion);\n            // Merge the sorted subarrays\n            merge(items, left, mid, right, criterion);\n        }\n        // Log completion of sorting for this range\n        System.out.println(\"MergeServlet: Finished mergeSort for range left=\" + left + \", right=\" + right);\n    }\n\n    // Merges two sorted subarrays into a single sorted array based on the criterion\n    private void merge(ArrayList<GroceryItem> items, int left, int mid, int right, SortCriterion criterion) {\n        // Log merging range for debugging\n        System.out.println(\"MergeServlet: Merging from left=\" + left + \", mid=\" + mid + \", right=\" + right);\n        // Calculate sizes of left and right subarrays\n        int n1 = mid - left + 1;\n        int n2 = right - mid;\n\n        // Initialize temporary arrays for left and right subarrays\n        ArrayList<GroceryItem> leftArray = new ArrayList<>(n1);\n        ArrayList<GroceryItem> rightArray = new ArrayList<>(n2);\n\n        // Copy items to temporary left array\n        for (int i = 0; i < n1; i++) {\n            leftArray.add(items.get(left + i));\n        }\n        // Copy items to temporary right array\n        for (int j = 0; j < n2; j++) {\n            rightArray.add(items.get(mid + 1 + j));\n        }\n\n        // Merge items back into the original array\n        int i = 0, j = 0, k = left;\n        while (i < n1 && j < n2) {\n            // Get items from left and right subarrays\n            GroceryItem leftItem = leftArray.get(i);\n            GroceryItem rightItem = rightArray.get(j);\n\n            // Compare items using the specified criterion\n            int comparison = compareItems(leftItem, rightItem, criterion);\n            // Log comparison details for debugging\n            System.out.println(\"MergeServlet: Comparison (\" + criterion + \") - \" + getItemKey(leftItem, criterion) + \" vs \" + getItemKey(rightItem, criterion) + \" -> \" + comparison);\n\n            // Place the smaller (or equal) item in the result array\n            if (comparison <= 0) {\n                items.set(k++, leftArray.get(i++));\n            } else {\n                items.set(k++, rightArray.get(j++));\n            }\n        }\n\n        // Copy any remaining items from left subarray\n        while (i < n1) {\n            // Log copying of remaining left item for debugging\n            System.out.println(\"MergeServlet: Copying remaining left item at index \" + i);\n            items.set(k++, leftArray.get(i++));\n        }\n\n        // Copy any remaining items from right subarray\n        while (j < n2) {\n            // Log copying of remaining right item for debugging\n            System.out.println(\"MergeServlet: Copying remaining right item at index \" + j);\n            items.set(k++, rightArray.get(j++));\n        }\n\n        // Log the merged subarray for debugging\n        System.out.println(\"MergeServlet: Finished merging, items in range [\" + left + \",\" + right + \"]: \" + items.subList(left, right + 1));\n    }\n\n    // Compares two GroceryItems based on the specified criterion\n    private int compareItems(GroceryItem item1, GroceryItem item2, SortCriterion criterion) {\n        switch (criterion) {\n            case NAME:\n                // Compare names case-insensitively, handling nulls as empty strings\n                String name1 = item1.getProductName() != null ? item1.getProductName() : \"\";\n                String name2 = item2.getProductName() != null ? item2.getProductName() : \"\";\n                return name1.compareToIgnoreCase(name2);\n            case PRICE:\n                // Compare prices using Double.compare for precision\n                return Double.compare(item1.getProductPrice(), item2.getProductPrice());\n            default:\n                // Return 0 for invalid criteria to ensure safe handling\n                return 0;\n        }\n    }\n\n    // Retrieves the key (name or price) for logging comparison details\n    private String getItemKey(GroceryItem item, SortCriterion criterion) {\n        switch (criterion) {\n            case NAME:\n                // Return product name or \"null\" if name is absent\n                return item.getProductName() != null ? item.getProductName() : \"null\";\n            case PRICE:\n                // Convert price to string for logging\n                return String.valueOf(item.getProductPrice());\n            default:\n                // Return empty string for invalid criteria\n                return \"\";\n        }\n    }\n\n    // Sorts the items list using merge sort with the specified criterion\n    public void sortItems(ArrayList<GroceryItem> items, SortCriterion criterion) {\n        // Skip sorting if the list is null or empty\n        if (items == null || items.isEmpty()) {\n            // Log that sorting is skipped for debugging\n            System.out.println(\"MergeServlet: Items list is null or empty, skipping sort\");\n            return;\n        }\n        // Log the start of sorting with criterion for debugging\n        System.out.println(\"MergeServlet: Applying Merge Sort with criterion=\" + criterion);\n        // Perform merge sort on the entire list\n        mergeSort(items, 0, items.size() - 1, criterion);\n        // Log the sorted list for debugging\n        System.out.println(\"MergeServlet: Items after Merge Sort: \" + items);\n    }\n\n    // Sorts items by name for backward compatibility\n    public void sortItems(ArrayList<GroceryItem> items) {\n        // Delegate to sortItems with NAME criterion\n        sortItems(items, SortCriterion.NAME);\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/servlet/MergeServlet.java b/src/main/java/servlet/MergeServlet.java
+--- a/src/main/java/servlet/MergeServlet.java	(revision 08e3c60cfd3afdcb680002fbb745406974304a7e)
++++ b/src/main/java/servlet/MergeServlet.java	(date 1742654936000)
+@@ -1,78 +1,59 @@
+-// Package for servlet-related classes handling HTTP requests
+ package servlet;
+ 
+-// Import Jakarta Servlet API for servlet functionality
+ import jakarta.servlet.ServletException;
+ import jakarta.servlet.http.HttpServlet;
+-// Import model class for grocery items
+ import model.GroceryItem;
+-// Import utility for dynamic array operations
++
+ import java.util.ArrayList;
+ 
+-// MergeServlet implements merge sort for sorting GroceryItem lists by name or price
+ public class MergeServlet extends HttpServlet {
+ 
+-    // Enum defining criteria for sorting GroceryItem objects
++    // Enum to define sorting criteria (only NAME and PRICE)
+     public enum SortCriterion {
+-        NAME,  // Sorts items alphabetically by product name
+-        PRICE  // Sorts items by price in ascending order
++        NAME,  // Sort by product name (alphabetically)
++        PRICE  // Sort by price (ascending)
+     }
+ 
+-    // Sorts a list of GroceryItems using merge sort with the specified criterion
++    // Merge sort implementation with a single criterion
+     public void mergeSort(ArrayList<GroceryItem> items, int left, int right, SortCriterion criterion) {
+-        // Log sorting range and criterion for debugging
+         System.out.println("MergeServlet: Starting mergeSort with left=" + left + ", right=" + right + ", items size=" + items.size() + ", criterion=" + criterion);
+-        // Proceed only if the subarray has multiple elements
+         if (left < right) {
+-            // Calculate midpoint to divide the array, avoiding integer overflow
+-            int mid = left + (right - left) / 2;
+-            // Log the split point for debugging
++            int mid = left + (right - left) / 2; // Avoid integer overflow
+             System.out.println("MergeServlet: Splitting at mid=" + mid);
+-            // Recursively sort the left subarray
+             mergeSort(items, left, mid, criterion);
+-            // Recursively sort the right subarray
+             mergeSort(items, mid + 1, right, criterion);
+-            // Merge the sorted subarrays
+             merge(items, left, mid, right, criterion);
+         }
+-        // Log completion of sorting for this range
+         System.out.println("MergeServlet: Finished mergeSort for range left=" + left + ", right=" + right);
+     }
+ 
+-    // Merges two sorted subarrays into a single sorted array based on the criterion
+     private void merge(ArrayList<GroceryItem> items, int left, int mid, int right, SortCriterion criterion) {
+-        // Log merging range for debugging
+         System.out.println("MergeServlet: Merging from left=" + left + ", mid=" + mid + ", right=" + right);
+-        // Calculate sizes of left and right subarrays
+         int n1 = mid - left + 1;
+         int n2 = right - mid;
+ 
+-        // Initialize temporary arrays for left and right subarrays
++        // Create temporary arrays for left and right halves
+         ArrayList<GroceryItem> leftArray = new ArrayList<>(n1);
+         ArrayList<GroceryItem> rightArray = new ArrayList<>(n2);
+ 
+-        // Copy items to temporary left array
++        // Copy data to temporary arrays
+         for (int i = 0; i < n1; i++) {
+             leftArray.add(items.get(left + i));
+         }
+-        // Copy items to temporary right array
+         for (int j = 0; j < n2; j++) {
+             rightArray.add(items.get(mid + 1 + j));
+         }
+ 
+-        // Merge items back into the original array
++        // Merge the temporary arrays back into items
+         int i = 0, j = 0, k = left;
+         while (i < n1 && j < n2) {
+-            // Get items from left and right subarrays
+             GroceryItem leftItem = leftArray.get(i);
+             GroceryItem rightItem = rightArray.get(j);
+ 
+-            // Compare items using the specified criterion
++            // Compare based on the single criterion
+             int comparison = compareItems(leftItem, rightItem, criterion);
+-            // Log comparison details for debugging
+             System.out.println("MergeServlet: Comparison (" + criterion + ") - " + getItemKey(leftItem, criterion) + " vs " + getItemKey(rightItem, criterion) + " -> " + comparison);
+ 
+-            // Place the smaller (or equal) item in the result array
+             if (comparison <= 0) {
+                 items.set(k++, leftArray.get(i++));
+             } else {
+@@ -80,75 +61,60 @@
+             }
+         }
+ 
+-        // Copy any remaining items from left subarray
++        // Copy remaining elements of leftArray
+         while (i < n1) {
+-            // Log copying of remaining left item for debugging
+             System.out.println("MergeServlet: Copying remaining left item at index " + i);
+             items.set(k++, leftArray.get(i++));
+         }
+ 
+-        // Copy any remaining items from right subarray
++        // Copy remaining elements of rightArray
+         while (j < n2) {
+-            // Log copying of remaining right item for debugging
+             System.out.println("MergeServlet: Copying remaining right item at index " + j);
+             items.set(k++, rightArray.get(j++));
+         }
+ 
+-        // Log the merged subarray for debugging
+         System.out.println("MergeServlet: Finished merging, items in range [" + left + "," + right + "]: " + items.subList(left, right + 1));
+     }
+ 
+-    // Compares two GroceryItems based on the specified criterion
++    // Helper method to compare two GroceryItems based on a criterion
+     private int compareItems(GroceryItem item1, GroceryItem item2, SortCriterion criterion) {
+         switch (criterion) {
+             case NAME:
+-                // Compare names case-insensitively, handling nulls as empty strings
+                 String name1 = item1.getProductName() != null ? item1.getProductName() : "";
+                 String name2 = item2.getProductName() != null ? item2.getProductName() : "";
+                 return name1.compareToIgnoreCase(name2);
+             case PRICE:
+-                // Compare prices using Double.compare for precision
+                 return Double.compare(item1.getProductPrice(), item2.getProductPrice());
+             default:
+-                // Return 0 for invalid criteria to ensure safe handling
+-                return 0;
++                return 0; // Should not happen
+         }
+     }
+ 
+-    // Retrieves the key (name or price) for logging comparison details
++    // Helper method to get the key for logging
+     private String getItemKey(GroceryItem item, SortCriterion criterion) {
+         switch (criterion) {
+             case NAME:
+-                // Return product name or "null" if name is absent
+                 return item.getProductName() != null ? item.getProductName() : "null";
+             case PRICE:
+-                // Convert price to string for logging
+                 return String.valueOf(item.getProductPrice());
+             default:
+-                // Return empty string for invalid criteria
+                 return "";
+         }
+     }
+ 
+-    // Sorts the items list using merge sort with the specified criterion
++    // Public method to sort the items list with a single criterion
+     public void sortItems(ArrayList<GroceryItem> items, SortCriterion criterion) {
+-        // Skip sorting if the list is null or empty
+         if (items == null || items.isEmpty()) {
+-            // Log that sorting is skipped for debugging
+             System.out.println("MergeServlet: Items list is null or empty, skipping sort");
+             return;
+         }
+-        // Log the start of sorting with criterion for debugging
+         System.out.println("MergeServlet: Applying Merge Sort with criterion=" + criterion);
+-        // Perform merge sort on the entire list
+         mergeSort(items, 0, items.size() - 1, criterion);
+-        // Log the sorted list for debugging
+         System.out.println("MergeServlet: Items after Merge Sort: " + items);
+     }
+ 
+-    // Sorts items by name for backward compatibility
++    // Default sort method (for backward compatibility)
+     public void sortItems(ArrayList<GroceryItem> items) {
+-        // Delegate to sortItems with NAME criterion
+-        sortItems(items, SortCriterion.NAME);
++        sortItems(items, SortCriterion.NAME); // Default to sorting by name
+     }
+ }
+\ No newline at end of file
