@@ -1,5 +1,4 @@
 package servlet;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -151,8 +150,10 @@ public class LoginServlet extends HttpServlet {
                         System.err.println("Failed to write to loggedInUser.txt: " + e.getMessage());
                         e.printStackTrace();
                     }
-                    response.sendRedirect(request.getContextPath() + "/userLogin/Success.jsp?type=login");
-                    return;
+                   finally {
+                        response.sendRedirect(request.getContextPath() + "/userLogin/Success.jsp?type=login");
+                        return;
+                    }
                 }
             }
 
