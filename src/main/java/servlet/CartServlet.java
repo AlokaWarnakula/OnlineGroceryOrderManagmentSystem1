@@ -357,31 +357,34 @@ public class CartServlet extends HttpServlet {
                 out.write("{\"success\": false, \"message\": \"Failed to update cart due to I/O error\"}"); // send json error response
             }
         }
-        out.flush();
+        out.flush(); // flush the output to ensure it is sent immediately
     }
 
+    // helper method to send a json response with cart details
     private void sendCartResponse(PrintWriter out, ArrayList<GroceryItem> cart, double totalPrice, ArrayList<GroceryItem> items) {
-        out.write("{\"success\": true, \"message\": \"Cart retrieved successfully\", \"cart\": [");
-        for (int i = 0; i < cart.size(); i++) {
-            GroceryItem cartItem = cart.get(i);
-            int stockQuantity = items.stream()
+        out.write("{\"success\": true, \"message\": \"Cart retrieved successfully\", \"cart\": ["); // respond sent successfully
+        for (int i = 0; i < cart.size(); i++) { // go through each cart items
+            GroceryItem cartItem = cart.get(i); // current iteam
+            int stockQuantity = items.stream() // find the stock quantity of the item in the items list by matching product ID
                     .filter(item -> item.getProductID() == cartItem.getProductID())
                     .findFirst()
                     .map(GroceryItem::getQuantity)
-                    .orElse(0);
-            int totalAvailableStock = stockQuantity + cartItem.getQuantity();
+                    .orElse(0); //default 0 if not found
+            int totalAvailableStock = stockQuantity + cartItem.getQuantity(); // total stock (stock + cart)
+            // write json object for the cart item with its details
             out.write(String.format("{\"productID\": %d, \"productName\": \"%s\", \"productPrice\": %.2f, " +
                             "\"productImageLink\": \"%s\", \"quantity\": %d, \"description\": \"%s\", \"stockQuantity\": %d, \"totalAvailableStock\": %d}",
                     cartItem.getProductID(), escapeJson(cartItem.getProductName()), cartItem.getProductPrice(),
                     escapeJson(cartItem.getProductImageLink()), cartItem.getQuantity(),
                     escapeJson(cartItem.getDescription() != null ? cartItem.getDescription() : ""),
                     stockQuantity, totalAvailableStock));
-            if (i < cart.size() - 1) out.write(",");
+            if (i < cart.size() - 1) out.write(","); // add a comma between items, except for the last item
         }
-        out.write("], \"totalPrice\": " + String.format("%.2f", totalPrice) + "}");
+        out.write("], \"totalPrice\": " + String.format("%.2f", totalPrice) + "}"); // close the cart array and add the total price to the json response
     }
-
+    // helper method to escape special characters in json strings
     private String escapeJson(String str) {
+        // return empty string if input is null, otherwise escape quotes and newlines
         return str != null ? str.replace("\"", "\\\"").replace("\n", "\\n") : "";
     }
 }
