@@ -148,7 +148,6 @@ public class LoginServlet extends HttpServlet {
                         System.out.println("Successfully wrote to loggedInUser.txt for user: " + user.getEmail());
                     } catch (Exception e) {
                         System.err.println("Failed to write to loggedInUser.txt: " + e.getMessage());
-                        e.printStackTrace();
                     }
                    finally {
                         response.sendRedirect(request.getContextPath() + "/userLogin/Success.jsp?type=login");
