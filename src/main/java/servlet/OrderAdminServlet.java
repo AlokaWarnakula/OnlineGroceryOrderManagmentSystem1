@@ -169,7 +169,7 @@ public class OrderAdminServlet extends HttpServlet {
             @Override
             public int compare(Order o1, Order o2) {
                 String date1Str = o1.getConfirmationDate();
-                String date2Str = o2.getDeliveredDate();
+                String date2Str = o2.getConfirmationDate();
                 LocalDate date1 = parseDate(date1Str);
                 LocalDate date2 = parseDate(date2Str);
                 System.out.println("OrderAdminServlet - Comparing Cancelled Orders: " + o1.getOrderNumber() + " (" + date1 + ") vs " + o2.getOrderNumber() + " (" + date2 + ")");
