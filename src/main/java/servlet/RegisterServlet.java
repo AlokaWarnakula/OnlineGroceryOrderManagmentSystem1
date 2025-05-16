@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.FileUtil;
 import model.User;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
@@ -15,6 +14,13 @@ import java.util.Random;
 public class RegisterServlet extends HttpServlet {
     private static final String USERS_FILE = "/Users/jayashanguruge/Desktop/OnlineGroceryOrderSystem/src/main/webapp/data/users.txt";
     private static final String LOGGED_IN_USER_FILE = "/Users/jayashanguruge/Desktop/OnlineGroceryOrderSystem/src/main/webapp/data/loggedInUser.txt";
+
+
+    class MyException extends Exception {
+        MyException(String message){
+            super(message);
+        }
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -59,10 +65,13 @@ public class RegisterServlet extends HttpServlet {
         synchronized (this) {
             users.add(user);
             try {
+                if(!USERS_FILE.equalsIgnoreCase("/Users/jayashanguruge/Desktop/OnlineGroceryOrderSystem/src/main/webapp/data/users.txt")){
+                    throw new MyException("Error writing user data on file .file path is incorrect. Please try again later.");
+                }
                 FileUtil.writeUsers(USERS_FILE, users);
                 System.out.println("Added new user to users.txt: " + user.toString());
-            } catch (IOException e) {
-                System.err.println("Error writing user to files: " + e.getMessage());
+            } catch (MyException e) {
+                System.out.println(e.getMessage());
                 request.setAttribute("error", "Error saving user data. Please try again later.");
                 request.getRequestDispatcher("/userLogin/login.jsp").forward(request, response);
                 return;
