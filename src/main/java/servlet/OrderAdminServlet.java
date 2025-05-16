@@ -214,6 +214,7 @@ public class OrderAdminServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //Verify admin session
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("adminEmail") == null) {
             System.out.println("OrderAdminServlet - No admin session found. Redirecting to admin login page.");
