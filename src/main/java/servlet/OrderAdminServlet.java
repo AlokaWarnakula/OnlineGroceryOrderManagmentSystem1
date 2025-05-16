@@ -222,6 +222,8 @@ public class OrderAdminServlet extends HttpServlet {
             return;
         }
 
+
+        //CRUD: UPDATE - Update order status abd payment status
         String action = request.getParameter("action");
         if ("updateStatus".equals(action)) {
             String orderNumber = request.getParameter("orderNumber");
@@ -247,7 +249,7 @@ public class OrderAdminServlet extends HttpServlet {
                     orders = FileUtil.readAllDeliveredOrders(DELIVERED_ORDERS_FILE);
                 }
 
-                // Find the order
+                // Find the order to Update
                 Order order = orders.stream()
                         .filter(o -> o.getOrderNumber().equals(orderNumber))
                         .findFirst()
@@ -264,7 +266,7 @@ public class OrderAdminServlet extends HttpServlet {
                 order.setDeliveryStatus(newStatus);
                 order.setOrderStatus(newStatus.equalsIgnoreCase("Pending") ? "Pending" : newStatus.toLowerCase());
 
-                // Handle paymentStatus
+                //Update Payment statues based on payment method
                 if ("cash on delivery".equalsIgnoreCase(order.getPaymentMethod())) {
                     // For cash on delivery, use the admin-provided paymentStatus
                     if (newPaymentStatus != null && ("Pending".equalsIgnoreCase(newPaymentStatus) || "Completed".equalsIgnoreCase(newPaymentStatus) || "Cancelled".equalsIgnoreCase(newPaymentStatus))) {
