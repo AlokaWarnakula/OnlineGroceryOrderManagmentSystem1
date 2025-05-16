@@ -47,7 +47,7 @@ public class OrderAdminServlet extends HttpServlet {
             return;
         }
 
-        // Check if the user has the correct role (Order Admin or Super Admin)
+        // Check if the user has the correct role..
         String adminRole = (String) session.getAttribute("adminRole");
         if (adminRole == null || !("super".equalsIgnoreCase(adminRole) || "order".equalsIgnoreCase(adminRole))) {
             System.out.println("OrderAdminServlet - Unauthorized access. Redirecting to AdminServlet.");
@@ -57,17 +57,19 @@ public class OrderAdminServlet extends HttpServlet {
 
         String action = request.getParameter("action");
 
-        if ("info".equals(action)) {
-            // Handle navigation to orderDashboardInfo.jsp
+
+        //CRUD: READ
+        //Acting Comment: Handles navigation to order details page by reading specific order and user data.
+       if ("info".equals(action)) {
             String orderNumber = request.getParameter("orderNumber");
             String tab = request.getParameter("tab");
             if (orderNumber == null || tab == null) {
-                System.out.println("OrderAdminServlet - Missing orderNumber or tab parameter for info action.");
+                System.out.println("oderAdminServlet - Missing orderNumber or tab parameter for info action. ");
                 response.sendRedirect(request.getContextPath() + "/OrderAdminServlet?error=invalidParameters");
                 return;
             }
 
-            // Determine which file to read based on the tab
+            //Determine which file to read based on the tab
             List<Order> orders;
             if ("active".equalsIgnoreCase(tab)) {
                 orders = FileUtil.readAllOrders(ORDERS_FILE);
@@ -75,7 +77,7 @@ public class OrderAdminServlet extends HttpServlet {
                 orders = FileUtil.readAllDeliveredOrders(DELIVERED_ORDERS_FILE);
             }
 
-            // Find the order
+            //Find the specific order by order number
             Order order = orders.stream()
                     .filter(o -> o.getOrderNumber().equals(orderNumber))
                     .findFirst()
@@ -87,7 +89,7 @@ public class OrderAdminServlet extends HttpServlet {
                 return;
             }
 
-            // Fetch user details
+            // Read the user details for order
             List<User> users = FileUtil.readUsers(USERS_FILE);
             User user = users.stream()
                     .filter(u -> u.getUserNumber().equals(order.getUserNumber()))
@@ -109,6 +111,7 @@ public class OrderAdminServlet extends HttpServlet {
             return;
         }
 
+        //CRUD: READ - Fetch and sort all orders for dashboard display
         // Read active orders from orders.txt
         List<Order> activeOrders = FileUtil.readAllOrders(ORDERS_FILE);
         if (activeOrders != null) {
@@ -161,7 +164,7 @@ public class OrderAdminServlet extends HttpServlet {
                 })
                 .collect(Collectors.toList());
 
-        // Sort cancelled orders by deliveredDate in descending order (newest first)
+        // Filter and Sort cancelled orders by deliveredDate in descending order (newest first)
         Collections.sort(cancelledOrders, new Comparator<Order>() {
             @Override
             public int compare(Order o1, Order o2) {
