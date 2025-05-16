@@ -168,7 +168,7 @@ public class OrderAdminServlet extends HttpServlet {
         Collections.sort(cancelledOrders, new Comparator<Order>() {
             @Override
             public int compare(Order o1, Order o2) {
-                String date1Str = o1.getDeliveredDate();
+                String date1Str = o1.getConfirmationDate();
                 String date2Str = o2.getDeliveredDate();
                 LocalDate date1 = parseDate(date1Str);
                 LocalDate date2 = parseDate(date2Str);
