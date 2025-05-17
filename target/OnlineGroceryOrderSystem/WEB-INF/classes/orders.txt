@@ -1,82 +1,3 @@
---- Order Start: OD709699593942 ---
-orderNumber=OD709699593942
-userNumber=US021583101081
-name=aloka warnakula nethara
-phoneNum=0711641638
-address=21/6/6A, somanada mawatha, pitumpe, padukka
-deliveryMethod=same-day
-paymentMethod=cash on delivery
-confirmationDate=2025-03-27 12:31:31
-paymentStatus=Pending
-deliveryStatus=Pending
-orderStatus=Pending
-deliveredDate=
-[products]
-productID=38, quantity=1
-[total]
-totalPrice=1500.00
---- Order End ---
-
---- Order Start: OD700301789054 ---
-orderNumber=OD700301789054
-userNumber=US021583101081
-name=aloka warnakula nethara
-phoneNum=0711641638
-address=21/6/6A, somanada mawatha, pitumpe, padukka
-deliveryMethod=same-day
-paymentMethod=cash on delivery
-confirmationDate=2025-03-27 12:49:09
-paymentStatus=Pending
-deliveryStatus=Pending
-orderStatus=Pending
-deliveredDate=
-[products]
-productID=17, quantity=5
-[total]
-totalPrice=6000.00
---- Order End ---
-
---- Order Start: OD405726526801 ---
-orderNumber=OD405726526801
-userNumber=US021583101081
-name=aloka warnakula
-phoneNum=0711641638
-address=21/6/6A, somanada mawatha, pitumpe, padukka
-deliveryMethod=store pickup
-paymentMethod=cash on delivery
-confirmationDate=2025-03-30 19:47:00
-paymentStatus=Pending
-deliveryStatus=Pending
-orderStatus=Pending
-deliveredDate=
-[products]
-productID=26, quantity=1
-productID=21, quantity=1
-productID=16, quantity=3
-[total]
-totalPrice=2874.00
---- Order End ---
-
---- Order Start: OD929166235954 ---
-orderNumber=OD929166235954
-userNumber=US021583101081
-name=aloka warnakula
-phoneNum=0711641638
-address=21/6/6A, somanada mawatha, pitumpe, padukka
-deliveryMethod=same-day
-paymentMethod=online card
-confirmationDate=2025-03-31 09:41:28
-paymentStatus=Paid
-deliveryStatus=Pending
-orderStatus=Pending
-deliveredDate=
-[products]
-productID=15, quantity=1
-productID=9, quantity=1
-[total]
-totalPrice=1673.00
---- Order End ---
-
 --- Order Start: OD092021244402 ---
 orderNumber=OD092021244402
 userNumber=US021583101081
@@ -85,6 +6,7 @@ phoneNum=0711641638
 address=21/6/6A, somanada mawatha, pitumpe, padukka
 deliveryMethod=same-day
 paymentMethod=online card
+deliveryDate=
 confirmationDate=2025-03-31 09:48:55
 paymentStatus=Paid
 deliveryStatus=Pending
@@ -96,40 +18,247 @@ productID=29, quantity=1
 totalPrice=1460.00
 --- Order End ---
 
---- Order Start: OD898037967534 ---
-orderNumber=OD898037967534
-userNumber=US021583101081
-name=aloka warnakula
-phoneNum=0711641638
-address=21/6/6A, somanada mawatha, pitumpe, padukka
-deliveryMethod=same-day
-paymentMethod=cash on delivery
-confirmationDate=2025-03-31 09:54:35
-paymentStatus=Pending
-deliveryStatus=Pending
-orderStatus=Pending
-deliveredDate=
-[products]
-productID=35, quantity=1
-[total]
-totalPrice=2250.00
---- Order End ---
-
---- Order Start: OD618211231363 ---
-orderNumber=OD618211231363
+--- Order Start: OD543785297309 ---
+orderNumber=OD543785297309
 userNumber=US021583101081
 name=aloka warnakula
 phoneNum=0711641638
 address=21/6/6A, somanada mawatha, pitumpe, padukka
 deliveryMethod=same-day
 paymentMethod=online card
-confirmationDate=2025-03-31 09:54:46
+deliveryDate=
+confirmationDate=2025-04-01 10:24:30
 paymentStatus=Paid
 deliveryStatus=Pending
 orderStatus=Pending
 deliveredDate=
 [products]
-productID=21, quantity=1
+productID=18, quantity=4
 [total]
-totalPrice=1164.00
+totalPrice=96.00
 --- Order End ---
+
+--- Order Start: OD261952394242 ---
+orderNumber=OD261952394242
+userNumber=US021583101081
+name=aloka warnakula
+phoneNum=0711641638
+address=21/6/6A, somanada mawatha, pitumpe, padukka
+deliveryMethod=same-day
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-04-01 11:28:45
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=15, quantity=1
+[total]
+totalPrice=1458.00
+--- Order End ---
+
+--- Order Start: OD753079415721 ---
+orderNumber=OD753079415721
+userNumber=US021583101081
+name=aloka warnakula
+phoneNum=0711641638
+address=21/6/6A, somanada mawatha, pitumpe, padukka
+deliveryMethod=store pickup
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-04-05 16:42:44
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=27, quantity=15
+productID=41, quantity=1
+[total]
+totalPrice=20511.00
+--- Order End ---
+
+--- Order Start: OD113125118289 ---
+orderNumber=OD113125118289
+userNumber=US021583101081
+name=aloka warnakula
+phoneNum=0711641638
+address=21/6/6A, somanada mawatha, pitumpe, padukka
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-04-05 16:43:56
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=27, quantity=1
+[total]
+totalPrice=1337.00
+--- Order End ---
+
+--- Order Start: OD959211235390 ---
+orderNumber=OD959211235390
+userNumber=US021583101081
+name=aloka warnakula
+phoneNum=0711641638
+address=21/6/6A, somanada mawatha, pitumpe, padukka
+deliveryMethod=store pickup
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-04-05 16:44:35
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=41, quantity=1
+[total]
+totalPrice=456.00
+--- Order End ---
+
+--- Order Start: OD601772509125 ---
+orderNumber=OD601772509125
+userNumber=US021583101081
+name=H.V.NImesh Nilakshan
+phoneNum=0716536912
+address=151/2/A Ihala Bomiriya , Kduwela
+deliveryMethod=store pickup
+paymentMethod=cash on delivery
+confirmationDate=2025-05-05 15:31:49
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=41, quantity=1
+productID=27, quantity=1
+productID=2, quantity=1
+productID=14, quantity=1
+[total]
+totalPrice=2115.00
+--- Order End ---
+
+--- Order Start: OD826098245257 ---
+orderNumber=OD826098245257
+userNumber=US021583101081
+name=H.V.NImesh Nilakshan
+phoneNum=0716536912
+address=151/2/A Ihala Bomiriya , Kduwela
+deliveryMethod=same-day
+paymentMethod=online card
+confirmationDate=2025-05-07 14:55:56
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=5, quantity=1
+productID=27, quantity=1
+productID=50, quantity=1
+productID=26, quantity=1
+[total]
+totalPrice=4792.00
+--- Order End ---
+
+--- Order Start: OD435936332375 ---
+orderNumber=OD435936332375
+userNumber=US021583101081
+name=H.V.NImesh Nilakshan
+phoneNum=0716536912
+address=151/2/A Ihala Bomiriya , Kduwela
+deliveryMethod=store pickup
+paymentMethod=online card
+confirmationDate=2025-05-17 19:12:14
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=31, quantity=1
+productID=3, quantity=1
+[total]
+totalPrice=449.00
+--- Order End ---
+
+--- Order Start: OD960531701794 ---
+orderNumber=OD960531701794
+userNumber=US124164265017
+name=H.V.NImesh Nilakshan
+phoneNum=0716536912
+address=151/2/A Ihala Bomiriya , Kduwela
+deliveryMethod=same-day
+paymentMethod=cash on delivery
+confirmationDate=2025-05-17 19:34:46
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=3, quantity=1
+[total]
+totalPrice=160.00
+--- Order End ---
+
+--- Order Start: OD172296860468 ---
+orderNumber=OD172296860468
+userNumber=US124164265017
+name=H.V.NImesh Nilakshan
+phoneNum=0716536912
+address=151/2/A Ihala Bomiriya , Kduwela
+deliveryMethod=store pickup
+paymentMethod=cash on delivery
+confirmationDate=2025-05-17 19:35:29
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=13, quantity=1
+[total]
+totalPrice=269.00
+--- Order End ---
+
+--- Order Start: OD117779150021 ---
+orderNumber=OD117779150021
+userNumber=US911223988588
+name=H.V.NImesh Nilakshan
+phoneNum=0716536912
+address=151/2/A Ihala Bomiriya , Kduwela
+deliveryMethod=store pickup
+paymentMethod=online card
+confirmationDate=2025-05-17 20:08:43
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=48, quantity=1
+[total]
+totalPrice=690.00
+--- Order End ---
+
+--- Order Start: OD060610971627 ---
+orderNumber=OD060610971627
+userNumber=US911223988588
+name=H.V.NImesh Nilakshan
+phoneNum=0716536912
+address=151/2/A Ihala Bomiriya , Kduwela
+deliveryMethod=store pickup
+paymentMethod=online card
+confirmationDate=2025-05-17 20:11:40
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=3, quantity=1
+productID=49, quantity=1
+productID=38, quantity=1
+productID=37, quantity=1
+[total]
+totalPrice=6105.00
+--- Order End ---
+

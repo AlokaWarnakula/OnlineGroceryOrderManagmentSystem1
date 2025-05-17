@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Random;
 
 public class RegisterServlet extends HttpServlet {
-    private static final String USERS_FILE = "C://Users//Nimesh//IdeaProjects//OnlineGroceryOrderManagmentSystem//OnlineGroceryOrderManagmentSystem//src//main//webapp//data//users.txt";
-    private static final String LOGGED_IN_USER_FILE = "C://Users//Nimesh//IdeaProjects//OnlineGroceryOrderManagmentSystem//OnlineGroceryOrderManagmentSystem//src//main//webapp//data//loggedInUser.txt";
+    private static final String USERS_FILE = "C:\\Users\\Nimesh\\IdeaProjects\\OnlineGroceryOrderManagmentSystem\\OnlineGroceryOrderManagmentSystem\\src\\main\\webapp\\data\\users.txt";
+    private static final String LOGGED_IN_USER_FILE = "C:\\Users\\Nimesh\\IdeaProjects\\OnlineGroceryOrderManagmentSystem\\OnlineGroceryOrderManagmentSystem\\src\\main\\webapp\\data\\loggedInUser.txt";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
