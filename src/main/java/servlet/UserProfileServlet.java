@@ -15,10 +15,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserProfileServlet extends HttpServlet {
-    private static final String USERS_FILE = "C:\\Users\\Nimesh\\IdeaProjects\\OnlineGroceryOrderManagmentSystem\\OnlineGroceryOrderManagmentSystem\\src\\main\\webapp\\data\\users.txt";
-    private static final String LOGGED_IN_USER_FILE = "C:\\Users\\Nimesh\\IdeaProjects\\OnlineGroceryOrderManagmentSystem\\OnlineGroceryOrderManagmentSystem\\src\\main\\webapp\\data\\loggedInUser.txt";
-    private static final String ORDERS_FILE = "C:\\Users\\Nimesh\\IdeaProjects\\OnlineGroceryOrderManagmentSystem\\OnlineGroceryOrderManagmentSystem\\src\\main\\webapp\\data\\orders.txt";
-    private static final String DELIVERED_ORDERS_FILE = "C:\\Users\\Nimesh\\IdeaProjects\\OnlineGroceryOrderManagmentSystem\\OnlineGroceryOrderManagmentSystem\\src\\main\\webapp\\data\\deliveredOrders.txt";
+    private static final String USERS_FILE = "C://Users//Nimesh//IdeaProjects//OnlineGroceryOrderManagmentSystem//OnlineGroceryOrderManagmentSystem//src//main//webapp//data//users.txt";
+    private static final String LOGGED_IN_USER_FILE = "C://Users//Nimesh//IdeaProjects//OnlineGroceryOrderManagmentSystem//OnlineGroceryOrderManagmentSystem//src//main//webapp//data//loggedInUser.txt";
+    private static final String ORDERS_FILE = "C://Users//Nimesh//IdeaProjects//OnlineGroceryOrderManagmentSystem//OnlineGroceryOrderManagmentSystem//src//main//webapp//data//orders.txt";
+    private static final String DELIVERED_ORDERS_FILE = "C://Users//Nimesh//IdeaProjects//OnlineGroceryOrderManagmentSystem//OnlineGroceryOrderManagmentSystem//src//main//webapp//data//deliveredOrders.txt";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override

@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class CartServlet extends HttpServlet {
-    private static final String ITEMS_FILE = "C:\\Users\\Nimesh\\IdeaProjects\\OnlineGroceryOrderManagmentSystem\\OnlineGroceryOrderManagmentSystem\\src\\main\\webapp\\data\\items.txt";
-    private static final String CART_FILE = "C:\\Users\\Nimesh\\IdeaProjects\\OnlineGroceryOrderManagmentSystem\\OnlineGroceryOrderManagmentSystem\\src\\main\\webapp\\data\\cart.txt";
+    private static final String ITEMS_FILE = "C://Users//Nimesh//IdeaProjects//OnlineGroceryOrderManagmentSystem//OnlineGroceryOrderManagmentSystem//src//main//webapp//data//items.txt";
+    private static final String CART_FILE = "C://Users//Nimesh//IdeaProjects//OnlineGroceryOrderManagmentSystem//OnlineGroceryOrderManagmentSystem//src//main//webapp//data//cart.txt";
     private MergeServlet mergeServlet; // Instance of MergeServlet
 
     @Override
     public void init() throws ServletException {
-        File dataDir = new File("C:\\Users\\Nimesh\\IdeaProjects\\OnlineGroceryOrderManagmentSystem\\OnlineGroceryOrderManagmentSystem\\src\\main\\webapp\\data");
+        File dataDir = new File("C://Users//Nimesh//IdeaProjects//OnlineGroceryOrderManagmentSystem//OnlineGroceryOrderManagmentSystem//src//main//webapp//data");
         if (!dataDir.exists()) {
             if (dataDir.mkdirs()) {
                 System.out.println("Created data directory: " + dataDir.getAbsolutePath());

@@ -14,7 +14,7 @@ public class LogoutServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        String basePath = "C:\\Users\\Nimesh\\IdeaProjects\\OnlineGroceryOrderManagmentSystem\\OnlineGroceryOrderManagmentSystem\\src\\main\\webapp\\data";
+        String basePath = "C://Users//Nimesh//IdeaProjects//OnlineGroceryOrderManagmentSystem//OnlineGroceryOrderManagmentSystem//src//main//webapp//data";
         LOGGED_IN_USER_FILE = basePath + "loggedInUser.txt";
         System.out.println("LogoutServlet initialized with LOGGED_IN_USER_FILE: " + LOGGED_IN_USER_FILE);
     }
