@@ -146,6 +146,7 @@ public class CartServlet extends HttpServlet {
                             break;
                     }
                 }
+                // initiate sort
                 mergeServlet.sortItems(filteredItems, sortCriterion);
             }
 
