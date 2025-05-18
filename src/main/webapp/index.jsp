@@ -207,6 +207,19 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(244,255,240,1) 
         </a>
         <% } %>
     </div>
+    <div id="animation-container">
+        <div class="loop-wrapper">
+            <div class="mountain"></div>
+            <div class="hill"></div>
+            <div class="tree"></div>
+            <div class="tree"></div>
+            <div class="tree"></div>
+            <div class="rock"></div>
+            <div class="truck"></div>
+            <div class="wheels"></div>
+        </div>
+    </div>
+
 
 
 </header>
