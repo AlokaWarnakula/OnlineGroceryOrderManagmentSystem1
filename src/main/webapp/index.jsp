@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.User" %>
-<%@ page import="model.GroceryItem" %>
 <%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,16 +11,175 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="css/index.css">
+    <style>
+        body {
+            background: #f4f4f4;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 10px 20px;
+            background: #333;
+        }
+        .icon-link {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        .icon-link:hover {
+            color: #ddd;
+        }
+        #animation-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .loop-wrapper {
+            margin: 0 auto;
+            position: relative;
+            display: block;
+            width: 600px;
+            height: 250px;
+            overflow: hidden;
+            border-bottom: 3px solid #fff;
+            color: #fff;
+        }
+        .mountain {
+            position: absolute;
+            right: -900px;
+            bottom: -20px;
+            width: 2px;
+            height: 2px;
+            box-shadow:
+                    0 0 0 50px #4DB6AC,
+                    60px 50px 0 70px #4DB6AC,
+                    90px 90px 0 50px #4DB6AC,
+                    250px 250px 0 50px #4DB6AC,
+                    290px 320px 0 50px #4DB6AC,
+                    320px 400px 0 50px #4DB6AC;
+            transform: rotate(130deg);
+            animation: mtn 20s linear infinite;
+        }
+        .hill {
+            position: absolute;
+            right: -900px;
+            bottom: -50px;
+            width: 400px;
+            border-radius: 50%;
+            height: 20px;
+            box-shadow:
+                    0 0 0 50px #4DB6AC,
+                    -20px 0 0 20px #4DB6AC,
+                    -90px 0 0 50px #4DB6AC,
+                    250px 0 0 50px #4DB6AC,
+                    290px 0 0 50px #4DB6AC,
+                    620px 0 0 50px #4DB6AC;
+            animation: hill 4s 2s linear infinite;
+        }
+        .tree, .tree:nth-child(2), .tree:nth-child(3) {
+            position: absolute;
+            height: 100px;
+            width: 35px;
+            bottom: 0;
+            background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/130015/tree.svg) no-repeat;
+        }
+        .rock {
+            margin-top: -17%;
+            height: 2%;
+            width: 2%;
+            bottom: -2px;
+            border-radius: 20px;
+            position: absolute;
+            background: #ddd;
+            animation: rock 4s -0.530s linear infinite;
+        }
+        .truck, .wheels {
+            transition: all ease;
+            width: 85px;
+            margin-right: -60px;
+            bottom: 0px;
+            right: 50%;
+            position: absolute;
+            background: #eee;
+        }
+        .truck {
+            background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/130015/truck.svg) no-repeat;
+            background-size: contain;
+            height: 60px;
+            animation: truck 4s 0.080s ease infinite;
+        }
+        .truck:before {
+            content: " ";
+            position: absolute;
+            width: 25px;
+            box-shadow:
+                    -30px 28px 0 1.5px #fff,
+                    -35px 18px 0 1.5px #fff;
+            animation: wind 1.5s 0s ease infinite;
+        }
+        .wheels {
+            background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/130015/wheels.svg) no-repeat;
+            height: 15px;
+            margin-bottom: 0;
+            animation: truck 4s 0.001s ease infinite;
+        }
+        .tree  { animation: tree 3s 0s linear infinite; }
+        .tree:nth-child(2)  { animation: tree2 2s 0.15s linear infinite; }
+        .tree:nth-child(3)  { animation: tree3 8s 0.05s linear infinite; }
+
+        @keyframes tree {
+            0%   { transform: translate(1350px); }
+            100% { transform: translate(-50px); }
+        }
+        @keyframes tree2 {
+            0%   { transform: translate(650px); }
+            100% { transform: translate(-50px); }
+        }
+        @keyframes tree3 {
+            0%   { transform: translate(2750px); }
+            100% { transform: translate(-50px); }
+        }
+        @keyframes rock {
+            0%   { right: -200px; }
+            100% { right: 2000px; }
+        }
+        @keyframes truck {
+            6%   { transform: translateY(0px); }
+            7%   { transform: translateY(-6px); }
+            9%   { transform: translateY(0px); }
+            10%  { transform: translateY(-1px); }
+            11%  { transform: translateY(0px); }
+        }
+        @keyframes wind {
+            50%  { transform: translateY(3px); }
+        }
+        @keyframes mtn {
+            100% {
+                transform: translateX(-2000px) rotate(130deg);
+            }
+        }
+        @keyframes hill {
+            100% {
+                transform: translateX(-2000px);
+            }
+        }
+    </style>
 </head>
 <body style="
 background: rgb(255,255,255);
 background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(244,255,240,1) 100%);
 ">
-<!-- Invoke DealServlet to fetch deal products -->
-<%
-    // Call DealServlet to set the dealProducts attribute
-    request.getRequestDispatcher("/DealServlet").include(request, response);
-%>
+
 
 <header class="Header">
     <a href="#" class="logo"><i class="fa-solid fa-basket-shopping"></i> Grocery</a>
@@ -44,11 +202,13 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(244,255,240,1) 
             <i class="fa-solid fa-sign-out-alt logout-icon"></i>
         </a>
         <% } else { %>
-        <a href="${pageContext.request.contextPath}/userLogin/login.jsp" class="icon-link">
+        <a href="#" class="icon-link" onclick="showAnimation()">
             <i class="fa-solid fa-user login-icon"></i>
         </a>
         <% } %>
     </div>
+
+
 </header>
 
 <!-- Home Banners -->
@@ -150,29 +310,11 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(244,255,240,1) 
     <h1 class="heading">New <span>Deals</span></h1>
     <div class="swiper product-slider">
         <div class="swiper-wrapper">
-            <%
-                // Retrieve the dealProducts list set by DealServlet
-                List<GroceryItem> dealProducts = (List<GroceryItem>) request.getAttribute("dealProducts");
-                if (dealProducts != null && !dealProducts.isEmpty()) {
-                    for (GroceryItem item : dealProducts) {
-            %>
-            <div class="swiper-slide box">
-                <a href="${pageContext.request.contextPath}/ProductDetailsServlet?productId=<%= item.getProductID() %>">
-                    <img src="<%= item.getProductImageLink() %>" alt="<%= item.getProductName() %>">
-                    <h1><%= item.getProductName() %></h1>
-                    <div class="price">RS.<%= String.format("%.2f", item.getProductPrice()) %>/-</div>
-                </a>
-            </div>
-            <%
-                }
-            } else {
-            %>
+
             <div class="swiper-slide box">
                 <h1>No Deals Available</h1>
             </div>
-            <%
-                }
-            %>
+
         </div>
         <div class="swiper-pagination"></div>
     </div>
