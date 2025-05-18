@@ -39,7 +39,7 @@ public class OrderServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Read the logged-in user from loggedInUser.txt
+        // Read the logged-in user from loggedInUser.txt(CRUD: READ)
         User loggedInUser = FileUtil.readLoggedInUser(LOGGED_IN_USER_FILE);
         if (loggedInUser == null) {
             System.out.println("No logged-in user found in " + LOGGED_IN_USER_FILE);
@@ -48,6 +48,7 @@ public class OrderServlet extends HttpServlet {
         }
         System.out.println("Logged-in user: " + loggedInUser);
 
+        //Retrieve cart item
         ArrayList<GroceryItem> cart;
         synchronized (this) {
             cart = FileUtil.readItems(CART_FILE);
@@ -64,6 +65,7 @@ public class OrderServlet extends HttpServlet {
         String orderNumber;
         String userNumber;
 
+        //Read inventory items
         ArrayList<GroceryItem> items = FileUtil.readItems(ITEMS_FILE);
 
         synchronized (this) {
@@ -79,8 +81,10 @@ public class OrderServlet extends HttpServlet {
                 }
             }
 
+            //Calculate total price
             totalPrice = cart.stream().mapToDouble(GroceryItem::getTotalPrice).sum();
 
+            //Validate total inputs
             String fullName = request.getParameter("fullName");
             String phoneNumber = request.getParameter("phoneNumber");
             String address = request.getParameter("address");
@@ -93,11 +97,13 @@ public class OrderServlet extends HttpServlet {
                 return;
             }
 
+            //CRUD: CREATE
             do {
                 orderNumber = generateOrderNumber();
             } while (!FileUtil.isOrderNumberUnique(orderNumber, ORDERS_FILE));
 
             userNumber = loggedInUser.getUserNumber();
+            //Prepare order detail
             if (userNumber == null) {
                 System.err.println("User number is null for logged-in user: " + loggedInUser);
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "User number is missing for the logged-in user");
@@ -110,6 +116,7 @@ public class OrderServlet extends HttpServlet {
             String deliveryStatus = "Pending";
             String orderStatus = "Pending";
 
+            //CRUD: CREATE -Save order to file
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(ORDERS_FILE, true))) {
                 writer.write("--- Order Start: " + orderNumber + " ---\n");
                 writer.write("orderNumber=" + orderNumber + "\n");
