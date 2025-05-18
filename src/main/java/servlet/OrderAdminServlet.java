@@ -238,7 +238,7 @@ public class OrderAdminServlet extends HttpServlet {
             }
 
             synchronized (this) {
-                // Determine the source file based on the tab
+                // Read Orders from appropriate file
                 List<Order> orders;
                 String sourceFile;
                 if ("active".equalsIgnoreCase(tab)) {
@@ -249,7 +249,7 @@ public class OrderAdminServlet extends HttpServlet {
                     orders = FileUtil.readAllDeliveredOrders(DELIVERED_ORDERS_FILE);
                 }
 
-                // Find the order to Update
+                // Find order to update
                 Order order = orders.stream()
                         .filter(o -> o.getOrderNumber().equals(orderNumber))
                         .findFirst()
@@ -261,7 +261,7 @@ public class OrderAdminServlet extends HttpServlet {
                     return;
                 }
 
-                // Update the order status
+                // Update statues and payment statues
                 String previousStatus = order.getDeliveryStatus();
                 order.setDeliveryStatus(newStatus);
                 order.setOrderStatus(newStatus.equalsIgnoreCase("Pending") ? "Pending" : newStatus.toLowerCase());
