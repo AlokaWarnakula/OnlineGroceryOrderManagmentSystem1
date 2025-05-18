@@ -5,7 +5,6 @@ import java.util.*;
 
 public class FileUtil {
 
-    // ----this is cart part----
     // Reads grocery items from items.txt or cart.txt
     public static ArrayList<GroceryItem> readItems(String filePath) {
         // Initialize empty list for grocery items
@@ -104,7 +103,6 @@ public class FileUtil {
             throw e;
         }
     }
-    // ----this is cart part end----
 
     // ----this is login part----
     public static List<User> readUsers(String filePath) {

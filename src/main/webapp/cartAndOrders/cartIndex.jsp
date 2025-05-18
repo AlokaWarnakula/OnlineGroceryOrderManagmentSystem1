@@ -1,3 +1,4 @@
+<%-- cartIndex.jsp: Displays grocery items with filtering/sorting and cart functionality --%>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.GroceryItem" %>
@@ -18,29 +19,35 @@ background: rgb(255,255,255);
 background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(244,255,240,1) 100%);
 ">
 <%
+  // Check for logged-in user if not redirect to login
   User loggedInUser = (User) session.getAttribute("user");
   if (loggedInUser == null) {
     response.sendRedirect(request.getContextPath() + "/userLogin/login.jsp?error=Please log in to access the cart.");
     return;
   }
 
+  // Retrieve sorted/filtered items from CartServlet
   List<GroceryItem> items = (List<GroceryItem>) request.getAttribute("items");
   if (items == null) {
     items = new ArrayList<>();
   }
+  // Category filter
   String category = (String) request.getAttribute("category");
   if (category == null || category.isEmpty()) {
     category = "All"; // Default category for display
   }
+  // Displaying search results
   Boolean isSearchResult = (Boolean) request.getAttribute("isSearchResult");
   if (isSearchResult == null) {
     isSearchResult = false;
   }
+  // Search/filter parameters
   String minPrice = request.getParameter("minPrice");
   String maxPrice = request.getParameter("maxPrice");
   String name = request.getParameter("name");
 %>
 <header>
+  <%-- Logo and navigation links to filter by category --%>
   <a href="${pageContext.request.contextPath}/index.jsp" class="logo"><i class="fa-solid fa-basket-shopping"></i> GROCERY</a>
   <nav class="navbar">
     <a href="${pageContext.request.contextPath}/CartServlet?category=Produce">Produce</a>
@@ -50,12 +57,14 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(244,255,240,1) 
     <a href="${pageContext.request.contextPath}/CartServlet?category=Pantry">Pantry</a>
     <a href="${pageContext.request.contextPath}/CartServlet?category=Snacks">Snacks</a>
   </nav>
-  <div class="search-container">
+    <%-- Search form for filtering/sorting items --%>
+    <div class="search-container">
     <form class="search-bar" id="search-form" action="${pageContext.request.contextPath}/CartServlet" method="get">
       <input type="text" placeholder="Search groceries..." name="name" id="name" value="<%= name != null ? name : "" %>">
       <button type="submit" class="search-btn">Search</button>
       <span class="dropdown-toggle" id="dropdown-toggle">▼</span>
       <div class="dropdown-menu" id="dropdown-menu">
+        <%-- Category filter dropdown --%>
         <div class="filter-item">
           <label for="category">Category:</label>
           <select name="category" id="category">
@@ -68,15 +77,18 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(244,255,240,1) 
             <option value="Snacks" <%= "Snacks".equals(category) ? "selected" : "" %>>Snacks</option>
           </select>
         </div>
-        <div class="filter-item">
+          <%-- Minimum price filter --%>
+          <div class="filter-item">
           <label for="minPrice">Min Price:</label>
           <input type="number" name="minPrice" id="minPrice" min="0" step="0.01" placeholder="0.00" value="<%= minPrice != null ? minPrice : "" %>">
         </div>
-        <div class="filter-item">
+          <%-- Maximum price filter --%>
+          <div class="filter-item">
           <label for="maxPrice">Max Price:</label>
           <input type="number" name="maxPrice" id="maxPrice" min="0" step="0.01" placeholder="100.00" value="<%= maxPrice != null ? maxPrice : "" %>">
         </div>
-        <div class="filter-item">
+          <%-- Sort by name or price initiate MergeSortServlet --%>
+          <div class="filter-item">
           <label for="sortBy">Sort By:</label>
           <select name="sortBy" id="sortBy">
             <option value="name" <%= "name".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Name</option>
@@ -85,12 +97,14 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(244,255,240,1) 
         </div>
       </div>
     </form>
-  </div>
+      <%-- Cart icon to toggle cart sidebar --%>
+    </div>
   <div class="cart-icon" id="cart-icon">
     <i class="fas fa-shopping-cart"></i>
     <span class="cart-item-count">0</span>
   </div>
 </header>
+<%-- Display sorted/filtered grocery items --%>
 <section class="shop">
   <h2 class="section-title">
     <%= isSearchResult ? "Search Results" : "Shop " + category %>
@@ -106,6 +120,7 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(244,255,240,1) 
         }
         out.println("<p>" + message + "</p>");
       } else {
+        // Render each item with image, name, price, and add-to-cart button
         for (GroceryItem item : items) {
           boolean outOfStock = item.getQuantity() <= 0;
     %>
@@ -131,6 +146,7 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(244,255,240,1) 
     %>
   </div>
 </section>
+<%-- Cart sidebar for viewing selected items --%>
 <div class="cart">
   <h2 class="cart-title">Your Cart</h2>
   <i class="ri-close-line" id="cart-close"></i>
@@ -142,7 +158,9 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(244,255,240,1) 
     <a href="${pageContext.request.contextPath}/cartAndOrders/checkOut.jsp" class="btn-buy">Buy Now</a>
   </div>
 </div>
+
 <script>
+  <%-- Set context path for cart.js and load script --%>
   window.contextPath = '${pageContext.request.contextPath}';
 </script>
 <script src="${pageContext.request.contextPath}/js/cart.js"></script>
