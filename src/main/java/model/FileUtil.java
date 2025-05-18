@@ -23,7 +23,7 @@ public class FileUtil {
                 System.out.println("Created file: " + file.getAbsolutePath());
             } catch (IOException e) {
                 // Log error and return empty list if creation fails
-                System.err.println("Error creating file: " + e.getMessage());
+                System.out.println("Error creating file: " + e.getMessage());
                 return items;
             }
         }
@@ -40,7 +40,7 @@ public class FileUtil {
                 String[] parts = line.split(",", 7);
                 // Validate line has exactly 7 fields
                 if (parts.length != 7) {
-                    System.err.println("Invalid line: " + line);
+                    System.out.println("Invalid line: " + line);
                     continue;
                 }
                 try {
@@ -56,12 +56,12 @@ public class FileUtil {
                     items.add(new GroceryItem(productID, productCategory, productName, productPrice, productImageLink, quantity, description));
                 } catch (NumberFormatException e) {
                     // Log error for invalid numbers and skip line
-                    System.err.println("Invalid number in line: " + line);
+                    System.out.println("Invalid number in line: " + line);
                 }
             }
         } catch (IOException e) {
             // Log error if file reading fails
-            System.err.println("Error reading file: " + e.getMessage());
+            System.out.println("Error reading file: " + e.getMessage());
         }
         // Log number of items read
         System.out.println("Read " + items.size() + " items from " + filePath);
@@ -86,7 +86,7 @@ public class FileUtil {
         }
 
         // Write items to file
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, false))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, false))) { // Rewrite not append
             // Iterate through each item
             for (GroceryItem item : items) {
                 // Write item as comma-separated line with 7 fields
@@ -95,16 +95,16 @@ public class FileUtil {
                         item.getProductPrice(), item.getProductImageLink(), item.getQuantity(),
                         item.getDescription() != null ? item.getDescription() : ""));
             }
-            // Ensure data is saved
+            // Ensure data is saved (Forces  buffered data to write to the file immediately)
             writer.flush();
             System.out.println("Wrote " + items.size() + " items to " + filePath);
         } catch (IOException e) {
-            System.err.println("Error writing file: " + e.getMessage());
+            System.out.println("Error writing file: " + e.getMessage());
             throw e;
         }
     }
 
-    // ----this is login part----
+    // Logic section
     public static List<User> readUsers(String filePath) {
         List<User> users = new ArrayList<>();
         File file = new File(filePath);
@@ -167,7 +167,7 @@ public class FileUtil {
             System.out.println("Created users file: " + file.getAbsolutePath());
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, false))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, false))) { // Rewrite not append
             for (User user : users) {
                 writer.write("--- User Start: " + user.getUserNumber() + " ---\n");
                 writer.write("username=" + (user.getUsername() != null ? user.getUsername() : "") + "\n");
@@ -243,5 +243,4 @@ public class FileUtil {
             System.out.println("loggedInUser file does not exist; nothing to clear");
         }
     }
-    // ----this is login part end----
 }
