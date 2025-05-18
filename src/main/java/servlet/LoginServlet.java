@@ -54,6 +54,7 @@ public class LoginServlet extends HttpServlet {
             if (users == null) {
                 System.err.println("Failed to read users file: " + USERS_FILE);
                 request.setAttribute("error", "Server error. Please try again later.");
+
                 request.getRequestDispatcher("/userLogin/forgotPassword.jsp").forward(request, response);
                 return;
             }
@@ -80,7 +81,7 @@ public class LoginServlet extends HttpServlet {
                 FileUtil.writeUsers(USERS_FILE, users);
                 System.out.println("Password updated for user: " + email);
                 request.setAttribute("success", "Password reset successfully. Please login with your new password.");
-                request.getRequestDispatcher("/userLogin/login.jsp").forward(request, response);
+                request.getRequestDispatcher("/userLogin/Loading.jsp").forward(request, response);
             } catch (IOException e) {
                 System.err.println("Error writing updated users to file: " + e.getMessage());
                 request.setAttribute("error", "Error updating password. Please try again later.");
