@@ -26,7 +26,7 @@ public class OrderServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        File ordersDir = new File("C:\\Users\\Nimesh\\IdeaProjects\\OnlineGroceryOrderManagmentSystem\\OnlineGroceryOrderManagmentSystem\\src\\main\\webapp\\data\\admins.txt");
+        File ordersDir = new File("C:\\Users\\Nimesh\\IdeaProjects\\OnlineGroceryOrderManagmentSystem\\OnlineGroceryOrderManagmentSystem\\src\\main\\webapp\\data");
         if (!ordersDir.exists()) {
             ordersDir.mkdirs();
             System.out.println("Created directory: " + ordersDir.getAbsolutePath());

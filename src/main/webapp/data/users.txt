@@ -128,3 +128,23 @@ phoneNumber=0716536912
 address=151/2/A Ihala Bomiriya , Kduwela
 --- User End ---
 
+--- User Start: US210467835442 ---
+username=nimeshnilakshan6@gmail.com
+password=12345
+userNumber=US210467835442
+fullName=H.V.NImesh Nilakshan
+email=nimeshnilakshan6@gmail.com
+phoneNumber=0716536912
+address=151/2/A Ihala Bomiriya , Kduwela
+--- User End ---
+
+--- User Start: US605931092632 ---
+username=nimeshnilakshan7@gmail.com
+password=nimesh1212
+userNumber=US605931092632
+fullName=H.V.NImesh Nilakshan
+email=nimeshnilakshan7@gmail.com
+phoneNumber=0716536912
+address=151/2/A Ihala Bomiriya , Kduwela
+--- User End ---
+
