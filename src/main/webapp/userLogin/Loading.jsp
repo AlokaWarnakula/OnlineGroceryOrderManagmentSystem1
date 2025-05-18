@@ -240,7 +240,7 @@
     // Redirect to login page after animation
     setTimeout(() => {
         window.location.href = "${pageContext.request.contextPath}/userLogin/login.jsp";
-    }, 5000); // Redirect after 3 seconds
+    }, 6000); // Redirect after 3 seconds
 </script>
 </body>
 </html>
