@@ -220,6 +220,16 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(244,255,240,1) 
         </div>
     </div>
 
+    <script>
+        function showAnimation() {
+            const animationContainer = document.getElementById('animation-container');
+            animationContainer.style.display = 'flex';
+            setTimeout(() => {
+                animationContainer.style.display = 'none';
+                window.location.href = '${pageContext.request.contextPath}/userLogin/login.jsp';
+            }, 2000);
+        }
+    </script>
 
 
 </header>
