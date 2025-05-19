@@ -34,29 +34,29 @@ if (deleteBtn) {
         deleteModal.style.display = 'flex'; // Show the modal
     });
 }
-
+//Hide delete confirmation modal when cancel is clicked
 if (cancelDelete) {
     cancelDelete.addEventListener('click', () => {
         deleteModal.style.display = 'none'; // Hide the modal
     });
 }
-
+//Handling the confirm delete avtion
 if (confirmDelete) {
     confirmDelete.addEventListener('click', () => {
-        // Programmatically submit the form with action=delete
+        // Programmatically submit the form with a hidden input to indicate delete action
         const form = document.getElementById('profile-form');
         const actionInput = document.createElement('input');
         actionInput.type = 'hidden';
         actionInput.name = 'action';
         actionInput.value = 'delete';
-        form.appendChild(actionInput);
-        form.submit();
+        form.appendChild(actionInput);//Add hidden input to form
+        form.submit();//Submit the form
     });
 }
 
 // Close modal if user clicks outside of it
 window.addEventListener('click', (event) => {
     if (event.target === deleteModal) {
-        deleteModal.style.display = 'none';
+        deleteModal.style.display = 'none';//Hiding the modal
     }
 });
