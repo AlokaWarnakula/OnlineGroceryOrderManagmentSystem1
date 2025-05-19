@@ -13,20 +13,22 @@ if (editBtn) {
             editBtn.textContent = 'Cancel'; // Change button text to "Cancel"
             editBtn.innerHTML = '<i class="fas fa-times"></i> Cancel'; // Update icon
         } else {
+            //If form is visible hide and display user information
             profileFormContainer.style.display = 'none';
-            userInfo.style.display = 'block'; // Show the user info display
+            userInfo.style.display = 'block'; // Show the user information display
             editBtn.textContent = 'Edit Profile'; // Change button text back
             editBtn.innerHTML = '<i class="fas fa-edit"></i> Edit Profile'; // Update icon
         }
     });
 }
 
-// Delete Confirmation Modal Logic
+// Get references to delete confirmation modal elements
 const deleteBtn = document.getElementById('delete-btn');
 const deleteModal = document.getElementById('deleteModal');
 const confirmDelete = document.getElementById('confirmDelete');
 const cancelDelete = document.getElementById('cancelDelete');
 
+//When delete button is clicked show the delete confirmation modal
 if (deleteBtn) {
     deleteBtn.addEventListener('click', () => {
         deleteModal.style.display = 'flex'; // Show the modal
