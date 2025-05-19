@@ -1,10 +1,12 @@
-// Toggle the edit form visibility
+// Get references to HTML elements for editing profile
 const editBtn = document.getElementById('edit-btn');
 const profileFormContainer = document.getElementById('profile-form-container');
 const userInfo = document.querySelector('.user-info');
 
+//Toggle the profile edit form when edit button is clicked
 if (editBtn) {
     editBtn.addEventListener('click', () => {
+        //If form is hidden,show it and hide the user information
         if (profileFormContainer.style.display === 'none' || profileFormContainer.style.display === '') {
             profileFormContainer.style.display = 'block';
             userInfo.style.display = 'none'; // Hide the user info display
