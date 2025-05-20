@@ -17,7 +17,7 @@ public class StockAdminServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Check if the admin is logged in
+        // Check if the admin is logged in or not
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("adminNumber") == null || session.getAttribute("adminEmail") == null) {
             response.sendRedirect(request.getContextPath() + "/adminLogin/login.jsp?error=sessionExpired");
