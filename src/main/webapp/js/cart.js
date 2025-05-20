@@ -1,6 +1,4 @@
-// Manages cart interactions and UI on the cart page, interacts with CartServlet
 document.addEventListener('DOMContentLoaded', () => {
-    // Select DOM elements for cart and dropdown
     const addToCartButtons = document.querySelectorAll('.add-cart, .add-cart-btn');
     const cartIcon = document.getElementById('cart-icon');
     const cart = document.querySelector('.cart');
@@ -16,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
             dropdownMenu.classList.toggle('active');
         });
 
-        // Close dropdown when clicking outside
         document.addEventListener('click', (event) => {
             if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
                 dropdownMenu.classList.remove('active');
@@ -24,13 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Handle add-to-cart button clicks
     addToCartButtons.forEach(button => {
         button.addEventListener('click', () => {
             if (button.disabled) return;
 
             const itemId = button.getAttribute('data-item-id');
-            // Send POST request to CartServlet to add item
             fetch(`${window.contextPath}/CartServlet`, {
                 method: 'POST',
                 headers: {
@@ -52,30 +47,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Show cart sidebar on icon click
     if (cartIcon && cart && !window.location.pathname.includes('/cartAndOrders/checkOut.jsp')) {
         cartIcon.addEventListener('click', () => {
             cart.classList.add('active');
         });
     }
 
-    // Hide cart sidebar on close click
     if (cartClose && cart) {
         cartClose.addEventListener('click', () => {
             cart.classList.remove('active');
         });
     }
 
-    // Update cart UI with items and total price
     function updateCartUI(cart, totalPriceValue) {
         const cartContent = document.querySelector('.cart-content');
         const totalContainer = document.getElementById('total-container');
         const totalPriceElement = document.getElementById('total-price');
         cartContent.innerHTML = '';
+
         cartItemCount = cart.length;
         totalPrice = parseFloat(totalPriceValue);
 
-        // Display empty cart message or item list
         if (cartItemCount === 0) {
             cartContent.innerHTML = '<p>Your cart is empty.</p>';
             totalContainer.style.display = 'none';
@@ -102,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
             totalContainer.style.display = 'block';
             totalPriceElement.textContent = `Total Rs. ${totalPrice.toFixed(2)}`;
 
-            // Add event listeners for quantity and remove buttons
             document.querySelectorAll('.decrease-quantity').forEach(button => {
                 button.addEventListener('click', () => updateQuantity(button.getAttribute('data-item-id'), -1));
             });
@@ -114,13 +105,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Update cart item count display
         document.querySelector('.cart-item-count').textContent = cartItemCount;
         document.querySelector('.cart-item-count').style.visibility = cartItemCount > 0 ? 'visible' : 'hidden';
     }
 
-
-    // Update item quantity via CartServlet
     function updateQuantity(itemId, change) {
         fetch(`${window.contextPath}/CartServlet`, {
             method: 'POST',
@@ -140,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    // Remove item from cart via CartServlet
     function removeFromCart(itemId) {
         fetch(`${window.contextPath}/CartServlet`, {
             method: 'POST',
@@ -160,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    // Load initial cart state from CartServlet
+    // Initial cart load
     fetch(`${window.contextPath}/CartServlet?action=getCart`)
         .then(response => response.json())
         .then(data => {

@@ -1,4 +1,3 @@
-<%-- cartIndex.jsp: Displays grocery items with filtering/sorting and cart functionality --%>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.GroceryItem" %>
@@ -14,40 +13,24 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.css">
 </head>
-<body style="
-background: rgb(255,255,255);
-background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(244,255,240,1) 100%);
-">
+<body>
 <%
-  // Check for logged-in user if not redirect to login
   User loggedInUser = (User) session.getAttribute("user");
   if (loggedInUser == null) {
     response.sendRedirect(request.getContextPath() + "/userLogin/login.jsp?error=Please log in to access the cart.");
     return;
   }
 
-  // Retrieve sorted/filtered items from CartServlet
   List<GroceryItem> items = (List<GroceryItem>) request.getAttribute("items");
   if (items == null) {
     items = new ArrayList<>();
   }
-  // Category filter
-  String category = (String) request.getAttribute("category");
+  String category = request.getParameter("category");
   if (category == null || category.isEmpty()) {
-    category = "All"; // Default category for display
+    category = "Produce"; // Default category
   }
-  // Displaying search results
-  Boolean isSearchResult = (Boolean) request.getAttribute("isSearchResult");
-  if (isSearchResult == null) {
-    isSearchResult = false;
-  }
-  // Search/filter parameters
-  String minPrice = request.getParameter("minPrice");
-  String maxPrice = request.getParameter("maxPrice");
-  String name = request.getParameter("name");
 %>
 <header>
-  <%-- Logo and navigation links to filter by category --%>
   <a href="${pageContext.request.contextPath}/index.jsp" class="logo"><i class="fa-solid fa-basket-shopping"></i> GROCERY</a>
   <nav class="navbar">
     <a href="${pageContext.request.contextPath}/CartServlet?category=Produce">Produce</a>
@@ -57,70 +40,47 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(244,255,240,1) 
     <a href="${pageContext.request.contextPath}/CartServlet?category=Pantry">Pantry</a>
     <a href="${pageContext.request.contextPath}/CartServlet?category=Snacks">Snacks</a>
   </nav>
-    <%-- Search form for filtering/sorting items --%>
-    <div class="search-container">
+  <div class="search-container">
     <form class="search-bar" id="search-form" action="${pageContext.request.contextPath}/CartServlet" method="get">
-      <input type="text" placeholder="Search groceries..." name="name" id="name" value="<%= name != null ? name : "" %>">
+      <input type="text" placeholder="Search groceries..." name="name" id="name">
       <button type="submit" class="search-btn">Search</button>
       <span class="dropdown-toggle" id="dropdown-toggle">▼</span>
-      <div class="dropdown-menu" id="dropdown-menu">
-        <%-- Category filter dropdown --%>
-        <div class="filter-item">
-          <label for="category">Category:</label>
-          <select name="category" id="category">
-            <option value="All" <%= (category == null || "All".equals(category)) ? "selected" : "" %>>All</option>
-            <option value="Produce" <%= "Produce".equals(category) ? "selected" : "" %>>Produce</option>
-            <option value="Proteins" <%= "Proteins".equals(category) ? "selected" : "" %>>Proteins</option>
-            <option value="Dairy" <%= "Dairy".equals(category) ? "selected" : "" %>>Dairy</option>
-            <option value="Bakery" <%= "Bakery".equals(category) ? "selected" : "" %>>Bakery</option>
-            <option value="Pantry" <%= "Pantry".equals(category) ? "selected" : "" %>>Pantry</option>
-            <option value="Snacks" <%= "Snacks".equals(category) ? "selected" : "" %>>Snacks</option>
-          </select>
-        </div>
-          <%-- Minimum price filter --%>
-          <div class="filter-item">
-          <label for="minPrice">Min Price:</label>
-          <input type="number" name="minPrice" id="minPrice" min="0" step="0.01" placeholder="0.00" value="<%= minPrice != null ? minPrice : "" %>">
-        </div>
-          <%-- Maximum price filter --%>
-          <div class="filter-item">
-          <label for="maxPrice">Max Price:</label>
-          <input type="number" name="maxPrice" id="maxPrice" min="0" step="0.01" placeholder="100.00" value="<%= maxPrice != null ? maxPrice : "" %>">
-        </div>
-          <%-- Sort by name or price initiate MergeSortServlet --%>
-          <div class="filter-item">
-          <label for="sortBy">Sort By:</label>
-          <select name="sortBy" id="sortBy">
-            <option value="name" <%= "name".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Name</option>
-            <option value="price" <%= "price".equals(request.getParameter("sortBy")) ? "selected" : "" %>>Price</option>
-          </select>
-        </div>
-      </div>
     </form>
-      <%-- Cart icon to toggle cart sidebar --%>
+    <div class="dropdown-menu" id="dropdown-menu">
+      <div class="filter-item">
+        <label for="category">Category:</label>
+        <select name="category" id="category">
+          <option value="">All</option>
+          <option value="Produce">Produce</option>
+          <option value="Proteins">Proteins</option>
+          <option value="Dairy">Dairy</option>
+          <option value="Bakery">Bakery</option>
+          <option value="Pantry">Pantry</option>
+          <option value="Snacks">Snacks</option>
+        </select>
+      </div>
+      <div class="filter-item">
+        <label for="minPrice">Min Price:</label>
+        <input type="number" name="minPrice" id="minPrice" min="0" step="0.01" placeholder="0.00">
+      </div>
+      <div class="filter-item">
+        <label for="maxPrice">Max Price:</label>
+        <input type="number" name="maxPrice" id="maxPrice" min="0" step="0.01" placeholder="100.00">
+      </div>
     </div>
+  </div>
   <div class="cart-icon" id="cart-icon">
     <i class="fas fa-shopping-cart"></i>
     <span class="cart-item-count">0</span>
   </div>
 </header>
-<%-- Display sorted/filtered grocery items --%>
 <section class="shop">
-  <h2 class="section-title">
-    <%= isSearchResult ? "Search Results" : "Shop " + category %>
-  </h2>
+  <h2 class="section-title">Shop <%= category %></h2>
   <div class="product-content">
     <%
       if (items.isEmpty()) {
-        String message;
-        if (category != null && !category.equals("All")) {
-          message = "No products available in the " + category + ".";
-        } else {
-          message = "No products available in the Entire Shop.";
-        }
-        out.println("<p>" + message + "</p>");
+        out.println("<p>No products available in the " + category + " category.</p>");
       } else {
-        // Render each item with image, name, price, and add-to-cart button
         for (GroceryItem item : items) {
           boolean outOfStock = item.getQuantity() <= 0;
     %>
@@ -146,7 +106,6 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(244,255,240,1) 
     %>
   </div>
 </section>
-<%-- Cart sidebar for viewing selected items --%>
 <div class="cart">
   <h2 class="cart-title">Your Cart</h2>
   <i class="ri-close-line" id="cart-close"></i>
@@ -158,11 +117,9 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(244,255,240,1) 
     <a href="${pageContext.request.contextPath}/cartAndOrders/checkOut.jsp" class="btn-buy">Buy Now</a>
   </div>
 </div>
-
 <script>
-  <%-- Set context path for cart.js and load script --%>
   window.contextPath = '${pageContext.request.contextPath}';
 </script>
 <script src="${pageContext.request.contextPath}/js/cart.js"></script>
 </body>
-</html>
+</html> <!--cart -->
