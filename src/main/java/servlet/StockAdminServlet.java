@@ -35,7 +35,7 @@ public class StockAdminServlet extends HttpServlet {
         System.out.println("Reading items from: " + ITEMS_FILE_PATH);
         ArrayList<GroceryItem> allItems;
         try {
-            allItems = FileUtil.readItems(ITEM_FILE_PATH);
+            allItems = FileUtil.readItems(ITEMS_FILE_PATH);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("error", "Error reading items: " + e.getMessage());
