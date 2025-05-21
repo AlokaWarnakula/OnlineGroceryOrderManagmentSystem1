@@ -28,13 +28,72 @@ phoneNumber=0764350677
 address="Sampatha"
 --- User End ---
 
---- User Start: US155435209024 ---
-username=abc@gmail.com
-password=123
-userNumber=US155435209024
-fullName=abc
-email=abc@gmail.com
-phoneNumber=4553
-address=34
+--- User Start: US042376591823 ---
+username=saman.perera@gmail.com
+password=Saman@2023
+userNumber=US042376591823
+fullName=Saman Perera
+email=saman.perera@gmail.com
+phoneNumber=0771234567
+address=45/B, Galle Road, Colombo 03
 --- User End ---
 
+--- User Start: US097821346509 ---
+username=nimali.silva@gmail.com
+password=Nim@li123
+userNumber=US097821346509
+fullName=Nimali Silva
+email=nimali.silva@gmail.com
+phoneNumber=0719876543
+address=12, Kandy Road, Nugegoda
+--- User End ---
+
+--- User Start: US123409876532 ---
+username=kavinda.jaya@gmail.com
+password=Kav123!456
+userNumber=US123409876532
+fullName=Kavinda Jayasinghe
+email=kavinda.jaya@gmail.com
+phoneNumber=0765432109
+address=78, High Level Road, Maharagama
+--- User End ---
+
+--- User Start: US298374105621 ---
+username=thilini.wijes@gmail.com
+password=Thilini#789
+userNumber=US298374105621
+fullName=Thilini Wijesekara
+email=thilini.wijes@gmail.com
+phoneNumber=0702345678
+address=19/2, Temple Lane, Ratmalana
+--- User End ---
+
+--- User Start: US376821450932 ---
+username=chamath.gamage@gmail.com
+password=Chamath@321
+userNumber=US376821450932
+fullName=Chamath Gamage
+email=chamath.gamage@gmail.com
+phoneNumber=0714567890
+address=56, Park Street, Negombo
+--- User End ---
+
+--- User Start: US450987123654 ---
+username=ranjani.menike@gmail.com
+password=Ranjani$654
+userNumber=US450987123654
+fullName=Ranjani Menike
+email=ranjani.menike@gmail.com
+phoneNumber=0778901234
+address=23/A, Flower Road, Malabe
+--- User End ---
+
+--- User Start: US567890432187 ---
+username=dilshan.fernando@gmail.com
+password=Dilshan_987
+userNumber=US567890432187
+fullName=Dilshan Fernando
+email=dilshan.fernando@gmail.com
+phoneNumber=0761239876
+address=89, Lake Drive, Rajagiriya
+--- User End ---

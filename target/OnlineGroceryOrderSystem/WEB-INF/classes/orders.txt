@@ -1,82 +1,3 @@
---- Order Start: OD709699593942 ---
-orderNumber=OD709699593942
-userNumber=US021583101081
-name=aloka warnakula nethara
-phoneNum=0711641638
-address=21/6/6A, somanada mawatha, pitumpe, padukka
-deliveryMethod=same-day
-paymentMethod=cash on delivery
-confirmationDate=2025-03-27 12:31:31
-paymentStatus=Pending
-deliveryStatus=Pending
-orderStatus=Pending
-deliveredDate=
-[products]
-productID=38, quantity=1
-[total]
-totalPrice=1500.00
---- Order End ---
-
---- Order Start: OD700301789054 ---
-orderNumber=OD700301789054
-userNumber=US021583101081
-name=aloka warnakula nethara
-phoneNum=0711641638
-address=21/6/6A, somanada mawatha, pitumpe, padukka
-deliveryMethod=same-day
-paymentMethod=cash on delivery
-confirmationDate=2025-03-27 12:49:09
-paymentStatus=Pending
-deliveryStatus=Pending
-orderStatus=Pending
-deliveredDate=
-[products]
-productID=17, quantity=5
-[total]
-totalPrice=6000.00
---- Order End ---
-
---- Order Start: OD405726526801 ---
-orderNumber=OD405726526801
-userNumber=US021583101081
-name=aloka warnakula
-phoneNum=0711641638
-address=21/6/6A, somanada mawatha, pitumpe, padukka
-deliveryMethod=store pickup
-paymentMethod=cash on delivery
-confirmationDate=2025-03-30 19:47:00
-paymentStatus=Pending
-deliveryStatus=Pending
-orderStatus=Pending
-deliveredDate=
-[products]
-productID=26, quantity=1
-productID=21, quantity=1
-productID=16, quantity=3
-[total]
-totalPrice=2874.00
---- Order End ---
-
---- Order Start: OD929166235954 ---
-orderNumber=OD929166235954
-userNumber=US021583101081
-name=aloka warnakula
-phoneNum=0711641638
-address=21/6/6A, somanada mawatha, pitumpe, padukka
-deliveryMethod=same-day
-paymentMethod=online card
-confirmationDate=2025-03-31 09:41:28
-paymentStatus=Paid
-deliveryStatus=Pending
-orderStatus=Pending
-deliveredDate=
-[products]
-productID=15, quantity=1
-productID=9, quantity=1
-[total]
-totalPrice=1673.00
---- Order End ---
-
 --- Order Start: OD092021244402 ---
 orderNumber=OD092021244402
 userNumber=US021583101081
@@ -85,6 +6,7 @@ phoneNum=0711641638
 address=21/6/6A, somanada mawatha, pitumpe, padukka
 deliveryMethod=same-day
 paymentMethod=online card
+deliveryDate=
 confirmationDate=2025-03-31 09:48:55
 paymentStatus=Paid
 deliveryStatus=Pending
@@ -96,40 +18,980 @@ productID=29, quantity=1
 totalPrice=1460.00
 --- Order End ---
 
---- Order Start: OD898037967534 ---
-orderNumber=OD898037967534
-userNumber=US021583101081
-name=aloka warnakula
-phoneNum=0711641638
-address=21/6/6A, somanada mawatha, pitumpe, padukka
-deliveryMethod=same-day
-paymentMethod=cash on delivery
-confirmationDate=2025-03-31 09:54:35
-paymentStatus=Pending
-deliveryStatus=Pending
-orderStatus=Pending
-deliveredDate=
-[products]
-productID=35, quantity=1
-[total]
-totalPrice=2250.00
---- Order End ---
-
---- Order Start: OD618211231363 ---
-orderNumber=OD618211231363
+--- Order Start: OD543785297309 ---
+orderNumber=OD543785297309
 userNumber=US021583101081
 name=aloka warnakula
 phoneNum=0711641638
 address=21/6/6A, somanada mawatha, pitumpe, padukka
 deliveryMethod=same-day
 paymentMethod=online card
-confirmationDate=2025-03-31 09:54:46
+deliveryDate=
+confirmationDate=2025-04-01 10:24:30
 paymentStatus=Paid
 deliveryStatus=Pending
 orderStatus=Pending
 deliveredDate=
 [products]
-productID=21, quantity=1
+productID=18, quantity=4
 [total]
-totalPrice=1164.00
+totalPrice=96.00
+--- Order End ---
+
+--- Order Start: OD261952394242 ---
+orderNumber=OD261952394242
+userNumber=US021583101081
+name=aloka warnakula
+phoneNum=0711641638
+address=21/6/6A, somanada mawatha, pitumpe, padukka
+deliveryMethod=same-day
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-04-01 11:28:45
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=15, quantity=1
+[total]
+totalPrice=1458.00
+--- Order End ---
+
+--- Order Start: OD753079415721 ---
+orderNumber=OD753079415721
+userNumber=US021583101081
+name=aloka warnakula
+phoneNum=0711641638
+address=21/6/6A, somanada mawatha, pitumpe, padukka
+deliveryMethod=store pickup
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-04-05 16:42:44
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=27, quantity=15
+productID=41, quantity=1
+[total]
+totalPrice=20511.00
+--- Order End ---
+
+--- Order Start: OD113125118289 ---
+orderNumber=OD113125118289
+userNumber=US021583101081
+name=aloka warnakula
+phoneNum=0711641638
+address=21/6/6A, somanada mawatha, pitumpe, padukka
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-04-05 16:43:56
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=27, quantity=1
+[total]
+totalPrice=1337.00
+--- Order End ---
+
+--- Order Start: OD959211235390 ---
+orderNumber=OD959211235390
+userNumber=US021583101081
+name=aloka warnakula
+phoneNum=0711641638
+address=21/6/6A, somanada mawatha, pitumpe, padukka
+deliveryMethod=store pickup
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-04-05 16:44:35
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=41, quantity=1
+[total]
+totalPrice=456.00
+--- Order End ---
+
+--- Order Start: OD529482646567 ---
+orderNumber=OD529482646567
+userNumber=US021583101081
+name=aloka warnakula
+phoneNum=0711641638
+address=21/6/6A, somanada mawatha, pitumpe, padukka
+deliveryMethod=store pickup
+paymentMethod=cash on delivery
+confirmationDate=2025-05-02 11:15:12
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=49, quantity=1
+[total]
+totalPrice=70.00
+--- Order End ---
+
+--- Order Start: OD176924944754 ---
+orderNumber=OD176924944754
+userNumber=US021583101081
+name=aloka warnakula
+phoneNum=0711641638
+address=21/6/6A, somanada mawatha, pitumpe, padukka
+deliveryMethod=store pickup
+paymentMethod=cash on delivery
+confirmationDate=2025-05-04 19:50:39
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=27, quantity=3
+productID=15, quantity=1
+productID=5, quantity=1
+productID=9, quantity=1
+productID=2, quantity=1
+productID=22, quantity=1
+productID=29, quantity=1
+productID=25, quantity=1
+[total]
+totalPrice=8803.00
+--- Order End ---
+
+--- Order Start: OD997161013374 ---
+orderNumber=OD997161013374
+userNumber=US021583101081
+name=aloka warnakula
+phoneNum=0711641638
+address=21/6/6A, somanada mawatha, pitumpe, padukka
+deliveryMethod=same-day
+paymentMethod=cash on delivery
+confirmationDate=2025-05-06 08:57:36
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=15, quantity=1
+[total]
+totalPrice=1458.00
+--- Order End ---
+
+--- Order Start: OD123456789101 ---
+orderNumber=OD123456789101
+userNumber=US181627987900
+name=user
+phoneNum=0000000000
+address=xxxxxxxyyyyyyyzzzzzzzz
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-05-07 14:30:22
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=10, quantity=2
+[total]
+totalPrice=500.00
+--- Order End ---
+
+--- Order Start: OD234567890212 ---
+orderNumber=OD234567890212
+userNumber=US030548082274
+name=jayashan guruge
+phoneNum=0764350677
+address="Sampatha"
+deliveryMethod=store pickup
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-05-08 09:15:47
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=12, quantity=3
+[total]
+totalPrice=750.00
+--- Order End ---
+
+--- Order Start: OD345678901323 ---
+orderNumber=OD345678901323
+userNumber=US042376591823
+name=Saman Perera
+phoneNum=0771234567
+address=45/B, Galle Road, Colombo 03
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-05-09 12:45:19
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=20, quantity=1
+productID=22, quantity=2
+[total]
+totalPrice=2100.00
+--- Order End ---
+
+--- Order Start: OD456789012434 ---
+orderNumber=OD456789012434
+userNumber=US097821346509
+name=Nimali Silva
+phoneNum=0719876543
+address=12, Kandy Road, Nugegoda
+deliveryMethod=standard
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-05-10 16:20:33
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=30, quantity=5
+[total]
+totalPrice=1250.00
+--- Order End ---
+
+--- Order Start: OD567890123545 ---
+orderNumber=OD567890123545
+userNumber=US123409876532
+name=Kavinda Jayasinghe
+phoneNum=0765432109
+address=78, High Level Road, Maharagama
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-05-11 10:10:05
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=15, quantity=2
+[total]
+totalPrice=2916.00
+--- Order End ---
+
+--- Order Start: OD678901234656 ---
+orderNumber=OD678901234656
+userNumber=US298374105621
+name=Thilini Wijesekara
+phoneNum=0702345678
+address=19/2, Temple Lane, Ratmalana
+deliveryMethod=store pickup
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-05-12 13:55:12
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=41, quantity=3
+[total]
+totalPrice=1368.00
+--- Order End ---
+
+--- Order Start: OD789012345767 ---
+orderNumber=OD789012345767
+userNumber=US376821450932
+name=Chamath Gamage
+phoneNum=0714567890
+address=56, Park Street, Negombo
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-05-13 08:30:45
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=18, quantity=2
+productID=29, quantity=1
+[total]
+totalPrice=1508.00
+--- Order End ---
+
+--- Order Start: OD890123456878 ---
+orderNumber=OD890123456878
+userNumber=US450987123654
+name=Ranjani Menike
+phoneNum=0778901234
+address=23/A, Flower Road, Malabe
+deliveryMethod=standard
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-05-14 15:20:17
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=27, quantity=2
+[total]
+totalPrice=2674.00
+--- Order End ---
+
+--- Order Start: OD901234567989 ---
+orderNumber=OD901234567989
+userNumber=US567890432187
+name=Dilshan Fernando
+phoneNum=0761239876
+address=89, Lake Drive, Rajagiriya
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-05-15 11:40:22
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=22, quantity=1
+[total]
+totalPrice=600.00
+--- Order End ---
+
+--- Order Start: OD012345678090 ---
+orderNumber=OD012345678090
+userNumber=US021583101081
+name=aloka warnakula
+phoneNum=0711641638
+address=21/6/6A, somanada mawatha, pitumpe, padukka
+deliveryMethod=store pickup
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-05-16 09:25:33
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=5, quantity=1
+[total]
+totalPrice=300.00
+--- Order End ---
+
+--- Order Start: OD123456789201 ---
+orderNumber=OD123456789201
+userNumber=US181627987900
+name=user
+phoneNum=0000000000
+address=xxxxxxxyyyyyyyzzzzzzzz
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-05-17 14:15:47
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=49, quantity=2
+[total]
+totalPrice=140.00
+--- Order End ---
+
+--- Order Start: OD234567890312 ---
+orderNumber=OD234567890312
+userNumber=US030548082274
+name=jayashan guruge
+phoneNum=0764350677
+address="Sampatha"
+deliveryMethod=standard
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-05-18 10:30:19
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=15, quantity=1
+productID=18, quantity=3
+[total]
+totalPrice=1530.00
+--- Order End ---
+
+--- Order Start: OD345678901423 ---
+orderNumber=OD345678901423
+userNumber=US042376591823
+name=Saman Perera
+phoneNum=0771234567
+address=45/B, Galle Road, Colombo 03
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-05-19 12:45:05
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=27, quantity=1
+productID=41, quantity=1
+[total]
+totalPrice=1793.00
+--- Order End ---
+
+--- Order Start: OD456789012534 ---
+orderNumber=OD456789012534
+userNumber=US097821346509
+name=Nimali Silva
+phoneNum=0719876543
+address=12, Kandy Road, Nugegoda
+deliveryMethod=store pickup
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-05-20 16:20:12
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=29, quantity=2
+[total]
+totalPrice=2920.00
+--- Order End ---
+
+--- Order Start: OD567890123645 ---
+orderNumber=OD567890123645
+userNumber=US123409876532
+name=Kavinda Jayasinghe
+phoneNum=0765432109
+address=78, High Level Road, Maharagama
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-05-21 08:30:33
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=10, quantity=1
+productID=22, quantity=1
+[total]
+totalPrice=850.00
+--- Order End ---
+
+--- Order Start: OD678901234756 ---
+orderNumber=OD678901234756
+userNumber=US298374105621
+name=Thilini Wijesekara
+phoneNum=0702345678
+address=19/2, Temple Lane, Ratmalana
+deliveryMethod=standard
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-05-21 09:15:47
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=15, quantity=3
+[total]
+totalPrice=4374.00
+--- Order End ---
+
+--- Order Start: OD789012345867 ---
+orderNumber=OD789012345867
+userNumber=US376821450932
+name=Chamath Gamage
+phoneNum=0714567890
+address=56, Park Street, Negombo
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-05-21 10:40:22
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=41, quantity=2
+[total]
+totalPrice=912.00
+--- Order End ---
+
+--- Order Start: OD890123456978 ---
+orderNumber=OD890123456978
+userNumber=US450987123654
+name=Ranjani Menike
+phoneNum=0778901234
+address=23/A, Flower Road, Malabe
+deliveryMethod=store pickup
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-05-21 11:25:19
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=18, quantity=5
+[total]
+totalPrice=120.00
+--- Order End ---
+
+--- Order Start: OD901234567089 ---
+orderNumber=OD901234567089
+userNumber=US567890432187
+name=Dilshan Fernando
+phoneNum=0761239876
+address=89, Lake Drive, Rajagiriya
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-05-21 12:50:05
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=27, quantity=4
+[total]
+totalPrice=5348.00
+--- Order End ---
+
+--- Order Start: OD012345678198 ---
+orderNumber=OD012345678198
+userNumber=US021583101081
+name=aloka warnakula
+phoneNum=0711641638
+address=21/6/6A, somanada mawatha, pitumpe, padukka
+deliveryMethod=standard
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-05-21 13:30:33
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=22, quantity=2
+productID=29, quantity=1
+[total]
+totalPrice=2060.00
+--- Order End ---
+
+--- Order Start: OD123456789309 ---
+orderNumber=OD123456789309
+userNumber=US181627987900
+name=user
+phoneNum=0000000000
+address=xxxxxxxyyyyyyyzzzzzzzz
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-05-21 14:15:47
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=15, quantity=1
+[total]
+totalPrice=1458.00
+--- Order End ---
+
+--- Order Start: OD234567890420 ---
+orderNumber=OD234567890420
+userNumber=US030548082274
+name=jayashan guruge
+phoneNum=0764350677
+address="Sampatha"
+deliveryMethod=store pickup
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-05-21 15:20:12
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=41, quantity=1
+[total]
+totalPrice=456.00
+--- Order End ---
+
+--- Order Start: OD345678901531 ---
+orderNumber=OD345678901531
+userNumber=US042376591823
+name=Saman Perera
+phoneNum=0771234567
+address=45/B, Galle Road, Colombo 03
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-05-21 16:10:05
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=18, quantity=3
+productID=27, quantity=1
+[total]
+totalPrice=1409.00
+--- Order End ---
+
+--- Order Start: OD456789012642 ---
+orderNumber=OD456789012642
+userNumber=US097821346509
+name=Nimali Silva
+phoneNum=0719876543
+address=12, Kandy Road, Nugegoda
+deliveryMethod=standard
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-05-21 17:00:33
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=29, quantity=1
+[total]
+totalPrice=1460.00
+--- Order End ---
+
+--- Order Start: OD567890123753 ---
+orderNumber=OD567890123753
+userNumber=US123409876532
+name=Kavinda Jayasinghe
+phoneNum=0765432109
+address=78, High Level Road, Maharagama
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-05-21 17:45:47
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=15, quantity=2
+productID=22, quantity=1
+[total]
+totalPrice=3516.00
+--- Order End ---
+
+--- Order Start: OD678901234864 ---
+orderNumber=OD678901234864
+userNumber=US298374105621
+name=Thilini Wijesekara
+phoneNum=0702345678
+address=19/2, Temple Lane, Ratmalana
+deliveryMethod=store pickup
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-05-21 18:30:19
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=41, quantity=2
+[total]
+totalPrice=912.00
+--- Order End ---
+
+--- Order Start: OD789012345975 ---
+orderNumber=OD789012345975
+userNumber=US376821450932
+name=Chamath Gamage
+phoneNum=0714567890
+address=56, Park Street, Negombo
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-05-21 19:15:05
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=27, quantity=3
+[total]
+totalPrice=4011.00
+--- Order End ---
+
+--- Order Start: OD890123456086 ---
+orderNumber=OD890123456086
+userNumber=US450987123654
+name=Ranjani Menike
+phoneNum=0778901234
+address=23/A, Flower Road, Malabe
+deliveryMethod=standard
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-05-21 20:00:33
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=18, quantity=4
+[total]
+totalPrice=96.00
+--- Order End ---
+
+--- Order Start: OD901234567197 ---
+orderNumber=OD901234567197
+userNumber=US567890432187
+name=Dilshan Fernando
+phoneNum=0761239876
+address=89, Lake Drive, Rajagiriya
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-05-21 20:45:47
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=29, quantity=2
+productID=15, quantity=1
+[total]
+totalPrice=4378.00
+--- Order End ---
+
+--- Order Start: OD012345678306 ---
+orderNumber=OD012345678306
+userNumber=US021583101081
+name=aloka warnakula
+phoneNum=0711641638
+address=21/6/6A, somanada mawatha, pitumpe, padukka
+deliveryMethod=store pickup
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-05-21 21:30:12
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=41, quantity=1
+[total]
+totalPrice=456.00
+--- Order End ---
+
+--- Order Start: OD123456789417 ---
+orderNumber=OD123456789417
+userNumber=US181627987900
+name=user
+phoneNum=0000000000
+address=xxxxxxxyyyyyyyzzzzzzzz
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-05-21 22:15:05
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=27, quantity=1
+[total]
+totalPrice=1337.00
+--- Order End ---
+
+--- Order Start: OD234567890528 ---
+orderNumber=OD234567890528
+userNumber=US030548082274
+name=jayashan guruge
+phoneNum=0764350677
+address="Sampatha"
+deliveryMethod=standard
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-05-21 23:00:33
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=15, quantity=1
+productID=22, quantity=1
+[total]
+totalPrice=2058.00
+--- Order End ---
+
+--- Order Start: OD345678901639 ---
+orderNumber=OD345678901639
+userNumber=US042376591823
+name=Saman Perera
+phoneNum=0771234567
+address=45/B, Galle Road, Colombo 03
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-05-21 23:45:47
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=29, quantity=1
+[total]
+totalPrice=1460.00
+--- Order End ---
+
+--- Order Start: OD456789012740 ---
+orderNumber=OD456789012740
+userNumber=US097821346509
+name=Nimali Silva
+phoneNum=0719876543
+address=12, Kandy Road, Nugegoda
+deliveryMethod=store pickup
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-05-22 00:30:12
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=41, quantity=2
+[total]
+totalPrice=912.00
+--- Order End ---
+
+--- Order Start: OD567890123851 ---
+orderNumber=OD567890123851
+userNumber=US123409876532
+name=Kavinda Jayasinghe
+phoneNum=0765432109
+address=78, High Level Road, Maharagama
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-05-22 01:15:05
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=27, quantity=2
+productID=18, quantity=3
+[total]
+totalPrice=2746.00
+--- Order End ---
+
+--- Order Start: OD678901234962 ---
+orderNumber=OD678901234962
+userNumber=US298374105621
+name=Thilini Wijesekara
+phoneNum=0702345678
+address=19/2, Temple Lane, Ratmalana
+deliveryMethod=standard
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-05-22 02:00:33
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=15, quantity=1
+[total]
+totalPrice=1458.00
+--- Order End ---
+
+--- Order Start: OD789012345073 ---
+orderNumber=OD789012345073
+userNumber=US376821450932
+name=Chamath Gamage
+phoneNum=0714567890
+address=56, Park Street, Negombo
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-05-22 02:45:47
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=29, quantity=2
+[total]
+totalPrice=2920.00
+--- Order End ---
+
+--- Order Start: OD890123456184 ---
+orderNumber=OD890123456184
+userNumber=US450987123654
+name=Ranjani Menike
+phoneNum=0778901234
+address=23/A, Flower Road, Malabe
+deliveryMethod=store pickup
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-05-22 03:30:12
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=41, quantity=1
+[total]
+totalPrice=456.00
+--- Order End ---
+
+--- Order Start: OD901234567295 ---
+orderNumber=OD901234567295
+userNumber=US567890432187
+name=Dilshan Fernando
+phoneNum=0761239876
+address=89, Lake Drive, Rajagiriya
+deliveryMethod=same-day
+paymentMethod=online card
+deliveryDate=
+confirmationDate=2025-05-22 04:15:05
+paymentStatus=Paid
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=27, quantity=1
+productID=22, quantity=1
+[total]
+totalPrice=1937.00
+--- Order End ---
+
+--- Order Start: OD012345678406 ---
+orderNumber=OD012345678406
+userNumber=US021583101081
+name=aloka warnakula
+phoneNum=0711641638
+address=21/6/6A, somanada mawatha, pitumpe, padukka
+deliveryMethod=standard
+paymentMethod=cash on delivery
+deliveryDate=
+confirmationDate=2025-05-22 05:00:33
+paymentStatus=Pending
+deliveryStatus=Pending
+orderStatus=Pending
+deliveredDate=
+[products]
+productID=15, quantity=2
+productID=29, quantity=1
+[total]
+totalPrice=4376.00
 --- Order End ---
