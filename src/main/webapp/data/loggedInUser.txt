@@ -1,9 +1,0 @@
---- User Start: US021583101081 ---
-username=alokawarnakula77@gmail.com
-password=12345678A@a
-userNumber=US021583101081
-fullName=aloka warnakula mn
-email=alokawarnakula77@gmail.com
-phoneNumber=0711641638
-address=21/6/6A, somanada mawatha, pitumpe, padukka
---- User End ---

@@ -45,6 +45,17 @@
 46,Proteins,Brown Egg,55.00,https://img.freepik.com/premium-photo/chicken-egg-white-background_55716-1235.jpg,10,Only 1Pcs
 47,Proteins,White Egg,40.00,https://media.istockphoto.com/id/467061077/photo/eggs-isolated-on-a-white-background.jpg?s=612x612&w=0&k=20&c=K6RZK8UR5hzHy4auNEKHV0EdkBVnVlyLlfBflpUXP-g=,20,Only 1Pcs
 48,Proteins,Sausage,690.00,https://static.vecteezy.com/system/resources/previews/026/978/295/large_2x/grilled-pork-sausages-with-lettuce-isolated-on-white-background-photo.jpg,10,Only 500g
-41,Produce,anime,456.00,https://uchi.imgix.net/properties/anime2.png?crop=focalpoint&domain=uchi.imgix.net&fit=crop&fm=pjpg&fp-x=0.5&fp-y=0.5&h=558&ixlib=php-3.3.1&q=82&usm=20&w=992,18,anime watch and enjoy it.
-49,Bakery,Tiara Rollo Cake,70.00,https://essstr.blob.core.windows.net/essimg/ItemAsset/Pic12171.jpg,39,25.00g Rollo Cake
+49,Bakery,Tiara Rollo Cake,70.00,https://essstr.blob.core.windows.net/essimg/ItemAsset/Pic12171.jpg,39,25g Rollo Cake
 50,Produce,Dragon Fruit,1500.00,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPEFyc7mDC49UthRxicEvU6UaS1nShvCsJlQ&s,200,Only 1kg
+51,Dairy,Astra Soft Butter,495.00,https://i0.wp.com/onlinekade.lk/wp-content/uploads/4796025380741.webp?fit=750%2C750&ssl=1,300,Only 250g
+52,Dairy,Kotmale Drink Yoghurt Wood Apple,160.00,https://i0.wp.com/onlinekade.lk/wp-content/uploads/2023/01/4792085018297-1.jpg?fit=500%2C500&ssl=1,400,Only 180ml
+53,Dairy,Ambewela Set Yoghurt,80.00,https://i0.wp.com/onlinekade.lk/wp-content/uploads/2022/03/4792116601016.jpg?fit=500%2C500&ssl=1,340,Only 80g
+54,Dairy,Anchor Milk Powder,2750.00,https://i0.wp.com/onlinekade.lk/wp-content/uploads/2021/11/4791085011123-1.jpg?fit=750%2C750&ssl=1,300,Only 1kg
+55,Bakery,Herman Strawberry Cake Mix,1850.00,https://i0.wp.com/onlinekade.lk/wp-content/uploads/2022/06/6294002406210-1.jpg?fit=500%2C500&ssl=1,300,Only 500g
+56,Bakery,Strawberry Caramel Cake,2300.00,https://www.sponge.lk/images/products/PCA1119_0.jpg,300,Only 500g
+57,Bakery,Tiara O-Kay Vanilla Cake,40.00,https://i0.wp.com/onlinekade.lk/wp-content/uploads/2023/09/4792192000017.jpg?fit=500%2C500&ssl=1,500,Only 18g
+59,Pantry,Green Gram Bulk,855.00,https://spar2u.lk/cdn/shop/files/4504564-01_458x595.jpg?v=1745831473,300,Only 1kg
+60,Pantry,Cowpea – Red,1667.00,https://www.saaraketha.com/wp-content/uploads/2023/03/Cowpea-Red-1.jpg,300,Only 500g
+61,Snacks,Uswatte Chirpy Chips Salted,300.00,https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/124256--01--1733976056.webp,600,Only 73g
+62,Snacks,Uswatte Chirpy Chips Cheese & Onion,300.00,https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/124257--01--1733976057.webp,500,Only 73g
+63,Snacks,Uswatte Chirpy Chips Hot & Spicy,300.00,https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/124258--01--1733976057.webp,450,Only 73g
