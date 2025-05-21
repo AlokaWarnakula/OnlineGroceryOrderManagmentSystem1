@@ -28,17 +28,6 @@
     <url-pattern>/ProductDetailsServlet</url-pattern>
   </servlet-mapping>
 
-  <!-- Define the OrderServlet -->
-  <servlet>
-    <servlet-name>OrderServlet</servlet-name>
-    <servlet-class>servlet.OrderServlet</servlet-class>
-  </servlet>
-
-  <!-- Map the OrderServlet to /OrderServlet URL pattern -->
-  <servlet-mapping>
-    <servlet-name>OrderServlet</servlet-name>
-    <url-pattern>/OrderServlet</url-pattern>
-  </servlet-mapping>
 
   <!-- Define the RegisterServlet -->
   <servlet>
@@ -75,84 +64,6 @@
     <url-pattern>/LogoutServlet</url-pattern>
   </servlet-mapping>
 
-  <!-- Servlet Definition for UserProfileServlet -->
-  <servlet>
-    <servlet-name>UserProfileServlet</servlet-name>
-    <servlet-class>servlet.UserProfileServlet</servlet-class>
-  </servlet>
-
-  <!-- Servlet Mapping for UserProfileServlet -->
-  <servlet-mapping>
-    <servlet-name>UserProfileServlet</servlet-name>
-    <url-pattern>/UserProfileServlet</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>UserProfileSearchServlet</servlet-name>
-    <servlet-class>servlet.UserProfileSearchServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>UserProfileSearchServlet</servlet-name>
-    <url-pattern>/UserProfileSearchServlet</url-pattern>
-  </servlet-mapping>
-
-
-  <!-- Add AdminServlet mapping -->
-  <servlet>
-    <servlet-name>AdminServlet</servlet-name>
-    <servlet-class>servlet.AdminServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AdminServlet</servlet-name>
-    <url-pattern>/AdminServlet</url-pattern>
-  </servlet-mapping>
-
-
-  <!-- Define the OrderAdminServlet -->
-  <servlet>
-    <servlet-name>OrderAdminServlet</servlet-name>
-    <servlet-class>servlet.OrderAdminServlet</servlet-class>
-  </servlet>
-
-  <!-- Map the OrderAdminServlet to /OrderAdminServlet URL pattern -->
-  <servlet-mapping>
-    <servlet-name>OrderAdminServlet</servlet-name>
-    <url-pattern>/OrderAdminServlet</url-pattern>
-  </servlet-mapping>
-
-  <!-- Servlet Definition for StockAdminServlet -->
-  <servlet>
-    <servlet-name>StockAdminServlet</servlet-name>
-    <servlet-class>servlet.StockAdminServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>StockAdminServlet</servlet-name>
-    <url-pattern>/StockAdminServlet</url-pattern>
-  </servlet-mapping>
-
-
-  <!-- Servlet Definition for ProductAdminServlet -->
-  <servlet>
-    <servlet-name>ProductAdminServlet</servlet-name>
-    <servlet-class>servlet.ProductAdminServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ProductAdminServlet</servlet-name>
-    <url-pattern>/ProductAdminServlet</url-pattern>
-  </servlet-mapping>
-
-
-  <!-- Servlet Definition for UserAdminServlet -->
-  <servlet>
-    <servlet-name>UserAdminServlet</servlet-name>
-    <servlet-class>servlet.UserAdminServlet</servlet-class>
-  </servlet>
-
-  <!-- Servlet Mapping for UserAdminServlet -->
-  <servlet-mapping>
-    <servlet-name>UserAdminServlet</servlet-name>
-    <url-pattern>/UserAdminServlet</url-pattern>
-  </servlet-mapping>
 
 
   <!-- Servlet Definition for DealServlet -->
