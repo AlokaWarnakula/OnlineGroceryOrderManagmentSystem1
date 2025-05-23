@@ -11,8 +11,78 @@ import model.User;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+
+class OrderQueue {
+    private ArrayList<FileUtil.Order> orders;
+    private boolean isDeliveredQueue; // True for deliveredDate, false for confirmationDate
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    public OrderQueue(int initialCapacity, boolean isDeliveredQueue) {
+        this.orders = new ArrayList<>();
+        this.isDeliveredQueue = isDeliveredQueue;
+    }
+
+    // Enqueue
+    public void enqueue(FileUtil.Order order) {
+        // Get date to compare
+        String dateStr = isDeliveredQueue ? order.getDeliveredDate() : order.getConfirmationDate();
+        // Skip invalid dates (added at end)
+        if (dateStr == null || dateStr.isEmpty()) {
+            orders.add(order);
+            return;
+        }
+
+        // Find insertion position
+        int insertPos = orders.size();
+        try {
+            LocalDateTime orderDate = LocalDateTime.parse(dateStr, DATE_TIME_FORMATTER);
+            for (int i = 0; i < orders.size(); i++) {
+                String existingDateStr = isDeliveredQueue ? orders.get(i).getDeliveredDate() : orders.get(i).getConfirmationDate();
+                if (existingDateStr == null || existingDateStr.isEmpty()) {
+                    continue;
+                }
+                LocalDateTime existingDate = LocalDateTime.parse(existingDateStr, DATE_TIME_FORMATTER);
+                if (orderDate.compareTo(existingDate) < 0) {
+                    insertPos = i;
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error parsing date for order " + order.getOrderNumber() + ": " + e.getMessage());
+            insertPos = orders.size(); // Add at end if parsing fails
+        }
+
+        // Insert order
+        orders.add(insertPos, order);
+    }
+
+    // Dequeue
+    public FileUtil.Order dequeue() {
+        if (orders.size() == 0) {
+            return null;
+        }
+        return orders.remove(0);
+    }
+
+    // Convert to ArrayList (FIFO order for Active)
+    public ArrayList<FileUtil.Order> toArrayList() {
+        return new ArrayList<>(orders);
+    }
+
+    // Convert to reverse ArrayList (LIFO order for Delivered)
+    public ArrayList<FileUtil.Order> toArrayListReverse() {
+        ArrayList<FileUtil.Order> result = new ArrayList<>();
+        for (int i = orders.size() - 1; i >= 0; i--) {
+            result.add(orders.get(i));
+        }
+        return result;
+    }
+
+    public int size() {
+        return orders.size();
+    }
+}
 
 public class UserProfileSearchServlet extends HttpServlet {
     private static final String ORDERS_FILE = "/Users/alokawarnakula/TestOOPProjectFolder/OnlineGroceryOrderSystem/src/main/webapp/data/orders.txt";
@@ -33,61 +103,60 @@ public class UserProfileSearchServlet extends HttpServlet {
         String tab = request.getParameter("tab") != null ? request.getParameter("tab") : "Active";
         String searchQuery = request.getParameter("searchQuery");
 
-        List<FileUtil.Order> orders;
+        // Read orders into ArrayList
+        ArrayList<FileUtil.Order> orders;
         if ("Delivered".equalsIgnoreCase(tab)) {
-            orders = FileUtil.readAllDeliveredOrders(DELIVERED_ORDERS_FILE);
+            orders = new ArrayList<>(FileUtil.readAllDeliveredOrders(DELIVERED_ORDERS_FILE));
         } else {
-            orders = FileUtil.readAllOrders(ORDERS_FILE);
+            orders = new ArrayList<>(FileUtil.readAllOrders(ORDERS_FILE));
         }
 
-        // Filter orders by userNumber
-        orders = orders.stream()
-                .filter(order -> userNumber.equals(order.getUserNumber()))
-                .collect(Collectors.toList());
+        // Filter by userNumber
+        ArrayList<FileUtil.Order> userOrders = new ArrayList<>();
+        for (int i = 0; i < orders.size(); i++) {
+            FileUtil.Order order = orders.get(i);
+            if (order != null && userNumber.equals(order.getUserNumber())) {
+                userOrders.add(order);
+            }
+        }
 
-        // Apply search filter if searchQuery is provided
+        // Filter by searchQuery
         if (searchQuery != null && !searchQuery.trim().isEmpty()) {
             String query = searchQuery.trim().toLowerCase();
-            orders = orders.stream()
-                    .filter(order -> order.getOrderNumber().toLowerCase().contains(query))
-                    .collect(Collectors.toList());
+            ArrayList<FileUtil.Order> tempOrders = new ArrayList<>();
+            for (int i = 0; i < userOrders.size(); i++) {
+                FileUtil.Order order = userOrders.get(i);
+                if (order != null && order.getOrderNumber().toLowerCase().contains(query)) {
+                    tempOrders.add(order);
+                }
+            }
+            userOrders = tempOrders;
         }
 
-        // Sort orders based on the tab
+        // Process orders based on tab
+        ArrayList<FileUtil.Order> finalOrders;
         if ("Delivered".equalsIgnoreCase(tab)) {
-            // Sort by deliveredDate (newest first)
-            orders.sort((o1, o2) -> {
-                try {
-                    // Handle null or empty deliveredDate
-                    if (o1.getDeliveredDate() == null || o1.getDeliveredDate().isEmpty()) return 1;
-                    if (o2.getDeliveredDate() == null || o2.getDeliveredDate().isEmpty()) return -1;
-
-                    LocalDateTime date1 = LocalDateTime.parse(o1.getDeliveredDate(), DATE_TIME_FORMATTER);
-                    LocalDateTime date2 = LocalDateTime.parse(o2.getDeliveredDate(), DATE_TIME_FORMATTER);
-                    return date2.compareTo(date1); // Newest first (descending)
-                } catch (Exception e) {
-                    System.err.println("Error parsing deliveredDate: " + e.getMessage());
-                    return 0; // If parsing fails, treat as equal
+            // Delivered tab: LIFO
+            OrderQueue queue = new OrderQueue(userOrders.size(), true); // true for deliveredDate
+            for (int i = 0; i < userOrders.size(); i++) {
+                if (userOrders.get(i) != null) {
+                    queue.enqueue(userOrders.get(i));
                 }
-            });
+            }
+            finalOrders = queue.toArrayListReverse(); // Reverse for LIFO
         } else {
-            // Sort by confirmationDate (oldest first) for Active tab
-            orders.sort((o1, o2) -> {
-                try {
-                    LocalDateTime date1 = LocalDateTime.parse(o1.getConfirmationDate(), DATE_TIME_FORMATTER);
-                    LocalDateTime date2 = LocalDateTime.parse(o2.getConfirmationDate(), DATE_TIME_FORMATTER);
-                    return date1.compareTo(date2); // Oldest first (ascending)
-                } catch (Exception e) {
-                    System.err.println("Error parsing confirmationDate: " + e.getMessage());
-                    return 0; // If parsing fails, treat as equal
+            // Active tab: FIFO
+            OrderQueue queue = new OrderQueue(userOrders.size(), false); // false for confirmationDate
+            for (int i = 0; i < userOrders.size(); i++) {
+                if (userOrders.get(i) != null) {
+                    queue.enqueue(userOrders.get(i));
                 }
-            });
+            }
+            finalOrders = queue.toArrayList(); // FIFO order
         }
-
 
         // Set attributes and forward to JSP
-        request.setAttribute("orders", orders);
-        request.setAttribute("activeTab", tab);
+        request.setAttribute("orders", finalOrders);
         request.getRequestDispatcher("/userLogin/userProfile.jsp").forward(request, response);
     }
 }
